@@ -1,3 +1,8 @@
 calcite-card calcite-label {
     align-self: center ;
 }
+
+.stormwater-total {
+    margin-top: 1em;
+    margin-right: 1em;
+}

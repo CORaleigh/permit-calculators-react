@@ -24,8 +24,8 @@ import React from "react";
 import { tfCategories } from "./assets/thoroughfareConfig";
 import { dollar } from "./assets/config";
 import "./Thoroughfare.css";
-function Thoroughfare() {
-  const [categories, setCategories] = useState(window.localStorage.getItem('thoroughfareCategories') ? JSON.parse(window.localStorage.getItem('thoroughfareCategories') as string) : tfCategories);
+function Thoroughfare({totalUpdated}) {
+  const [categories, setCategories] = useState(window.localStorage.getItem('permit-calculators-thoroughfare') ? JSON.parse(window.localStorage.getItem('permit-calculators-thoroughfare') as string) : tfCategories);
   const [total, setTotal] = useState(0);
 
   const checkboxChanged = (e, landuse) => {
@@ -34,7 +34,7 @@ function Thoroughfare() {
     );
     const updatedLanduses = category?.landuses.map((old) =>
       old.landuse === landuse.landuse
-        ? { ...old, selected: e.target.checked }
+        ? { ...old, selected: e.target.checked, total: e.target.checked && landuse.value ? landuse.value * landuse.per : 0 }
         : old
     );
     const updatedCategories = categories.map((old) =>
@@ -52,11 +52,12 @@ function Thoroughfare() {
       old.landuse === landuse.landuse
         ? {
             ...old,
-            value: e.target.value * landuse.per,
+            value: e.target.value,
             total: e.target.value * landuse.per,
           }
         : old
     );
+
     console.log(updatedLanduses);
     const updatedCategories = categories.map((old) =>
       old.category === landuse.category
@@ -76,19 +77,18 @@ function Thoroughfare() {
       old.label === threshold.label
         ? {
             ...old,
-            value: e.target.value * threshold.per,
+            value: e.target.value,
             total: e.target.value * threshold.per,
           }
         : old
     );
     let total = 0;
     updateThresholds?.forEach((t) => {
-      t.value ? (total += t.value) : (total += 0);
+      t.total ? (total += t.total) : (total += 0);
     });
-    console.log(total);
     const updatedLanduses = category?.landuses.map((old) =>
       old.landuse === landuse.landuse
-        ? { ...old, value: total, thresholds: updateThresholds }
+        ? { ...old, total: total, thresholds: updateThresholds }
         : old
     );
     const updatedCategories = categories.map((old) =>
@@ -111,8 +111,8 @@ function Thoroughfare() {
     let total = 0;
     categories.forEach((category) => {
       category.landuses.forEach((landuse) =>
-        landuse.selected && landuse.value
-          ? (total += landuse.value)
+        landuse.selected && landuse.total
+          ? (total += landuse.total)
           : (total += 0)
       );
     });
@@ -120,8 +120,10 @@ function Thoroughfare() {
   }, [categories]);
 
   useEffect(() => {
-    window.localStorage.setItem('thoroughfareCategories', JSON.stringify(categories));
-  }, [categories])
+    window.localStorage.setItem('permit-calculators-thoroughfare', JSON.stringify(categories));
+  }, [categories]);
+
+  useEffect(() => { totalUpdated(total, 'thoroughfare')},[total]);
   return (
     <div id="thoroughfare">
       <CalciteCard>
@@ -160,6 +162,7 @@ function Thoroughfare() {
                     {landuse.thresholds &&
                       landuse.thresholds.map((threshold, k) => (
                         <CalciteInput
+                          value={threshold.value}
                           key={`landuse-input-${i}-${j}-${k}`}
                           placeholder={threshold.label}
                           type="number"
@@ -170,15 +173,16 @@ function Thoroughfare() {
                       ))}
                     {!landuse.thresholds && (
                       <CalciteInput
+                        value={landuse.value}
                         placeholder={landuse.label}
                         onCalciteInputInput={(e) =>
                           landuseInputChanged(e, landuse)
                         }
                       ></CalciteInput>
                     )}
-                    {landuse.value && (
-                      <div slot="control">{dollar.format(landuse.value)}</div>
-                    )}
+        
+                      <div slot="control">{dollar.format(landuse.total)}</div>
+                  
                   </CalciteBlock>
                 ))}
             </CalciteTab>
@@ -191,4 +195,4 @@ function Thoroughfare() {
   );
 }
 
-export default Thoroughfare;
+export default React.memo(Thoroughfare);

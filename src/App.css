@@ -1,3 +1,9 @@
 #routeSelect {
     margin: 1em;
 }
+
+#total {
+    text-align: center;
+    font-weight: bold;
+    margin: 1em;
+}

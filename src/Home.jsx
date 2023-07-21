@@ -16,12 +16,7 @@ function Home() {
 
   return (
     <>
-      <CalciteCard>
-        
-        <img slot="thumbnail" alt="Sample image alt" src="https://placebear.com/280/200"/>
-        <span slot="title">Buildings</span>
 
-      </CalciteCard>
     </>
   );
 }

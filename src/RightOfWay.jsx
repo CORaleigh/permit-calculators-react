@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
 
 import "@esri/calcite-components/dist/components/calcite-card";
 import "@esri/calcite-components/dist/components/calcite-select";
@@ -7,6 +7,8 @@ import "@esri/calcite-components/dist/components/calcite-input";
 import "@esri/calcite-components/dist/components/calcite-checkbox";
 import "@esri/calcite-components/dist/components/calcite-label";
 import "@esri/calcite-components/dist/components/calcite-fab";
+import "@esri/calcite-components/dist/components/calcite-link";
+import "@esri/calcite-components/dist/components/calcite-modal";
 
 import "./RightOfWay.css";
 import {
@@ -16,15 +18,16 @@ import {
   CalciteFab,
   CalciteInput,
   CalciteLabel,
+  CalciteLink,
   CalciteOption,
   CalciteSelect,
+  CalciteModal
 } from "@esri/calcite-components-react";
-import React from "react";
 import { fees } from "./assets/rightofwayConfig";
 import { dollar } from "./assets/config";
 
-function RightOfWay() {
-  const [occupancies, setOccupancies] = useState(window.localStorage.getItem('occupancies') ? JSON.parse(window.localStorage.getItem('occupancies')) : [
+function RightOfWay(props) {
+  const [occupancies, setOccupancies] = useState(window.localStorage.getItem('permit-calculators-rightofway') ? JSON.parse(window.localStorage.getItem('permit-calculators-rightofway')) : [
     {
       id: 0,
       occupancyClass: null,
@@ -45,6 +48,7 @@ function RightOfWay() {
     projectReview: 0,
     maxPrimary: 0,
   });
+  const [showModal, setShowModal] = useState(false);
   const addRow = () => {
     setOccupancies([
       ...occupancies,
@@ -194,8 +198,13 @@ function RightOfWay() {
     
   }, [occupancies]);
   useEffect(() => {
-      window.localStorage.setItem('occupancies', JSON.stringify(occupancies));
+      window.localStorage.setItem('permit-calculators-rightofway', JSON.stringify(occupancies));
   }, [occupancies])
+
+  useEffect(() => {
+    props.totalUpdated(totals.totalProject + totals.projectReview, 'rightofway');
+
+  }, [totals])
 
   return (
     <div id="rightofway">
@@ -215,6 +224,9 @@ function RightOfWay() {
                 <span>{dollar.format(totals.totalProject + totals.projectReview)}</span>
             </CalciteLabel>               
         </div>
+        <CalciteLink  iconStart="information" onClick={() => setShowModal(prev => !prev)}>
+              View Definitions
+        </CalciteLink>        
         {occupancies.map((item, i) => (
           <div key={`occupancy${i}`}>
             <div className="rightofway-row">
@@ -272,10 +284,37 @@ function RightOfWay() {
             </div>
           </div>
         ))}
-        <CalciteButton onClick={addRow}>Add</CalciteButton>
+        <CalciteFab icon="plus" onClick={addRow}>Add</CalciteFab>
       </CalciteCard>
+      <CalciteModal
+        open={showModal ? true : undefined}
+        aria-labelledby="definitions-title"
+        onCalciteModalClose={() => setShowModal((prev) => !prev)}
+      >
+        <div slot="header" id="definitions-title">
+          Right-of-Way Occupancy Fee Definitions
+        </div>
+        <div slot="content">
+        <div><u>Primary Occupancy</u>:  The requested occupancy for single occupancy requests or the highest per day fee rate for multiple occupancy requests</div>
+          <div><u>Secondary Occupancy</u>:  Any occupancy other than the primary occupancy in multiple occupacy requests</div>
+          <div><u>Major Street</u>:  Any street labeled as a Major Street or divided street (turn lane or median) per the Raleigh Street Plan and any streets within the DX zoning</div>
+          <div><u>Minor Street</u>:  Any street not fitting the Major Street category</div>
+          <div><u>Full Street</u>:   The occupying of a public street (curb to curb or edge-of-pavement to edge-of-pavement) such that no access is provided to the existing street for general vehicular traffic</div>
+          <div><u>Street Lane</u>:  The occupying of a public street travel lane such that limited access is provided to the existing street for general vehicular traffic</div>
+          <div><u>Parking Lane</u>:  The occupying of an public on-street parking lane (either metered or not) that restricts use of said lane for general vehicular traffic</div>
+          <div><u>Sidewalk - Full</u>:  The occupying of a public sidewalk such that no access is provided to the existing sidewalk for general pedestrian traffic</div>
+          <div><u>Sidewalk - AUX</u>:  The occupying of a public sidewalk such that no access is provided to the existing sidewalk for general pedestrian traffic, but supplementary or alternative means such as cargo containers, scaffolding, and temporarily constructed boardwalks/paths are provided to faciliate continued pedestrian movement through or adjacent to the occupied sidewalk</div>
+          <div><u>Sidewalk - Partial</u>:  The occupying of a public sidewalk such that limited, ADA- and PROWAG-compliant access is provided to the existing sidewalk utilizing means such as barricades and traffic cones</div>
+          <div><u>Misc - Dumpster/Pod</u>:  Placement of a dumpster or pod within the public right-of-way. When placement occurs within metered on-street parking, a daily parking space rental fee paid to ParkLink is applicable.</div>
+          <div><u>Review Fee</u>:  Shall be the highest applicable review fee per request</div>
+          <div><u>Permit Fee</u>:</div>
+          <div>Primary Occupancy - Base rate (for up to 150 LF) + Primary rate x the linear footage (&gt;150 LF)</div>
+          <div>Seconday Occupancy - Secondary rate x total linear footage</div>
+        </div>
+      </CalciteModal>      
     </div>
   );
 }
 
-export default RightOfWay;
+export default React.memo(RightOfWay);
+

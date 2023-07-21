@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-button";
 
 import "@esri/calcite-components/dist/components/calcite-input";
 import "@esri/calcite-components/dist/components/calcite-label";
@@ -8,6 +7,11 @@ import "@esri/calcite-components/dist/components/calcite-label";
 import "@esri/calcite-components/dist/components/calcite-select";
 import "@esri/calcite-components/dist/components/calcite-option";
 import "@esri/calcite-components/dist/components/calcite-fab";
+import "@esri/calcite-components/dist/components/calcite-link";
+import "@esri/calcite-components/dist/components/calcite-icon";
+import "@esri/calcite-components/dist/components/calcite-modal";
+import "@esri/calcite-components/dist/components/calcite-input-message";
+
 
 import {
   CalciteCard,
@@ -15,9 +19,11 @@ import {
   CalciteSelect,
   CalciteOption,
   CalciteLabel,
-  CalciteButton,
   CalciteFab,
   CalciteIcon,
+  CalciteModal,
+  CalciteLink,
+  CalciteInputMessage
 } from "@esri/calcite-components-react";
 
 import "./Buildings.css";
@@ -31,11 +37,11 @@ import {
   tiers,
 } from "./assets/buildingConfig";
 import { dollar } from "./assets/config";
-function Buildings() {
+function Buildings({ totalUpdated }) {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [cards, setCards] = useState(
-    window.localStorage.getItem("buildingCards")
-      ? JSON.parse(window.localStorage.getItem("buildingCards"))
+    window.localStorage.getItem("permit-calculators-buildings")
+      ? JSON.parse(window.localStorage.getItem("permit-calculators-buildings"))
       : [
           {
             id: 0,
@@ -70,8 +76,10 @@ function Buildings() {
       plumbing: { value: null, techFee: null, total: null },
       planReview: { value: null, techFee: null, total: null },
     },
-    total: null
+    total: null,
   });
+  const [showModal, setShowModal] = useState(false);
+
   const squareFeetChanged = (e, card) => {
     setCards(
       cards.map((old) =>
@@ -168,7 +176,7 @@ function Buildings() {
     if (value < minFee) {
       value = minFee;
     }
-    return value;
+    return Math.round(value);
   };
   const calculateFees = (card, valuation) => {
     if (valuation === 0) {
@@ -253,7 +261,10 @@ function Buildings() {
     setCalculations(calculations);
   }, [cards]);
   useEffect(() => {
-    window.localStorage.setItem("buildingCards", JSON.stringify(cards));
+    window.localStorage.setItem(
+      "permit-calculators-buildings",
+      JSON.stringify(cards)
+    );
   }, [cards]);
   useEffect(() => {
     let valuation = 0;
@@ -312,9 +323,23 @@ function Buildings() {
           total: planReview + planReviewTech,
         },
       },
-      total: building + buildingTech + electrical + electricalTech + mechanical + mechanicalTech + plumbing + plumbingTech + planReview + planReviewTech
+      total:
+        building +
+        buildingTech +
+        electrical +
+        electricalTech +
+        mechanical +
+        mechanicalTech +
+        plumbing +
+        plumbingTech +
+        planReview +
+        planReviewTech,
     });
   }, [calculations]);
+
+  useEffect(() => {
+    totalUpdated(totals.total, "building");
+  }, [totals]);
   return (
     <div id="buildings">
       {cards.map((card, cardNum) => {
@@ -325,7 +350,12 @@ function Buildings() {
           >
             <span slot="title">
               {`Occupancy ${cardNum + 1}`}
-
+              <CalciteIcon
+                className="info-icon"
+                slot="title"
+                icon="information"
+                onClick={() => setShowModal((prev) => !prev)}
+              ></CalciteIcon>
             </span>
 
             <CalciteLabel>
@@ -345,6 +375,8 @@ function Buildings() {
                   </CalciteOption>
                 ))}
               </CalciteSelect>
+              <CalciteInputMessage scale="s">* for Detached Accessory Structure, use Building Type U - Utility, miscellaneous
+</CalciteInputMessage>
             </CalciteLabel>
             <CalciteLabel>
               Construction Type
@@ -402,7 +434,14 @@ function Buildings() {
               Building:{" "}
               {calculations[cardNum]
                 ? calculations[cardNum].fees.building.value
-                  ? dollar.format(calculations[cardNum].fees.building.value)
+                  ? `${dollar.format(
+                      calculations[cardNum].fees.building.value +
+                        calculations[cardNum].fees.building.techFee
+                    )} (${dollar.format(
+                      calculations[cardNum].fees.building.value
+                    )} + ${dollar.format(
+                      calculations[cardNum].fees.building.techFee
+                    )} technology fee)`
                   : "--"
                 : "--"}
             </div>
@@ -410,7 +449,14 @@ function Buildings() {
               Electrical:{" "}
               {calculations[cardNum]
                 ? calculations[cardNum].fees.electrical.value
-                  ? dollar.format(calculations[cardNum].fees.electrical.value)
+                  ? `${dollar.format(
+                      calculations[cardNum].fees.electrical.value +
+                        calculations[cardNum].fees.electrical.techFee
+                    )} (${dollar.format(
+                      calculations[cardNum].fees.electrical.value
+                    )} + ${dollar.format(
+                      calculations[cardNum].fees.electrical.techFee
+                    )} technology fee)`
                   : "--"
                 : "--"}
             </div>
@@ -418,7 +464,14 @@ function Buildings() {
               Mechanical:{" "}
               {calculations[cardNum]
                 ? calculations[cardNum].fees.mechanical.value
-                  ? dollar.format(calculations[cardNum].fees.mechanical.value)
+                  ? `${dollar.format(
+                      calculations[cardNum].fees.mechanical.value +
+                        calculations[cardNum].fees.mechanical.techFee
+                    )} (${dollar.format(
+                      calculations[cardNum].fees.mechanical.value
+                    )} + ${dollar.format(
+                      calculations[cardNum].fees.mechanical.techFee
+                    )} technology fee)`
                   : "--"
                 : "--"}
             </div>
@@ -426,7 +479,14 @@ function Buildings() {
               Plumbing:{" "}
               {calculations[cardNum]
                 ? calculations[cardNum].fees.plumbing.value
-                  ? dollar.format(calculations[cardNum].fees.plumbing.value)
+                  ? `${dollar.format(
+                      calculations[cardNum].fees.plumbing.value +
+                        calculations[cardNum].fees.plumbing.techFee
+                    )} (${dollar.format(
+                      calculations[cardNum].fees.plumbing.value
+                    )} + ${dollar.format(
+                      calculations[cardNum].fees.plumbing.techFee
+                    )} technology fee)`
                   : "--"
                 : "--"}
             </div>
@@ -434,50 +494,52 @@ function Buildings() {
               Plan Review:{" "}
               {calculations[cardNum]
                 ? calculations[cardNum].fees.planReview.value
-                  ? dollar.format(calculations[cardNum].fees.planReview.value)
+                  ? `${dollar.format(
+                      calculations[cardNum].fees.planReview.value +
+                        calculations[cardNum].fees.planReview.techFee
+                    )} (${dollar.format(
+                      calculations[cardNum].fees.planReview.value
+                    )} + ${dollar.format(
+                      calculations[cardNum].fees.planReview.techFee
+                    )} technology fee)`
                   : "--"
                 : "--"}
             </div>
-            <div  slot="footer-start">
+            <div slot="footer-start">
               <CalciteIcon
                 icon="chevron-left"
                 onClick={() => setCurrentCardIndex(currentCardIndex - 1)}
-                className={`${currentCardIndex > 0 ? null : 'hidden'}`}
-
-              >
-                
-              </CalciteIcon>
-            <span className="card-index">{`${currentCardIndex + 1} of ${cards.length}`}</span>
+                className={`${currentCardIndex > 0 ? null : "hidden"}`}
+              ></CalciteIcon>
+              <span className="card-index">{`${currentCardIndex + 1} of ${
+                cards.length
+              }`}</span>
               <CalciteIcon
                 icon="chevron-right"
                 onClick={() => setCurrentCardIndex(currentCardIndex + 1)}
-                className={`${cards.length > 1 && currentCardIndex !== cards.length - 1 ? null : 'hidden'}`}
-
-              >
-                
-              </CalciteIcon>
+                className={`${
+                  cards.length > 1 && currentCardIndex !== cards.length - 1
+                    ? null
+                    : "hidden"
+                }`}
+              ></CalciteIcon>
             </div>
             <div slot="footer-end">
-            <CalciteFab slot="footer-end" onClick={addCard}>
-            </CalciteFab>
-            {cards.length > 1 && (
-              <CalciteFab
-                slot="footer-end"
-                kind="danger"
-                onClick={removeCard}
-                icon="trash"
-              >
-                
-              </CalciteFab>
-            )}            
+              <CalciteFab slot="footer-end" onClick={addCard}></CalciteFab>
+              {cards.length > 1 && (
+                <CalciteFab
+                  slot="footer-end"
+                  kind="danger"
+                  onClick={removeCard}
+                  icon="trash"
+                ></CalciteFab>
+              )}
             </div>
-
-
           </CalciteCard>
         );
       })}
       <CalciteCard>
-        <span slot="title">Total Project Fees</span>
+        <span slot="title">Total Project Fees*</span>
         <CalciteLabel>
           Valuation <span>{dollar.format(totals.valuation)}</span>
         </CalciteLabel>
@@ -486,84 +548,155 @@ function Buildings() {
           <span>
             {" "}
             {totals.fees.building.value
-              ? dollar.format(Math.round(totals.fees.building.value) + Math.round(totals.fees.building.techFee))
+              ? dollar.format(
+                  Math.round(totals.fees.building.value) +
+                    Math.round(totals.fees.building.techFee)
+                )
               : "--"}
           </span>
           <span>
-          {totals.fees.plumbing.value
-              ? `(${dollar.format(totals.fees.building.value)} + ${dollar.format(totals.fees.building.techFee)} technology fee)`
+            {totals.fees.plumbing.value
+              ? `(${dollar.format(
+                  totals.fees.building.value
+                )} + ${dollar.format(
+                  totals.fees.building.techFee
+                )} technology fee)`
               : ""}
-          </span>                    
+          </span>
         </CalciteLabel>
 
         <CalciteLabel>
-        Electrical
+          Electrical
           <span>
             {" "}
             {totals.fees.electrical.value
-              ? dollar.format(totals.fees.electrical.techFee)
+              ? dollar.format(
+                  totals.fees.electrical.value + totals.fees.electrical.techFee
+                )
               : "--"}
           </span>
           <span>
-          {totals.fees.plumbing.value
-              ? `(${dollar.format(totals.fees.electrical.value)} + ${dollar.format(totals.fees.electrical.techFee)} technology fee)`
+            {totals.fees.plumbing.value
+              ? `(${dollar.format(
+                  totals.fees.electrical.value
+                )} + ${dollar.format(
+                  totals.fees.electrical.techFee
+                )} technology fee)`
               : ""}
-          </span>                 
+          </span>
         </CalciteLabel>
         <CalciteLabel>
-        Mechanical
+          Mechanical
           <span>
             {" "}
             {totals.fees.mechanical.value
-              ? dollar.format(totals.fees.mechanical.value + totals.fees.mechanical.techFee)
+              ? dollar.format(
+                  totals.fees.mechanical.value + totals.fees.mechanical.techFee
+                )
               : "--"}
           </span>
           <span>
             {totals.fees.plumbing.value
-              ? `(${dollar.format(totals.fees.mechanical.value)} + ${dollar.format(totals.fees.mechanical.techFee)} technology fee)`
+              ? `(${dollar.format(
+                  totals.fees.mechanical.value
+                )} + ${dollar.format(
+                  totals.fees.mechanical.techFee
+                )} technology fee)`
               : ""}
-          </span>             
+          </span>
         </CalciteLabel>
         <CalciteLabel>
-        Plumbing
+          Plumbing
           <span>
             {" "}
             {totals.fees.plumbing.value
-              ? dollar.format(totals.fees.plumbing.value + totals.fees.plumbing.techFee)
+              ? dollar.format(
+                  totals.fees.plumbing.value + totals.fees.plumbing.techFee
+                )
               : "--"}
           </span>
           <span>
             {totals.fees.plumbing.value
-              ? `(${dollar.format(totals.fees.plumbing.value)} + ${dollar.format(totals.fees.plumbing.techFee)} technology fee)`
+              ? `(${dollar.format(
+                  totals.fees.plumbing.value
+                )} + ${dollar.format(
+                  totals.fees.plumbing.techFee
+                )} technology fee)`
               : ""}
-          </span>           
+          </span>
         </CalciteLabel>
         <CalciteLabel>
-        Plan Review
+          Plan Review
           <span>
             {" "}
             {totals.fees.planReview.value
-              ? dollar.format(totals.fees.planReview.value + totals.fees.planReview.techFee)
+              ? dollar.format(
+                  totals.fees.planReview.value + totals.fees.planReview.techFee
+                )
               : "--"}
           </span>
           <span>
             {totals.fees.planReview.value
-              ? `(${dollar.format(totals.fees.planReview.value)} + ${dollar.format(totals.fees.planReview.techFee)} technology fee)`
+              ? `(${dollar.format(
+                  totals.fees.planReview.value
+                )} + ${dollar.format(
+                  totals.fees.planReview.techFee
+                )} technology fee)`
               : ""}
-          </span> 
+          </span>
         </CalciteLabel>
         <CalciteLabel className="total">
-        Permit Total
+          Permit Total
           <span>
             {" "}
-            {totals.fees.planReview.value
-              ? dollar.format(totals.total)
-              : "--"}
+            {totals.fees.planReview.value ? dollar.format(totals.total) : "--"}
           </span>
-        </CalciteLabel>        
+        </CalciteLabel>
+        <span slot="footer-start">* only represents Building and Trade permit fees</span>
       </CalciteCard>
+      <CalciteModal
+        open={showModal ? true : undefined}
+        aria-labelledby="instructions-title"
+        onCalciteModalClose={() => setShowModal((prev) => !prev)}
+      >
+        <div slot="header" id="instructions-title">
+          Instructions
+        </div>
+        <div slot="content">
+          <p>
+            This calculator is intended to provide fee estimates for building
+            permits, trades permits and plan review fees for both commercial and
+            residential construction projects. Please note that this calculator
+            is for informational purposes only and the final calculation of fees
+            will be provided by the Development Services Customer Services
+            Center.
+          </p>
+          <p>
+            In order to calculate an estimate please select from the drop downs
+            a Building Type, Construction Type, Construction Scope and square
+            feet of the project. Note that mixed use projects can be calculated
+            by adding additional occupancies with the “Add” button which appears
+            once all fields have values.
+          </p>
+          <p>
+            If you have questions about how these fees are calculated please
+            visit our{" "}
+
+
+            <CalciteLink iconStart="link" href="https://www.raleighnc.gov/DevelopmentFeeSchedule" target="_blank">
+              Guide for Raleigh Development Fees
+            </CalciteLink>{" "}
+            for more information. If you need additional assistance please feel
+            free to email us at{" "}
+            <CalciteLink iconStart="envelope" href="mailto:ds.help@raleighnc.gov" target="_blank">
+              ds.help@raleighnc.gov
+            </CalciteLink>{" "}
+
+            .
+          </p>
+        </div>
+      </CalciteModal>
     </div>
   );
 }
-
-export default Buildings;
+export default React.memo(Buildings);

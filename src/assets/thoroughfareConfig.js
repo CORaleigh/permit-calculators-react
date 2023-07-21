@@ -35,6 +35,7 @@ export const tfCategories = [
                 label: "Square Feet",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 1412.31
             },
             {
@@ -44,6 +45,7 @@ export const tfCategories = [
                 label: "Gross Floor Area (sq. ft.)",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 515.02
             },
             {
@@ -53,6 +55,7 @@ export const tfCategories = [
                 label: "Gross Floor Area (sq. ft.)",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 5634.53
             },
             {
@@ -62,6 +65,7 @@ export const tfCategories = [
                 label: "Gross Floor Area (sq. ft.)",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 3896.64
             },
             {
@@ -71,6 +75,7 @@ export const tfCategories = [
                 label: "Gross Floor Area (sq. ft.)",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 4479.64
             },
             {
@@ -80,6 +85,7 @@ export const tfCategories = [
                 label: "Gross Floor Area (sq. ft.)",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 1256.91
             },
             {
@@ -89,6 +95,7 @@ export const tfCategories = [
                 label: "Acres",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 971.03
             },
             {
@@ -98,6 +105,7 @@ export const tfCategories = [
                 label: "Gross Floor Area (sq. ft.)",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 1017.55
             },
             {
@@ -107,6 +115,7 @@ export const tfCategories = [
                 label: "Gross Floor Area (sq. ft.)",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 1017.55
             }
         ]
@@ -120,6 +129,7 @@ export const tfCategories = [
                 label: "Holes",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 7324.76
             },
             {
@@ -129,6 +139,7 @@ export const tfCategories = [
                 label: "Acres",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 330.11
             },
             {
@@ -138,6 +149,7 @@ export const tfCategories = [
                 label: "Seats",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 127.05
             },
             {
@@ -147,6 +159,7 @@ export const tfCategories = [
                 label: "Parking Spaces",
                 selected: false,
                 value: null,
+                total: 0,
                 per: 343.72
             }
         ]

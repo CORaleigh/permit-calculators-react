@@ -1,0 +1,45 @@
+.rightofway-row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    border-bottom-style: solid;
+    border-bottom-color: var(--calcite-ui-border-3);
+    border-bottom-width: 1px;
+    margin-bottom: 1em;
+}
+
+.rightofway-row calcite-label{
+   margin: 1em;
+   flex: 2 1 auto;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+
+.rightofway-row calcite-fab {
+    height: 32px;
+}
+
+.rightofway-totals {
+
+    font-weight: bold;
+}
+.rightofway-totals calcite-label {
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .rightofway-row calcite-label{
+        margin: 1em;
+        flex: 2 2 2;
+     }
+     .rightofway-row {
+        flex-wrap: wrap;
+    
+    }     
+    
+  }

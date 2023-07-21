@@ -1,0 +1,12 @@
+.esri-view {
+    width: 100%;
+    height: 300px;
+}
+
+calcite-card {
+    max-width: 80%;
+}
+
+#openspace {
+    margin: 1em 10%;
+}

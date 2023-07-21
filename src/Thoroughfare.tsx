@@ -149,7 +149,7 @@ function Thoroughfare({ totalUpdated }) {
       <CalciteCard>
         <span slot="title">Thoroughfare Fee Calculator</span>
         <CalciteTabs>
-          <CalciteTabNav slot="title-group" onCalciteTabChange={tabChanged}>
+          <CalciteTabNav  slot="title-group" onCalciteTabChange={tabChanged} >
             {categories.map((category, i) => (
               <CalciteTabTitle
                 key={`tab-title-${i}`}

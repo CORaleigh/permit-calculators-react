@@ -12,7 +12,6 @@ import "@esri/calcite-components/dist/components/calcite-icon";
 import "@esri/calcite-components/dist/components/calcite-modal";
 import "@esri/calcite-components/dist/components/calcite-input-message";
 
-
 import {
   CalciteCard,
   CalciteInput,
@@ -23,7 +22,7 @@ import {
   CalciteIcon,
   CalciteModal,
   CalciteLink,
-  CalciteInputMessage
+  CalciteInputMessage,
 } from "@esri/calcite-components-react";
 
 import "./Buildings.css";
@@ -375,8 +374,10 @@ function Buildings({ totalUpdated }) {
                   </CalciteOption>
                 ))}
               </CalciteSelect>
-              <CalciteInputMessage scale="s">* for Detached Accessory Structure, use Building Type U - Utility, miscellaneous
-</CalciteInputMessage>
+              <CalciteInputMessage scale="s">
+                * for Detached Accessory Structure, use Building Type U -
+                Utility, miscellaneous
+              </CalciteInputMessage>
             </CalciteLabel>
             <CalciteLabel>
               Construction Type
@@ -652,7 +653,9 @@ function Buildings({ totalUpdated }) {
             {totals.fees.planReview.value ? dollar.format(totals.total) : "--"}
           </span>
         </CalciteLabel>
-        <span slot="footer-start">* only represents Building and Trade permit fees</span>
+        <span slot="footer-start">
+          * only represents Building and Trade permit fees
+        </span>
       </CalciteCard>
       <CalciteModal
         open={showModal ? true : undefined}
@@ -681,17 +684,22 @@ function Buildings({ totalUpdated }) {
           <p>
             If you have questions about how these fees are calculated please
             visit our{" "}
-
-
-            <CalciteLink iconStart="link" href="https://www.raleighnc.gov/DevelopmentFeeSchedule" target="_blank">
+            <CalciteLink
+              iconStart="link"
+              href="https://www.raleighnc.gov/DevelopmentFeeSchedule"
+              target="_blank"
+            >
               Guide for Raleigh Development Fees
             </CalciteLink>{" "}
             for more information. If you need additional assistance please feel
             free to email us at{" "}
-            <CalciteLink iconStart="envelope" href="mailto:ds.help@raleighnc.gov" target="_blank">
+            <CalciteLink
+              iconStart="envelope"
+              href="mailto:ds.help@raleighnc.gov"
+              target="_blank"
+            >
               ds.help@raleighnc.gov
             </CalciteLink>{" "}
-
             .
           </p>
         </div>

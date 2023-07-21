@@ -11,14 +11,28 @@ import {
   CalciteCheckbox,
   CalciteInput,
   CalciteLabel,
-  CalciteAction
+  CalciteAction,
 } from "@esri/calcite-components-react";
 import { fees, sections } from "./assets/stormwaterConfig";
 import { dollar } from "./assets/config";
 import "./Stormwater.css";
 function Stormwater(props) {
-  const [blocks, setBlocks] = useState(window.localStorage.getItem('permit-calculators-stormwater-blocks') ? JSON.parse(window.localStorage.getItem('permit-calculators-stormwater-blocks')) : sections);
-  const [feeBlocks, setFeeBlocks] = useState(window.localStorage.getItem('permit-calculators-stormwater-fee-blocks') ? JSON.parse(window.localStorage.getItem('permit-calculators-stormwater-fee-blocks')) : fees);
+  const [blocks, setBlocks] = useState(
+    window.localStorage.getItem("permit-calculators-stormwater-blocks")
+      ? JSON.parse(
+          window.localStorage.getItem("permit-calculators-stormwater-blocks")
+        )
+      : sections
+  );
+  const [feeBlocks, setFeeBlocks] = useState(
+    window.localStorage.getItem("permit-calculators-stormwater-fee-blocks")
+      ? JSON.parse(
+          window.localStorage.getItem(
+            "permit-calculators-stormwater-fee-blocks"
+          )
+        )
+      : fees
+  );
 
   const [total, setTotal] = useState(0);
 
@@ -36,18 +50,26 @@ function Stormwater(props) {
     );
   };
   const getTotal = (block) => {
-    let total = 0
+    let total = 0;
     if (block.subfees) {
-      block.subfees.forEach((subfee) => {(total += subfee.total)});
+      block.subfees.forEach((subfee) => {
+        total += subfee.total;
+      });
     } else {
-      total =  block.value * block.multiplier;
+      total = block.value * block.multiplier;
     }
     return total;
-  }
+  };
   const feeBlockToggled = (e, block) => {
     setFeeBlocks(
       feeBlocks.map((old) =>
-        old.name === block.name ? { ...old, selected: e.target.checked, total: e.target.checked ? getTotal(block) : 0 } : old
+        old.name === block.name
+          ? {
+              ...old,
+              selected: e.target.checked,
+              total: e.target.checked ? getTotal(block) : 0,
+            }
+          : old
       )
     );
   };
@@ -56,10 +78,10 @@ function Stormwater(props) {
     let total = 0;
     if (block.subfees) {
       subfees = block.subfees.map((subfee) => {
-        total += subfee.multiplier * e.target.value ;
+        total += subfee.multiplier * e.target.value;
         return { ...subfee, total: subfee.multiplier * e.target.value };
       });
-     // block.subfees.forEach((subfee) => {(total += subfee.total);console.log(subfee.total)});
+      // block.subfees.forEach((subfee) => {(total += subfee.total);console.log(subfee.total)});
     } else {
       total = e.target.value * block.multiplier;
     }
@@ -79,13 +101,18 @@ function Stormwater(props) {
     setTotal(total);
   }, [blocks, feeBlocks]);
   useEffect(() => {
-    window.localStorage.setItem('permit-calculators-stormwater-blocks', JSON.stringify(blocks));
-    window.localStorage.setItem('permit-calculators-stormwater-fee-blocks', JSON.stringify(feeBlocks));
-
-  }, [blocks, feeBlocks]);  
+    window.localStorage.setItem(
+      "permit-calculators-stormwater-blocks",
+      JSON.stringify(blocks)
+    );
+    window.localStorage.setItem(
+      "permit-calculators-stormwater-fee-blocks",
+      JSON.stringify(feeBlocks)
+    );
+  }, [blocks, feeBlocks]);
   useEffect(() => {
-    props.totalUpdated(total, 'stormwater');
-  },[total])
+    props.totalUpdated(total, "stormwater");
+  }, [total]);
   return (
     <div id="stormwater">
       <CalciteCard>
@@ -100,15 +127,19 @@ function Stormwater(props) {
               slot="icon"
               checked={block.selected ? true : undefined}
               onCalciteCheckboxChange={(e) => feeBlockToggled(e, block)}
-            ></CalciteCheckbox >
+            ></CalciteCheckbox>
 
-
-
-
-            <div slot="control" className="stormwater-total">{dollar.format(block.total)}</div>
-            {block.url && <a href={block.url} target="_blank" slot="control">
-               <CalciteAction  text="Information" icon="information"></CalciteAction>                
-              </a>}
+            <div slot="control" className="stormwater-total">
+              {dollar.format(block.total)}
+            </div>
+            {block.url && (
+              <a href={block.url} target="_blank" slot="control">
+                <CalciteAction
+                  text="Information"
+                  icon="information"
+                ></CalciteAction>
+              </a>
+            )}
             <div>
               <CalciteInput
                 value={block.value}
@@ -131,17 +162,25 @@ function Stormwater(props) {
               checked={block.selected ? true : undefined}
               onCalciteCheckboxChange={(e) => blockToggled(e, block)}
             ></CalciteCheckbox>
-            <div slot="control" className="stormwater-total">{dollar.format(block.total)}</div>
-            {block.url && <a href={block.url} target="_blank" slot="control">
-               <CalciteAction  text="Information" icon="information"></CalciteAction>                
-              </a>  }          
+            <div slot="control" className="stormwater-total">
+              {dollar.format(block.total)}
+            </div>
+            {block.url && (
+              <a href={block.url} target="_blank" slot="control">
+                <CalciteAction
+                  text="Information"
+                  icon="information"
+                ></CalciteAction>
+              </a>
+            )}
           </CalciteBlock>
         ))}
-        <CalciteLabel slot="subtitle">Total {dollar.format(total)}</CalciteLabel>
+        <CalciteLabel slot="subtitle">
+          Total {dollar.format(total)}
+        </CalciteLabel>
       </CalciteCard>
     </div>
   );
 }
 
 export default React.memo(Stormwater);
-

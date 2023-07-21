@@ -18,7 +18,7 @@ export const fees = [{
   label: 'Disturbed acres (rounded to nearest 1/10)',
   units: 'acres',
   total: 0,
-  value: 0,  
+  value: 0,
   url: 'https://www.raleighnc.gov/DevelopmentFeeSchedule',
   selected: false,
   surety: {

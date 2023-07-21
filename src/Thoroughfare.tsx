@@ -24,8 +24,16 @@ import React from "react";
 import { tfCategories } from "./assets/thoroughfareConfig";
 import { dollar } from "./assets/config";
 import "./Thoroughfare.css";
-function Thoroughfare({totalUpdated}) {
-  const [categories, setCategories] = useState(window.localStorage.getItem('permit-calculators-thoroughfare') ? JSON.parse(window.localStorage.getItem('permit-calculators-thoroughfare') as string) : tfCategories);
+function Thoroughfare({ totalUpdated }) {
+  const [categories, setCategories] = useState(
+    window.localStorage.getItem("permit-calculators-thoroughfare")
+      ? JSON.parse(
+          window.localStorage.getItem(
+            "permit-calculators-thoroughfare"
+          ) as string
+        )
+      : tfCategories
+  );
   const [total, setTotal] = useState(0);
 
   const checkboxChanged = (e, landuse) => {
@@ -34,7 +42,14 @@ function Thoroughfare({totalUpdated}) {
     );
     const updatedLanduses = category?.landuses.map((old) =>
       old.landuse === landuse.landuse
-        ? { ...old, selected: e.target.checked, total: e.target.checked && landuse.value ? landuse.value * landuse.per : 0 }
+        ? {
+            ...old,
+            selected: e.target.checked,
+            total:
+              e.target.checked && landuse.value
+                ? landuse.value * landuse.per
+                : 0,
+          }
         : old
     );
     const updatedCategories = categories.map((old) =>
@@ -120,10 +135,15 @@ function Thoroughfare({totalUpdated}) {
   }, [categories]);
 
   useEffect(() => {
-    window.localStorage.setItem('permit-calculators-thoroughfare', JSON.stringify(categories));
+    window.localStorage.setItem(
+      "permit-calculators-thoroughfare",
+      JSON.stringify(categories)
+    );
   }, [categories]);
 
-  useEffect(() => { totalUpdated(total, 'thoroughfare')},[total]);
+  useEffect(() => {
+    totalUpdated(total, "thoroughfare");
+  }, [total]);
   return (
     <div id="thoroughfare">
       <CalciteCard>
@@ -180,16 +200,16 @@ function Thoroughfare({totalUpdated}) {
                         }
                       ></CalciteInput>
                     )}
-        
-                      <div slot="control">{dollar.format(landuse.total)}</div>
-                  
+
+                    <div slot="control">{dollar.format(landuse.total)}</div>
                   </CalciteBlock>
                 ))}
             </CalciteTab>
           ))}
         </CalciteTabs>
-        <CalciteLabel slot="subtitle">Total {dollar.format(total)}</CalciteLabel>
-
+        <CalciteLabel slot="subtitle">
+          Total {dollar.format(total)}
+        </CalciteLabel>
       </CalciteCard>
     </div>
   );

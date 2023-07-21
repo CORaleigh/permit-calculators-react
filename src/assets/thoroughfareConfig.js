@@ -3,12 +3,12 @@ export const tfCategories = [
         category: 'Residential', selected: true, landuses: [
             {
                 category: 'Residential', landuse: 'Single Family', measure: 'unit', label: '# of units', selected: false, value: null, total: 0, thresholds: [
-                    { min: 0, max: 999, per: 1716, label: '# of units less than 1,000 sq. ft.', value: null, total: 0},
-                    { min: 1000, max: 999, per: 2039, label: '# of units 1,000 – 1,999 sq. ft.', value: null, total: 0},
-                    { min: 2000, max: 1999, per: 2262, label: '# of units 2,000 – 2,999 sq. ft.', value: null, total: 0},
-                    { min: 3000, max: 2999, per: 2433, label: '# of units 3,000 – 3,999 sq. ft.', value: null, total: 0},
-                    { min: 4000, max: 3999, per: 2569, label: '# of units 4,000 – 4,999 sq. ft..', value: null, total: 0},
-                    { min: 5000, max: null, per: 2748, label: '# of units greater than 5,000 sq. ft.', value: null, total: 0},
+                    { min: 0, max: 999, per: 1716, label: '# of units less than 1,000 sq. ft.', value: null, total: 0 },
+                    { min: 1000, max: 999, per: 2039, label: '# of units 1,000 – 1,999 sq. ft.', value: null, total: 0 },
+                    { min: 2000, max: 1999, per: 2262, label: '# of units 2,000 – 2,999 sq. ft.', value: null, total: 0 },
+                    { min: 3000, max: 2999, per: 2433, label: '# of units 3,000 – 3,999 sq. ft.', value: null, total: 0 },
+                    { min: 4000, max: 3999, per: 2569, label: '# of units 4,000 – 4,999 sq. ft..', value: null, total: 0 },
+                    { min: 5000, max: null, per: 2748, label: '# of units greater than 5,000 sq. ft.', value: null, total: 0 },
                 ]
             },
             { category: 'Residential', landuse: 'Multi-Family', measure: 'unit', label: '# of units', selected: false, value: null, total: 0, per: 1512 },
@@ -20,7 +20,7 @@ export const tfCategories = [
             { category: "Commercial", landuse: "Hotel/Motel", measure: "unit", label: "Rooms", selected: false, value: null, total: 0, per: 2158 },
             { category: "Commercial", landuse: "Retail/Commercial", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 3672.03 },
             { category: "Commercial", landuse: "Retail uses that include the sale of motor fuels to public", measure: "unit", label: "Fueling Stations", selected: false, value: null, total: 0, per: 8156.28 },
-            { category: "Commercial", landuse: "Office", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 2799.67},
+            { category: "Commercial", landuse: "Office", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 2799.67 },
             { category: "Commercial", landuse: "Industrial/manufacturing/agricultural", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 1769.65 },
             { category: "Commercial", landuse: "Warehouse", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 1017.55 },
             { category: "Commercial", landuse: "Mini warehousing", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 513.88 }
@@ -28,7 +28,7 @@ export const tfCategories = [
     },
     {
         category: 'Public/Institutional', selected: false, landuses: [
-            { 
+            {
                 category: "Public/Institutional",
                 landuse: "Churches/Synagogues",
                 measure: "area",

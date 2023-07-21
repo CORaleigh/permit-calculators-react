@@ -1,4 +1,4 @@
-const fees  = [
+const fees = [
     {
         title: 'Plan Review Fees', fees: [
             {

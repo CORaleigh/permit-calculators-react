@@ -3,6 +3,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import "@esri/calcite-components/dist/components/calcite-navigation";
 import "@esri/calcite-components/dist/components/calcite-navigation-logo";
+import "@esri/calcite-components/dist/components/calcite-modal";
+import "@esri/calcite-components/dist/components/calcite-button";
+
 import {
   CalciteButton,
   CalciteLabel,
@@ -10,6 +13,7 @@ import {
   CalciteNavigationLogo,
   CalciteOption,
   CalciteSelect,
+  CalciteModal
 } from "@esri/calcite-components-react";
 import {
   BrowserRouter,
@@ -33,6 +37,8 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedRoute, setSelectedRoute] = useState();
+  const [showModal, setShowModal] = useState(true);
+
 const total = useRef();
 useEffect(() => {
   const totals = window.localStorage.getItem('permit-calculator-totals');
@@ -160,7 +166,17 @@ const updateTotal = useCallback((value, key) => {
 
       </Routes>
       <CalciteButton scale="l" width="full" iconStart="reset" onClick={resetCalculator}>Reset Calculators</CalciteButton>
-
+      <CalciteModal open={showModal ? true : undefined} aria-labelledby="intro-title">
+        <div slot="header" id="intro-title">
+          Disclaimer
+        </div>
+        <div slot="content">
+          This calculator is made available by the City of Raleigh for informational and planning purposes only and may not reflect the final cost to obtain plan review, building and trade permits. By using this calculator you understand that the fee details provided are estimates based on the information entered and the final calculation of fees will be provided by the Development Services Customer Services Center.
+        </div>
+        <div slot="content-bottom">
+          <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Agree</CalciteButton>
+        </div>
+      </CalciteModal>  
     </>
   );
 }

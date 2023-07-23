@@ -26,7 +26,7 @@ import {
 import { fees } from "./assets/rightofwayConfig";
 import { dollar } from "./assets/config";
 
-function RightOfWay(props) {
+function RightOfWay({ totalUpdated }) {
   const [occupancies, setOccupancies] = useState(
     window.localStorage.getItem("permit-calculators-rightofway")
       ? JSON.parse(window.localStorage.getItem("permit-calculators-rightofway"))
@@ -205,7 +205,7 @@ function RightOfWay(props) {
   }, [occupancies]);
 
   useEffect(() => {
-    props.totalUpdated(
+    totalUpdated(
       totals.totalProject + totals.projectReview,
       "rightofway"
     );
@@ -218,17 +218,17 @@ function RightOfWay(props) {
         <div className="rightofway-row rightofway-totals">
           <CalciteLabel>
             Project Total
-            <span>{dollar.format(totals.totalProject)}</span>
+            <div>{dollar.format(totals.totalProject)}</div>
           </CalciteLabel>
           <CalciteLabel>
             Project Review
-            <span>{dollar.format(totals.projectReview)}</span>
+            <div>{dollar.format(totals.projectReview)}</div>
           </CalciteLabel>
           <CalciteLabel>
             Total Due
-            <span>
+            <div>
               {dollar.format(totals.totalProject + totals.projectReview)}
-            </span>
+            </div>
           </CalciteLabel>
         </div>
         <CalciteLink
@@ -248,14 +248,15 @@ function RightOfWay(props) {
                   {!item.occupancyClass && (
                     <CalciteOption value={""}></CalciteOption>
                   )}
-                  {config.map((classification) => (
+                  {config.map((classification) => 
                     <CalciteOption
                       key={classification.class}
                       value={classification}
+                      disabled={!item.downtown || (classification.major  && item.downtown)? undefined : true}
                     >
                       {classification.class}
                     </CalciteOption>
-                  ))}
+                  )}
                 </CalciteSelect>
               </CalciteLabel>
 

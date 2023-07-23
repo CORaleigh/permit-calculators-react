@@ -13,7 +13,7 @@ import {
   CalciteNavigationLogo,
   CalciteOption,
   CalciteSelect,
-  CalciteModal,
+  CalciteModal
 } from "@esri/calcite-components-react";
 import {
   BrowserRouter,
@@ -27,70 +27,62 @@ import OpenSpace from "./OpenSpace";
 import Stormwater from "./Stormwater";
 import Thoroughfare from "./Thoroughfare";
 import RightOfWay from "./RightOfWay";
+import Water from "./Water";
+
 import Home from "./Home";
 import Total from "./Total";
 import { dollar } from "./assets/config";
 
+
 function App() {
+  
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedRoute, setSelectedRoute] = useState();
   const [showModal, setShowModal] = useState(true);
 
-  const total = useRef();
-  useEffect(() => {
-    const totals = window.localStorage.getItem("permit-calculator-totals");
-    if (totals) {
-      total.current = JSON.parse(totals);
-    } else {
-      total.current = {
-        openspace: 0,
-        building: 0,
-        stormwater: 0,
-        thoroughfare: 0,
-        rightofway: 0,
-        total: 0,
-      };
-    }
-    totalRef.current.innerHTML =
-      "Total Fees " + dollar.format(total.current.total);
-  }, []);
-
-  const totalRef = useRef(null);
-  const [reset, setReset] = useState(false);
-  const resetCalculator = () => {
-    window.localStorage.clear();
-    total.current = {
-      openspace: 0,
+const total = useRef();
+useEffect(() => {
+  const totals = window.localStorage.getItem('permit-calculator-totals');
+  if (totals) {
+    total.current = JSON.parse(totals);
+  } else {
+    total.current = {  openspace: 0,
       building: 0,
       stormwater: 0,
       thoroughfare: 0,
       rightofway: 0,
-      total: 0,
-    };
-    totalRef.current.innerHTML = "Total Fees " + dollar.format(0);
-    setReset((prev) => !prev);
+      total: 0
+    }}
+    totalRef.current.innerHTML = 'Total Fees '  + dollar.format(total.current.total);
+
+  }, [])
+
+
+const totalRef = useRef(null);
+const [reset, setReset] = useState(false);
+const resetCalculator = () => {
+  window.localStorage.clear();
+  total.current = {  openspace: 0,
+    building: 0,
+    stormwater: 0,
+    thoroughfare: 0,
+    rightofway: 0,
+    total: 0
   };
-  const updateTotal = useCallback(
-    (value, key) => {
-      if (value && key) {
-        total.current[key] = value;
-        total.current.total =
-          total.current.openspace +
-          total.current.building +
-          total.current.stormwater +
-          total.current.thoroughfare +
-          total.current.rightofway;
-        totalRef.current.innerHTML =
-          "Total Fees " + dollar.format(total.current.total);
-        window.localStorage.setItem(
-          "permit-calculator-totals",
-          JSON.stringify(total.current)
-        );
-      }
-    },
-    [total]
-  );
+  totalRef.current.innerHTML = 'Total Fees ' + dollar.format(0);  
+  setReset(prev => !prev);
+}
+const updateTotal = useCallback((value, key) => {
+  if (total.current && key) {
+  
+    total.current[key] = value
+    total.current.total = total.current.openspace + total.current.building + total.current.stormwater + total.current.thoroughfare + total.current.rightofway;
+    totalRef.current.innerHTML = 'Total Fees ' + dollar.format(total.current.total);
+    window.localStorage.setItem('permit-calculator-totals', JSON.stringify(total.current));
+  }
+
+},[total]);
   const BuildingsNav = () => {
     return <Buildings totalUpdated={updateTotal}></Buildings>;
   };
@@ -98,14 +90,17 @@ function App() {
     return <OpenSpace totalUpdated={updateTotal}></OpenSpace>;
   };
   const StormwaterNav = () => {
-    return <Stormwater totalUpdated={updateTotal}></Stormwater>;
+    return <Stormwater  totalUpdated={updateTotal}></Stormwater>;
   };
   const ThoroughfareNav = () => {
     return <Thoroughfare totalUpdated={updateTotal}></Thoroughfare>;
   };
   const RightOfWayNav = () => {
-    return <RightOfWay totalUpdated={updateTotal}></RightOfWay>;
+    return <RightOfWay  totalUpdated={updateTotal}></RightOfWay>;
   };
+  const WaterNav = () => {
+    return <Water  totalUpdated={updateTotal}></Water>;
+  };  
   const HomeNav = () => {
     return <Home></Home>;
   };
@@ -120,6 +115,7 @@ function App() {
         ></CalciteNavigationLogo>
       </CalciteNavigation>
 
+    
       <CalciteSelect
         id="routeSelect"
         onCalciteSelectChange={(e) => {
@@ -159,12 +155,18 @@ function App() {
           selected={location.pathname === "/rightofway"}
         >
           Right-of-Way
-        </CalciteOption>
+        </CalciteOption>   
+        <CalciteOption
+          value="/water"
+          selected={location.pathname === "/water"}
+        >
+          Water
+        </CalciteOption> 
       </CalciteSelect>
 
       <CalciteLabel id="total" scale="l">
-        <span ref={totalRef}>Total Fees {dollar.format(0)}</span>
-      </CalciteLabel>
+         <span ref={totalRef}>Total Fees {dollar.format(0)}</span>
+        </CalciteLabel>  
       <Routes>
         <Route path="/" element={<HomeNav />}></Route>
         <Route path="/buildings" element={<BuildingsNav />}></Route>
@@ -172,40 +174,21 @@ function App() {
         <Route path="/stormwater" element={<StormwaterNav />}></Route>
         <Route path="/thoroughfare" element={<ThoroughfareNav />}></Route>
         <Route path="/rightofway" element={<RightOfWayNav />}></Route>
+        <Route path="/water" element={<WaterNav />}></Route>
+
       </Routes>
-      <CalciteButton
-        scale="l"
-        width="full"
-        iconStart="reset"
-        onClick={resetCalculator}
-      >
-        Reset Calculators
-      </CalciteButton>
-      <CalciteModal
-        open={showModal ? true : undefined}
-        aria-labelledby="intro-title"
-      >
+      <CalciteButton scale="l" width="full" iconStart="reset" onClick={resetCalculator}>Reset Calculators</CalciteButton>
+      <CalciteModal open={showModal ? true : undefined} aria-labelledby="intro-title">
         <div slot="header" id="intro-title">
           Disclaimer
         </div>
         <div slot="content">
-          This calculator is made available by the City of Raleigh for
-          informational and planning purposes only and may not reflect the final
-          cost to obtain plan review, building and trade permits. By using this
-          calculator you understand that the fee details provided are estimates
-          based on the information entered and the final calculation of fees
-          will be provided by the Development Services Customer Services Center.
+          This calculator is made available by the City of Raleigh for informational and planning purposes only and may not reflect the final cost to obtain plan review, building and trade permits. By using this calculator you understand that the fee details provided are estimates based on the information entered and the final calculation of fees will be provided by the Development Services Customer Services Center.
         </div>
         <div slot="content-bottom">
-          <CalciteButton
-            scale="l"
-            width="full"
-            onClick={() => setShowModal(false)}
-          >
-            Agree
-          </CalciteButton>
+          <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Agree</CalciteButton>
         </div>
-      </CalciteModal>
+      </CalciteModal>  
     </>
   );
 }

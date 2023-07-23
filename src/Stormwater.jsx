@@ -16,7 +16,7 @@ import {
 import { fees, sections } from "./assets/stormwaterConfig";
 import { dollar } from "./assets/config";
 import "./Stormwater.css";
-function Stormwater(props) {
+function Stormwater({ totalUpdated }) {
   const [blocks, setBlocks] = useState(
     window.localStorage.getItem("permit-calculators-stormwater-blocks")
       ? JSON.parse(
@@ -49,6 +49,34 @@ function Stormwater(props) {
       )
     );
   };
+  const headingClicked = (block) => {
+    setBlocks(
+      blocks.map((old) =>
+        old.name === block.name
+          ? {
+              ...old,
+              selected: !old.selected,
+              total: !old.selected ? block.trueValue : block.falseValue,
+            }
+          : old
+      )
+    );
+  };  
+
+  const feeHeadingClicked= (block) => {
+    setFeeBlocks(
+      feeBlocks.map((old) =>
+        old.name === block.name
+          ? {
+              ...old,
+              selected: !old.selected,
+              total: !old.selected ? getTotal(block) : 0,
+            }
+          : old
+      )
+    );
+  };
+
   const getTotal = (block) => {
     let total = 0;
     if (block.subfees) {
@@ -111,7 +139,8 @@ function Stormwater(props) {
     );
   }, [blocks, feeBlocks]);
   useEffect(() => {
-    props.totalUpdated(total, "stormwater");
+  debugger
+    totalUpdated(total, "stormwater");
   }, [total]);
   return (
     <div id="stormwater">
@@ -119,6 +148,8 @@ function Stormwater(props) {
         <span slot="title">Stormwater Fee Calculator</span>
         {feeBlocks.map((block, i) => (
           <CalciteBlock
+           collapsible
+            onCalciteBlockToggle={() => feeHeadingClicked(block)     }      
             key={`stormwater-fee-section-${i}`}
             heading={block.name}
             open={block.selected}
@@ -156,7 +187,7 @@ function Stormwater(props) {
           </CalciteBlock>
         ))}
         {blocks.map((block, i) => (
-          <CalciteBlock key={`stormwater-section-${i}`} heading={block.name}>
+          <CalciteBlock collapsible key={`stormwater-section-${i}`} heading={block.name} onCalciteBlockToggle={() => headingClicked(block)}>
             <CalciteCheckbox
               slot="icon"
               checked={block.selected ? true : undefined}

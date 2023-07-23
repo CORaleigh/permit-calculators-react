@@ -3,10 +3,9 @@
   height: 300px;
 }
 
-calcite-card {
-  max-width: 80%;
-}
 
-#openspace {
-  margin: 1em 10%;
+
+
+#searchDiv, .esri-search {
+    width: 100% !important;
 }

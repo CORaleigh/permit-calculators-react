@@ -28,3 +28,11 @@ calcite-card {
     width: 100%;
   }
 }
+
+calcite-card span {
+  text-align: center;
+  color: var(--calcite-ui-brand);
+  font-size: var(--calcite-ui-font-size-0);
+  font-weight: var(--calcite-font-weight-medium);
+  text-decoration: underline;
+}

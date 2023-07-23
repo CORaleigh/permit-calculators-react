@@ -512,9 +512,9 @@ function Buildings({ totalUpdated }) {
                 onClick={() => setCurrentCardIndex(currentCardIndex - 1)}
                 className={`${currentCardIndex > 0 ? null : "hidden"}`}
               ></CalciteIcon>
-              <span className="card-index">{`${currentCardIndex + 1} of ${
+              <div className="card-index">{`${currentCardIndex + 1} of ${
                 cards.length
-              }`}</span>
+              }`}</div>
               <CalciteIcon
                 icon="chevron-right"
                 onClick={() => setCurrentCardIndex(currentCardIndex + 1)}
@@ -542,11 +542,11 @@ function Buildings({ totalUpdated }) {
       <CalciteCard>
         <span slot="title">Total Project Fees*</span>
         <CalciteLabel>
-          Valuation <span>{dollar.format(totals.valuation)}</span>
+          Valuation <div>{dollar.format(totals.valuation)}</div>
         </CalciteLabel>
         <CalciteLabel>
           Building
-          <span>
+          <div>
             {" "}
             {totals.fees.building.value
               ? dollar.format(
@@ -554,8 +554,8 @@ function Buildings({ totalUpdated }) {
                     Math.round(totals.fees.building.techFee)
                 )
               : "--"}
-          </span>
-          <span>
+          </div>
+          <div>
             {totals.fees.plumbing.value
               ? `(${dollar.format(
                   totals.fees.building.value
@@ -563,20 +563,20 @@ function Buildings({ totalUpdated }) {
                   totals.fees.building.techFee
                 )} technology fee)`
               : ""}
-          </span>
+          </div>
         </CalciteLabel>
 
         <CalciteLabel>
           Electrical
-          <span>
+          <div>
             {" "}
             {totals.fees.electrical.value
               ? dollar.format(
                   totals.fees.electrical.value + totals.fees.electrical.techFee
                 )
               : "--"}
-          </span>
-          <span>
+          </div>
+          <div>
             {totals.fees.plumbing.value
               ? `(${dollar.format(
                   totals.fees.electrical.value
@@ -584,19 +584,19 @@ function Buildings({ totalUpdated }) {
                   totals.fees.electrical.techFee
                 )} technology fee)`
               : ""}
-          </span>
+          </div>
         </CalciteLabel>
         <CalciteLabel>
           Mechanical
-          <span>
+          <div>
             {" "}
             {totals.fees.mechanical.value
               ? dollar.format(
                   totals.fees.mechanical.value + totals.fees.mechanical.techFee
                 )
               : "--"}
-          </span>
-          <span>
+          </div>
+          <div>
             {totals.fees.plumbing.value
               ? `(${dollar.format(
                   totals.fees.mechanical.value
@@ -604,19 +604,19 @@ function Buildings({ totalUpdated }) {
                   totals.fees.mechanical.techFee
                 )} technology fee)`
               : ""}
-          </span>
+          </div>
         </CalciteLabel>
         <CalciteLabel>
           Plumbing
-          <span>
+          <div>
             {" "}
             {totals.fees.plumbing.value
               ? dollar.format(
                   totals.fees.plumbing.value + totals.fees.plumbing.techFee
                 )
               : "--"}
-          </span>
-          <span>
+          </div>
+          <div>
             {totals.fees.plumbing.value
               ? `(${dollar.format(
                   totals.fees.plumbing.value
@@ -624,19 +624,19 @@ function Buildings({ totalUpdated }) {
                   totals.fees.plumbing.techFee
                 )} technology fee)`
               : ""}
-          </span>
+          </div>
         </CalciteLabel>
         <CalciteLabel>
           Plan Review
-          <span>
+          <div>
             {" "}
             {totals.fees.planReview.value
               ? dollar.format(
                   totals.fees.planReview.value + totals.fees.planReview.techFee
                 )
               : "--"}
-          </span>
-          <span>
+          </div>
+          <div>
             {totals.fees.planReview.value
               ? `(${dollar.format(
                   totals.fees.planReview.value
@@ -644,18 +644,18 @@ function Buildings({ totalUpdated }) {
                   totals.fees.planReview.techFee
                 )} technology fee)`
               : ""}
-          </span>
+          </div>
         </CalciteLabel>
         <CalciteLabel className="total">
           Permit Total
-          <span>
+          <div>
             {" "}
             {totals.fees.planReview.value ? dollar.format(totals.total) : "--"}
-          </span>
+          </div>
         </CalciteLabel>
-        <span slot="footer-start">
+        <div slot="footer-start">
           * only represents Building and Trade permit fees
-        </span>
+        </div>
       </CalciteCard>
       <CalciteModal
         open={showModal ? true : undefined}

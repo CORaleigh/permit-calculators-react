@@ -30,8 +30,9 @@ import RightOfWay from "./RightOfWay";
 import Water from "./Water";
 
 import Home from "./Home";
-import Total from "./Total";
+import Total from "./Summary";
 import { dollar } from "./assets/config";
+import Summary from "./Summary";
 
 
 function App() {
@@ -55,12 +56,14 @@ useEffect(() => {
       total: 0
     }}
     totalRef.current.innerHTML = 'Total Fees '  + dollar.format(total.current.total);
+    document.querySelector('#selectLabel').shadowRoot?.querySelector('.container')?.setAttribute('style', 'color: white');
 
   }, [])
 
 
 const totalRef = useRef(null);
 const [reset, setReset] = useState(false);
+const [inStorage, setInStorage] = useState(false);
 const resetCalculator = () => {
   window.localStorage.clear();
   total.current = {  openspace: 0,
@@ -77,12 +80,18 @@ const updateTotal = useCallback((value, key) => {
   if (total.current && key) {
   
     total.current[key] = value
-    total.current.total = total.current.openspace + total.current.building + total.current.stormwater + total.current.thoroughfare + total.current.rightofway;
+    total.current.total = total.current.openspace + total.current.building + total.current.stormwater + total.current.thoroughfare + total.current.rightofway;// + total.current.water;
     totalRef.current.innerHTML = 'Total Fees ' + dollar.format(total.current.total);
     window.localStorage.setItem('permit-calculator-totals', JSON.stringify(total.current));
   }
 
 },[total]);
+
+useEffect(() => {
+  if(window.localStorage.getItem('permit-calculator-totals')) {
+    setInStorage(true);
+  }
+}, [])
   const BuildingsNav = () => {
     return <Buildings totalUpdated={updateTotal}></Buildings>;
   };
@@ -98,6 +107,9 @@ const updateTotal = useCallback((value, key) => {
   const RightOfWayNav = () => {
     return <RightOfWay  totalUpdated={updateTotal}></RightOfWay>;
   };
+  const SummaryNav = () => {
+    return <Summary></Summary>;
+  };  
   const WaterNav = () => {
     return <Water  totalUpdated={updateTotal}></Water>;
   };  
@@ -110,13 +122,14 @@ const updateTotal = useCallback((value, key) => {
       <CalciteNavigation slot="header">
         <CalciteNavigationLogo
           slot="logo"
-          heading="Permit Calculators"
+          heading="Development Fee Calculator"
           thumbnail="https://raleighnc.gov/themes/custom/cityofraleigh/logo.svg"
         ></CalciteNavigationLogo>
       </CalciteNavigation>
-
-    
-      <CalciteSelect
+      <div className="subheader">
+      <CalciteLabel id="selectLabel" alignment="center">
+        Select a calculator
+        <CalciteSelect
         id="routeSelect"
         onCalciteSelectChange={(e) => {
           navigate(e.target.selectedOption.value);
@@ -161,8 +174,19 @@ const updateTotal = useCallback((value, key) => {
           selected={location.pathname === "/water"}
         >
           Water
-        </CalciteOption> 
-      </CalciteSelect>
+        </CalciteOption>         
+        <CalciteOption
+          value="/summary"
+          selected={location.pathname === "/summary"}
+        >
+          Summary
+        </CalciteOption>           
+
+      </CalciteSelect>        
+      </CalciteLabel>
+      
+      </div>
+    
 
       <CalciteLabel id="total" scale="l">
          <span ref={totalRef}>Total Fees {dollar.format(0)}</span>
@@ -174,6 +198,8 @@ const updateTotal = useCallback((value, key) => {
         <Route path="/stormwater" element={<StormwaterNav />}></Route>
         <Route path="/thoroughfare" element={<ThoroughfareNav />}></Route>
         <Route path="/rightofway" element={<RightOfWayNav />}></Route>
+        <Route path="/summary" element={<SummaryNav />}></Route>
+
         <Route path="/water" element={<WaterNav />}></Route>
 
       </Routes>
@@ -184,10 +210,14 @@ const updateTotal = useCallback((value, key) => {
         </div>
         <div slot="content">
           This calculator is made available by the City of Raleigh for informational and planning purposes only and may not reflect the final cost to obtain plan review, building and trade permits. By using this calculator you understand that the fee details provided are estimates based on the information entered and the final calculation of fees will be provided by the Development Services Customer Services Center.
+          <div>
+          &nbsp;
+          { inStorage && <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Resume Calculation</CalciteButton>}&nbsp;
+          { inStorage && <CalciteButton scale="l" width="full" onClick={() => {window.localStorage.clear(); setShowModal(false);}}>New Calculation</CalciteButton>}
+          { !inStorage && <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Agree</CalciteButton>}        
         </div>
-        <div slot="content-bottom">
-          <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Agree</CalciteButton>
         </div>
+
       </CalciteModal>  
     </>
   );

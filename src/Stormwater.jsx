@@ -113,7 +113,6 @@ function Stormwater({ totalUpdated }) {
     } else {
       total = e.target.value * block.multiplier;
     }
-    console.log(total);
     setFeeBlocks(
       feeBlocks.map((old) =>
         old.name === block.name
@@ -173,6 +172,9 @@ function Stormwater({ totalUpdated }) {
             )}
             <div>
               <CalciteInput
+                type="number"
+                min={0}
+                scale="l"
                 value={block.value}
                 placeholder={block.label}
                 onCalciteInputInput={(e) => feeInputChanged(e, block)}

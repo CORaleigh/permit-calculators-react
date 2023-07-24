@@ -36,6 +36,38 @@ function Thoroughfare({ totalUpdated }) {
   );
   const [total, setTotal] = useState(0);
 
+  const blockToggled = (e, landuse) => {
+    const category = categories.find(
+      (category) => category.category === landuse.category
+    );
+    const updatedLanduses = category?.landuses.map((old) => {
+      let total = 0;
+      if (!old.selected && landuse.value && !landuse.thresholds ) {
+        total = old.value * old.per
+      } 
+      if (!old.selected && landuse.thresholds ) {
+        debugger
+        landuse.thresholds?.forEach((t) => {
+          t.total ? (total += t.total) : (total += 0);
+        });
+      }       
+
+
+      return old.landuse === landuse.landuse
+        ? {
+            ...old,
+            selected: !old.selected,
+            total: total
+          }
+        : old
+        });
+    const updatedCategories = categories.map((old) =>
+      old.category === landuse.category
+        ? { ...old, landuses: updatedLanduses }
+        : old
+    );
+    setCategories(updatedCategories as any);
+  }
   const checkboxChanged = (e, landuse) => {
     const category = categories.find(
       (category) => category.category === landuse.category
@@ -72,8 +104,6 @@ function Thoroughfare({ totalUpdated }) {
           }
         : old
     );
-
-    console.log(updatedLanduses);
     const updatedCategories = categories.map((old) =>
       old.category === landuse.category
         ? { ...old, landuses: updatedLanduses }
@@ -148,7 +178,7 @@ function Thoroughfare({ totalUpdated }) {
     <div id="thoroughfare">
       <CalciteCard>
         <span slot="title">Thoroughfare Fee Calculator</span>
-        <CalciteTabs>
+        <CalciteTabs scale="l">
           <CalciteTabNav  slot="title-group" onCalciteTabChange={tabChanged} >
             {categories.map((category, i) => (
               <CalciteTabTitle
@@ -170,8 +200,11 @@ function Thoroughfare({ totalUpdated }) {
                     key={`landuse-block-${i}-${j}`}
                     heading={landuse.landuse}
                     open={landuse.selected}
+                    onCalciteBlockToggle={ e => blockToggled(e, landuse)}
+                    collapsible
                   >
                     <CalciteCheckbox
+                      scale="l"
                       key={`landuse-checkbox-${i}-${j}`}
                       slot="icon"
                       checked={landuse.selected ? true : undefined}
@@ -182,6 +215,8 @@ function Thoroughfare({ totalUpdated }) {
                     {landuse.thresholds &&
                       landuse.thresholds.map((threshold, k) => (
                         <CalciteInput
+                          min={0}
+                          scale="l"                        
                           value={threshold.value}
                           key={`landuse-input-${i}-${j}-${k}`}
                           placeholder={threshold.label}
@@ -193,6 +228,9 @@ function Thoroughfare({ totalUpdated }) {
                       ))}
                     {!landuse.thresholds && (
                       <CalciteInput
+                        type="number"
+                        min={0}
+                        scale="l"
                         value={landuse.value}
                         placeholder={landuse.label}
                         onCalciteInputInput={(e) =>
@@ -201,7 +239,7 @@ function Thoroughfare({ totalUpdated }) {
                       ></CalciteInput>
                     )}
 
-                    <div slot="control">{dollar.format(landuse.total)}</div>
+                    <div slot="control" className="block-control">{dollar.format(landuse.total)}</div>
                   </CalciteBlock>
                 ))}
             </CalciteTab>

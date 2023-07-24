@@ -123,6 +123,7 @@ function RightOfWay({ totalUpdated }) {
   };
   const downtownChanged = (e, item) => {
     const selectedItem = occupancies.find((i) => i.id === item.id);
+    console.log(selectedItem.class)
     const updatedOccupancies = occupancies.map((old) =>
       old.id === selectedItem.id
         ? {
@@ -133,6 +134,12 @@ function RightOfWay({ totalUpdated }) {
     );
     setOccupancies(updatedOccupancies);
   };
+
+
+
+
+
+
   const totalProjects = () => {
     let maxPrimary = 0;
     let projectReview = 0;
@@ -140,22 +147,29 @@ function RightOfWay({ totalUpdated }) {
     let totalProject = 0;
     occupancies.forEach((occupancy) => {
       if (occupancy.occupancyClass && occupancy.lf && occupancy.days) {
-        if (occupancy.primaryCost >= totals.maxPrimary) {
+        if (occupancy.primaryCost >= maxPrimary) {
           maxPrimary = occupancy.primaryCost;
+        }
+      }
+    });
+    occupancies.forEach((occupancy) => {
+      if (occupancy.occupancyClass && occupancy.lf && occupancy.days) {
+        if (occupancy.primaryCost >= maxPrimary) {
           occupancy.totalCost = occupancy.primaryCost;
         } else {
           occupancy.totalCost = occupancy.secondaryCost;
           occupancy.projectCost = occupancy.totalCost * occupancy.days;
         }
-        if (occupancy.occupancyClass.review >= totals.projectReview) {
+        if (occupancy.occupancyClass.review >= projectReview) {
           projectReview = occupancy.occupancyClass.review;
         }
         occupancy.projectCost = occupancy.totalCost * occupancy.days;
         totalPerDay = totalPerDay += occupancy.totalCost;
-        console.log(occupancy.projectCost);
         totalProject = totalProject += occupancy.projectCost;
       }
     });
+    console.log('after', occupancies)
+
     setOccupancies(occupancies);
     setTotals({
       ...totals,
@@ -195,6 +209,7 @@ function RightOfWay({ totalUpdated }) {
       }
     });
     setOccupancies(occupancies);
+    console.log('before', occupancies)
     totalProjects();
   }, [occupancies]);
   useEffect(() => {
@@ -243,6 +258,7 @@ function RightOfWay({ totalUpdated }) {
               <CalciteLabel>
                 Classification
                 <CalciteSelect
+                  scale="l"
                   onCalciteSelectChange={(e) => classChanged(e, item)}
                 >
                   {!item.occupancyClass && (
@@ -259,48 +275,56 @@ function RightOfWay({ totalUpdated }) {
                   )}
                 </CalciteSelect>
               </CalciteLabel>
+              {
+                !item.occupancyClass?.class.includes("Dumpster") && (
+                  <CalciteLabel
 
-              {item.occupancyClass &&
-                !item.occupancyClass.class.includes("Dumpster") && (
-                  <CalciteLabel>
+                  >
                     Linear Feet
                     <CalciteInput
+
+                      scale="l"
                       value={item.lf}
                       onCalciteInputInput={(e) => linearFeetChanged(e, item)}
                       type="number"
                       min="0"
+
                     ></CalciteInput>
                   </CalciteLabel>
                 )}
-              {item.occupancyClass &&
-                item.occupancyClass.class.includes("Dumpster") && (
-                  <CalciteLabel>
+              {
+                item.occupancyClass?.class.includes("Dumpster") && (
+                  <CalciteLabel
+                  >
                     # of dumpsters
                     <CalciteInput
+                      scale="l"                    
                       value={item.dumpsters}
                       onCalciteInputInput={(e) => dumpstersChanged(e, item)}
                       type="number"
                       min="0"
+
                     ></CalciteInput>
                   </CalciteLabel>
                 )}
               <CalciteLabel
-                className={`${!item.occupancyClass ? "hidden" : null}`}
-              >
+                  >
                 Days
                 <CalciteInput
+                  scale="l"
                   value={item.days}
                   onCalciteInputInput={(e) => daysChanged(e, item)}
                   type="number"
+                  min={0}
                 ></CalciteInput>
               </CalciteLabel>
               <CalciteLabel
-                className={`${!item.occupancyClass ? "hidden" : null}`}
                 layout="inline"
                 alignment="end"
               >
                 Downtown Zone
                 <CalciteCheckbox
+                  scale="l"                
                   checked={item.downtown ? true : undefined}
                   onCalciteCheckboxChange={(e) => downtownChanged(e, item)}
                 ></CalciteCheckbox>
@@ -313,9 +337,13 @@ function RightOfWay({ totalUpdated }) {
             </div>
           </div>
         ))}
+               <div> {JSON.stringify(occupancies)}</div>
+               <div> {JSON.stringify(totals)}</div>
+
         <CalciteFab icon="plus" onClick={addRow}>
           Add
         </CalciteFab>
+
       </CalciteCard>
       <CalciteModal
         open={showModal ? true : undefined}

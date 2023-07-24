@@ -7,3 +7,18 @@
     font-weight: bold;
     margin: 1em;
 }
+
+.subheader {
+    background-color: var(--calcite-ui-brand);
+
+    padding: 1em;
+}
+
+.block-control {
+    margin-left: 1em;
+    margin-top: 10px;
+}
+
+#summaryButton {
+    color: white;
+}

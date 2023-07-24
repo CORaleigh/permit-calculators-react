@@ -135,7 +135,6 @@ function Buildings({ totalUpdated }) {
   };
   const calculateValuation = (card) => {
     let valuation = 0;
-    console.log(card);
     if (card.constructionScope && card.squareFeet && card.constructionType) {
       valuation =
         parseFloat(
@@ -159,12 +158,6 @@ function Buildings({ totalUpdated }) {
     let value = 0;
     if (valuation > 0 && !card.isResidential) {
       const tier = tiers.find((t) => {
-        console.log(
-          valuation > t["min"] && valuation < t["max"],
-          valuation,
-          t["min"],
-          t["max"]
-        );
         return valuation > t["min"] && valuation < t["max"];
       });
       value = valuation * tier["costper"] + tier["cumulative"];
@@ -205,28 +198,28 @@ function Buildings({ totalUpdated }) {
     let fees = {
       building: {
         value: building,
-        techFee: building * techFee,
-        total: building + building * techFee,
+        techFee: Math.round(building * techFee),
+        total: building + Math.round(building * techFee),
       },
       electrical: {
         value: electrical,
-        techFee: electrical * techFee,
-        total: electrical + electrical * techFee,
+        techFee: Math.round(electrical * techFee),
+        total: electrical + Math.round(electrical * techFee),
       },
       mechanical: {
         value: mechanical,
-        techFee: mechanical * techFee,
-        total: mechanical + mechanical * techFee,
+        techFee: Math.round(mechanical * techFee),
+        total: mechanical + Math.round(mechanical * techFee),
       },
       plumbing: {
         value: plumbing,
-        techFee: plumbing * techFee,
-        total: plumbing + plumbing * techFee,
+        techFee: Math.round(plumbing * techFee),
+        total: plumbing + Math.round(plumbing * techFee),
       },
       planReview: {
         value: planReview,
-        techFee: planReview * techFee,
-        total: planReview + planReview * techFee,
+        techFee: Math.round(planReview * techFee),
+        total: planReview + Math.round(planReview * techFee),
       },
     };
     return fees;
@@ -277,7 +270,6 @@ function Buildings({ totalUpdated }) {
     let mechanicalTech = 0;
     let planReview = 0;
     let planReviewTech = 0;
-    console.log(calculations);
     calculations.forEach((calculation) => {
       valuation += calculation.valuation;
       building += calculation.fees.building.value;
@@ -337,7 +329,7 @@ function Buildings({ totalUpdated }) {
   }, [calculations]);
 
   useEffect(() => {
-    totalUpdated(totals.total, "building");
+    totalUpdated(Math.round(totals.total), "building");
   }, [totals]);
   return (
     <div id="buildings">
@@ -359,7 +351,7 @@ function Buildings({ totalUpdated }) {
 
             <CalciteLabel>
               Building Type
-              <CalciteSelect
+              <CalciteSelect  scale="l"
                 onCalciteSelectChange={(e) => buildingTypeSelected(e, card)}
               >
                 {!card.buildingType && (
@@ -381,7 +373,7 @@ function Buildings({ totalUpdated }) {
             </CalciteLabel>
             <CalciteLabel>
               Construction Type
-              <CalciteSelect
+              <CalciteSelect  scale="l"
                 onCalciteSelectChange={(e) => constructionTypeSelected(e, card)}
               >
                 {!card.constructionType && (
@@ -400,7 +392,7 @@ function Buildings({ totalUpdated }) {
             </CalciteLabel>
             <CalciteLabel>
               Construction Scope
-              <CalciteSelect
+              <CalciteSelect  scale="l"
                 onCalciteSelectChange={(e) =>
                   constructionScopeSelected(e, card)
                 }
@@ -420,9 +412,11 @@ function Buildings({ totalUpdated }) {
             </CalciteLabel>
             <CalciteLabel>
               Square Feet
-              <CalciteInput
+              <CalciteInput scale="l"
                 value={card.squareFeet}
                 onCalciteInputInput={(e) => squareFeetChanged(e, card)}
+                type="number"
+                min={0}
               ></CalciteInput>
             </CalciteLabel>
             <div>

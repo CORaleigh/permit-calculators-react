@@ -1,0 +1,31 @@
+.water-infrastructure-totals {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.water-infrastructure-total {
+    margin: 1em;
+    flex: 2 1 auto;
+}
+
+.size-inputs {
+    display: flex;
+}
+
+.size-inputs calcite-label {
+    margin: 1em;
+    flex: 2 1 auto;
+}
+
+
+@media only screen and (max-width: 500px) {
+    .size-inputs calcite-label {
+      margin: 1em;
+      flex: 2 2 auto;
+    }
+    .size-inputs {
+      flex-wrap: wrap;
+    }
+  }
+  

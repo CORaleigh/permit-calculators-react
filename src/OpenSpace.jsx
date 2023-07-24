@@ -166,6 +166,7 @@ function OpenSpace({ totalUpdated }) {
         <CalciteLabel>
           Open Space Zone
           <CalciteSelect
+            scale="l"
             value={selectedZone}
             onCalciteSelectChange={(e) =>
               setSelectedZone(e.target.selectedOption.value)
@@ -186,6 +187,7 @@ function OpenSpace({ totalUpdated }) {
         <CalciteLabel>
           # of single-family dwelling units
           <CalciteInput
+            scale="l"
             value={fee.single.units}
             type="number"
             min={0}
@@ -202,6 +204,7 @@ function OpenSpace({ totalUpdated }) {
         <CalciteLabel>
           # of multi-family dwelling units
           <CalciteInput
+            scale="l"
             value={fee.multi.units}
             type="number"
             min={0}

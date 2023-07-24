@@ -110,9 +110,8 @@ function RightOfWay({ totalUpdated }) {
     setOccupancies(updatedOccupancies);
   };
   const dumpstersChanged = (e, item) => {
-    const selectedItem = occupancies.find((i) => i.id === item.id);
     const updatedOccupancies = occupancies.map((old) =>
-      old.id === selectedItem.id
+      old.id === item.id
         ? {
             ...old,
             dumpsters: parseInt(e.target.value),
@@ -122,13 +121,16 @@ function RightOfWay({ totalUpdated }) {
     setOccupancies(updatedOccupancies);
   };
   const downtownChanged = (e, item) => {
-    const selectedItem = occupancies.find((i) => i.id === item.id);
-    console.log(selectedItem.class)
+    let occupancyClass = item.occupancyClass;
+    if (item.occupancyClass.class.includes('Minor') && e.target.checked) {
+      occupancyClass = config.find(c => c.class === item.occupancyClass.class.replace('Minor', 'Major') );
+    }
     const updatedOccupancies = occupancies.map((old) =>
-      old.id === selectedItem.id
+      old.id === item.id
         ? {
             ...old,
             downtown: e.target.checked,
+            occupancyClass: occupancyClass
           }
         : old
     );
@@ -168,7 +170,6 @@ function RightOfWay({ totalUpdated }) {
         totalProject = totalProject += occupancy.projectCost;
       }
     });
-    console.log('after', occupancies)
 
     setOccupancies(occupancies);
     setTotals({
@@ -209,7 +210,6 @@ function RightOfWay({ totalUpdated }) {
       }
     });
     setOccupancies(occupancies);
-    console.log('before', occupancies)
     totalProjects();
   }, [occupancies]);
   useEffect(() => {
@@ -269,6 +269,7 @@ function RightOfWay({ totalUpdated }) {
                       key={classification.class}
                       value={classification}
                       disabled={!item.downtown || (classification.major  && item.downtown)? undefined : true}
+                      selected={item.occupancyClass === classification}
                     >
                       {classification.class}
                     </CalciteOption>
@@ -337,8 +338,6 @@ function RightOfWay({ totalUpdated }) {
             </div>
           </div>
         ))}
-               <div> {JSON.stringify(occupancies)}</div>
-               <div> {JSON.stringify(totals)}</div>
 
         <CalciteFab icon="plus" onClick={addRow}>
           Add

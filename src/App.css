@@ -1,24 +1,24 @@
 #routeSelect {
-    margin: 1em;
+  margin: 1em;
 }
 
 #total {
-    text-align: center;
-    font-weight: bold;
-    margin: 1em;
+  text-align: center;
+  font-weight: bold;
+  margin: 1em;
 }
 
 .subheader {
-    background-color: var(--calcite-ui-brand);
+  background-color: var(--calcite-ui-brand);
 
-    padding: 1em;
+  padding: 1em;
 }
 
 .block-control {
-    margin-left: 1em;
-    margin-top: 10px;
+  margin-left: 1em;
+  margin-top: 10px;
 }
 
 #summaryButton {
-    color: white;
+  color: white;
 }

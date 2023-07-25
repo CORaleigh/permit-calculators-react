@@ -12,22 +12,22 @@ export const infrastructureFees = {
             label: 'Public Sewer',
             value: 0,
             units: 'linear feet'
-        },       
+        },
         {
             label: 'Private Sewer (8" or greater)',
             value: 0,
             units: 'linear feet'
-        },     
+        },
         {
             label: '6" Private Sewer w/ Cleanouts ',
             value: 0,
             units: 'linear feet'
-        },        
+        },
         {
             label: '6" Private Sewer w/ Manholes ',
             value: 0,
             units: 'linear feet'
-        },   
+        },
         {
             label: 'Public Reuse',
             value: 0,
@@ -49,14 +49,14 @@ export const infrastructureFees = {
             value: 0,
             units: 'stubs'
 
-        }                                                                                         
+        }
     ],
     fees: [
         {
             title: 'Public Water Review',
             fee: 0,
             units: 0,
-            unitCost: 200.00, 
+            unitCost: 200.00,
             category: 'Plan Review Fees',
             inRaleighWaived: false
         },
@@ -64,7 +64,7 @@ export const infrastructureFees = {
             title: 'Sewer Review',
             fee: 0,
             units: 0,
-            unitCost: 200.00, 
+            unitCost: 200.00,
             category: 'Plan Review Fees',
             inRaleighWaived: false
         },
@@ -72,7 +72,7 @@ export const infrastructureFees = {
             title: 'Public Reuse Review',
             fee: 0,
             units: 0,
-            unitCost: 200.00, 
+            unitCost: 200.00,
             category: 'Plan Review Fees',
             inRaleighWaived: false
         },
@@ -80,7 +80,7 @@ export const infrastructureFees = {
             title: 'Pump Station Review',
             fee: 0,
             units: 0,
-            unitCost: 300.00, 
+            unitCost: 300.00,
             category: 'Plan Review Fees',
             inRaleighWaived: false
         },
@@ -88,7 +88,7 @@ export const infrastructureFees = {
             title: 'CCTV Inspection',
             fee: 0,
             units: 0,
-            unitCost: 1.18, 
+            unitCost: 1.18,
             category: 'Inspections Fees',
             inRaleighWaived: false
         },
@@ -96,7 +96,7 @@ export const infrastructureFees = {
             title: 'Pump Station Inspection',
             fee: 0,
             units: 0,
-            unitCost: 3000.00, 
+            unitCost: 3000.00,
             category: 'Inspections Fees',
             inRaleighWaived: false
         },
@@ -104,7 +104,7 @@ export const infrastructureFees = {
             title: 'Water Inspection',
             fee: 0,
             units: 0,
-            unitCost: 1.69, 
+            unitCost: 1.69,
             category: 'Inspections Fees',
             inRaleighWaived: true
         },
@@ -112,7 +112,7 @@ export const infrastructureFees = {
             title: 'Sewer Inspection',
             fee: 0,
             units: 0,
-            unitCost: 1.69, 
+            unitCost: 1.69,
             category: 'Inspections Fees',
             inRaleighWaived: true
         },
@@ -120,7 +120,7 @@ export const infrastructureFees = {
             title: 'Reuse Inspection',
             fee: 129,
             units: 0,
-            unitCost: 0, 
+            unitCost: 0,
             category: 'Inspections Fees',
             inRaleighWaived: true
         },
@@ -128,7 +128,7 @@ export const infrastructureFees = {
             title: 'Water Stubs',
             fee: 0,
             units: 0,
-            unitCost: 110, 
+            unitCost: 110,
             category: 'Stub Fees',
             inRaleighWaived: true
         },
@@ -136,7 +136,7 @@ export const infrastructureFees = {
             title: 'Sewer Stubs',
             fee: 0,
             units: 0,
-            unitCost: 110, 
+            unitCost: 110,
             category: 'Stub Fees',
             inRaleighWaived: true
         },
@@ -144,12 +144,12 @@ export const infrastructureFees = {
             title: 'Reuse Stubs',
             fee: 0,
             units: 0,
-            unitCost: 110, 
+            unitCost: 110,
             category: 'Stub Fees',
             inRaleighWaived: true
-        }      
+        }
     ]
-}    
+}
 export const capitalFees = {
     total: 0,
     meterSizes: [

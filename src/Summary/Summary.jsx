@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
-import { dollar } from "./assets/config";
+import { dollar } from "../config";
 import { CalciteCard, CalciteLabel } from "@esri/calcite-components-react";
 import './Summary.css'
 function Summary() {

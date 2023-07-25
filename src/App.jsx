@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import "./App.css";
+import "./App";
+import "./App.css"
 import "@esri/calcite-components/dist/components/calcite-navigation";
 import "@esri/calcite-components/dist/components/calcite-navigation-logo";
 import "@esri/calcite-components/dist/components/calcite-modal";
@@ -22,17 +23,16 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import Buildings from "./Buildings";
-import OpenSpace from "./OpenSpace";
-import Stormwater from "./Stormwater";
-import Thoroughfare from "./Thoroughfare";
-import RightOfWay from "./RightOfWay";
-import Water from "./Water";
+import Buildings from "./Buildings/Buildings";
+import OpenSpace from "./OpenSpace/OpenSpace";
+import Stormwater from "./Stormwater/Stormwater";
+import Thoroughfare from "./Thoroughfare/Thoroughfare";
+import RightOfWay from "./RightOfWay/RightOfWay";
+import Water from "./Water/Water";
 
-import Home from "./Home";
-import Total from "./Summary";
-import { dollar } from "./assets/config";
-import Summary from "./Summary";
+import Home from "./Home/Home";
+import { dollar } from "./config";
+import Summary from "./Summary/Summary";
 
 
 function App() {

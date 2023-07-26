@@ -1,0 +1,35 @@
+.footer {
+    background-color: #2f571b;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+.tile {
+    margin: 1em;
+    border-color: var(--calite-ui-border-2);
+   
+    border-width: 1px;
+    border-style: solid; 
+    border-radius: var(--calcite-border-radius-base);
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    font-weight: bold;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    background-color: #2f571b;
+}
+
+.content {
+    height: 200px;
+    align-content: center;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    background-color: var(--calcite-ui-brand); 
+}
+
+.icon {
+    height: 50%;
+    margin-top: 25%;
+}

@@ -1,0 +1,26 @@
+<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 180 120" style="enable-background:new 0 0 180 120;" xml:space="preserve" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+    <style type="text/css">
+        .st0{fill:none;stroke:#FFFFFF;stroke-width:4.5665;stroke-miterlimit:10;}
+        .st1{fill:none;stroke:#FFFFFF;stroke-width:4.195;stroke-miterlimit:10;}
+        .st2{fill:none;stroke:#FFFFFF;stroke-width:4.1842;stroke-miterlimit:10;}
+        .st3{fill:none;stroke:#FFFFFF;stroke-width:3.9069;stroke-miterlimit:10;}
+        .st4{fill:none;stroke:#FFFFFF;stroke-width:3.8029;stroke-miterlimit:10;}
+        .st5{fill:none;stroke:#FFFFFF;stroke-width:3.8029;stroke-linecap:round;stroke-miterlimit:10;}
+        .st6{fill:none;stroke:#FFFFFF;stroke-width:4.3617;stroke-miterlimit:10;}
+        .st7{fill:none;stroke:#FFFFFF;stroke-width:4.3617;stroke-linecap:round;stroke-miterlimit:10;}
+        .st8{fill:none;stroke:#FFFFFF;stroke-width:4.1527;stroke-miterlimit:10;}
+        .st9{fill:none;stroke:#FFFFFF;stroke-width:4.0172;stroke-miterlimit:10;}
+        .st10{fill:none;stroke:#FFFFFF;stroke-width:5.0055;stroke-miterlimit:10;}
+        .st11{fill:none;stroke:#FFFFFF;stroke-width:3.0808;stroke-miterlimit:10;}
+    </style>
+    <g>
+        <path class="st9" d="M123.9,6.8H56.1c-7.5,0-13.5,6.1-13.5,13.5v81.4h94.9V20.3C137.4,12.9,131.4,6.8,123.9,6.8z"></path>
+        <rect x="42.5" y="68.7" class="st9" width="94.9" height="33"></rect>
+        <circle class="st9" cx="62.8" cy="85.2" r="7.8"></circle>
+        <circle class="st9" cx="118.8" cy="85.2" r="7.8"></circle>
+        <circle class="st9" cx="109.3" cy="33.5" r="6.3"></circle>
+        <path class="st9" d="M99.3,68.7V58c0-5.5,4.5-10,10-10c5.5,0,10,4.5,10,10v9.5"></path>
+        <path class="st9" d="M59.4,113.2H47.5c-2.7,0-5-2.2-5-5v-6.6h21.9v6.6C64.4,111,62.2,113.2,59.4,113.2z"></path>
+        <path class="st9" d="M132.5,113.2h-11.9c-2.7,0-5-2.2-5-5v-6.6h21.9v6.6C137.5,111,135.2,113.2,132.5,113.2z"></path>
+    </g>
+    </svg>

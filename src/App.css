@@ -22,3 +22,11 @@
 #summaryButton {
   color: white;
 }
+
+.grid {
+
+  display: flex;
+  flex-wrap: wrap;
+  columns: 4;
+  margin-left: 10%;
+}

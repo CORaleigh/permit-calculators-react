@@ -1,17 +1,18 @@
-import { useState, createContext } from "react";
+import React, { useState, createContext } from "react";
 
-import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-navigation-logo";
-import {
-  CalciteCard,
-  CalciteNavigation,
-  CalciteNavigationLogo,
-  CalciteOption,
-  CalciteSelect,
-} from "@esri/calcite-components-react";
+import Tile from "../Tile/Tile";
 
 function Home() {
-  return <></>;
+  return <>
+  <div className="grid">
+  <Tile title="BUILDING PERMIT FEES" icon="./building.svg" path="buildings"></Tile>
+  <Tile title="STORMWATER FEES" icon="./stormwater.svg" path="stormwater"></Tile>
+  <Tile title="OPEN SPACE FEES" icon="./openspace.svg" path="openspace"></Tile>
+  <Tile title="THOROUGHFARE FEES" icon="./thoroughfare.svg" path="thoroughfare"></Tile>
+  <Tile title="RIGHT-OF-WAY OCCUPANCY FEES" icon="./rightofway.svg" path="rightofway"></Tile>
+  <Tile title="RALEIGH WATER FEES" icon="./water.svg" path="water"></Tile>
+  </div>
+  </>;
 }
 
 export default Home;

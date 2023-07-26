@@ -213,7 +213,7 @@ useEffect(() => {
           <div>
           &nbsp;
           { inStorage && <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Resume Calculation</CalciteButton>}&nbsp;
-          { inStorage && <CalciteButton scale="l" width="full" onClick={() => {window.localStorage.clear(); setShowModal(false);}}>New Calculation</CalciteButton>}
+          { inStorage && <CalciteButton scale="l" width="full" onClick={() => {window.localStorage.clear();resetCalculator(); setShowModal(false);}}>New Calculation</CalciteButton>}
           { !inStorage && <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Agree</CalciteButton>}        
         </div>
         </div>

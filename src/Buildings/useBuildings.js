@@ -120,7 +120,7 @@ const useBuildings = ({ totalUpdated }) => {
                 ) * card.squareFeet;
         }
 
-        return card.isResidential ? valuation : Math.round(valuation / 1000) * 1000;
+        return valuation;//card.isResidential ? valuation : Math.round(valuation / 1000) * 1000;
     };
     const checkIfResidential = (buildingType) => {
         return buildingType.group.indexOf("R-3") > -1;

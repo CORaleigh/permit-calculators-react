@@ -31,5 +31,13 @@
 
 .icon {
     height: 50%;
-    margin-top: 25%;
+    margin-top: 50px;
 }
+
+@media only screen and (max-width: 700px) {
+    .tile {
+        margin: 1em;
+        width: 100%;
+
+    }
+  }

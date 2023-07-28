@@ -15,1112 +15,273 @@ export const tiers = [
     { tier: 3, min: 100000001.00, max: 999999999999999.00, costper: 0.0001, cumulative: 6900 }
 ];
 export const constructionScopes = [{ name: 'New Construction', percent: 1 }, { name: 'Level 1 Alteration', percent: 0.25 }, { name: 'Level 2 Alteration', percent: 0.5 }, { name: 'Level 3 Alteration', percent: 0.75 }, { name: 'Addition', percent: 1 }]
-export const buildingTypes = [
-    {
-        "group": "A-1 Assembly, theaters, with stage",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 338.88
-            },
-            {
-                "key": "IB ",
-                "value": 327.46
-            },
-            {
-                "key": "IIA ",
-                "value": 319.76
-            },
-            {
-                "key": "IIB ",
-                "value": 307.63
-            },
-            {
-                "key": "IIIA ",
-                "value": 289.42
-            },
-            {
-                "key": "IIIB ",
-                "value": 280.47
-            },
-            {
-                "key": "IV ",
-                "value": 298.24
-            },
-            {
-                "key": "VA ",
-                "value": 268.37
-            },
-            {
-                "key": "VB ",
-                "value": 259.83
-            }
-        ]
-    },
-    {
-        "group": "A-1 Assembly, theaters, without stage",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 310.12
-            },
-            {
-                "key": "IB ",
-                "value": 298.7
-            },
-            {
-                "key": "IIA ",
-                "value": 291
-            },
-            {
-                "key": "IIB ",
-                "value": 278.87
-            },
-            {
-                "key": "IIIA ",
-                "value": 260.66
-            },
-            {
-                "key": "IIIB ",
-                "value": 251.71
-            },
-            {
-                "key": "IV ",
-                "value": 269.48
-            },
-            {
-                "key": "VA ",
-                "value": 239.62
-            },
-            {
-                "key": "VB ",
-                "value": 231.07
-            }
-        ]
-    },
-    {
-        "group": "A-2 Assembly, nightclubs",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 275.09
-            },
-            {
-                "key": "IB ",
-                "value": 266.93
-            },
-            {
-                "key": "IIA ",
-                "value": 259.34
-            },
-            {
-                "key": "IIB ",
-                "value": 250.54
-            },
-            {
-                "key": "IIIA ",
-                "value": 234.96
-            },
-            {
-                "key": "IIIB ",
-                "value": 228.26
-            },
-            {
-                "key": "IV ",
-                "value": 241.54
-            },
-            {
-                "key": "VA ",
-                "value": 213.57
-            },
-            {
-                "key": "VB ",
-                "value": 206.65
-            }
-        ]
-    },
-    {
-        "group": "A-2 Assembly, restaurants, bars, banquet halls",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 274.09
-            },
-            {
-                "key": "IB ",
-                "value": 265.93
-            },
-            {
-                "key": "IIA ",
-                "value": 257.34
-            },
-            {
-                "key": "IIB ",
-                "value": 249.54
-            },
-            {
-                "key": "IIIA ",
-                "value": 232.96
-            },
-            {
-                "key": "IIIB ",
-                "value": 227.26
-            },
-            {
-                "key": "IV ",
-                "value": 240.54
-            },
-            {
-                "key": "VA ",
-                "value": 211.57
-            },
-            {
-                "key": "VB ",
-                "value": 205.65
-            }
-        ]
-    },
-    {
-        "group": "A-3 Assembly, churches",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 314.65
-            },
-            {
-                "key": "IB ",
-                "value": 303.24
-            },
-            {
-                "key": "IIA ",
-                "value": 295.53
-            },
-            {
-                "key": "IIB ",
-                "value": 283.41
-            },
-            {
-                "key": "IIIA ",
-                "value": 265.65
-            },
-            {
-                "key": "IIIB ",
-                "value": 256.7
-            },
-            {
-                "key": "IV ",
-                "value": 274.02
-            },
-            {
-                "key": "VA ",
-                "value": 244.61
-            },
-            {
-                "key": "VB ",
-                "value": 236.06
-            }
-        ]
-    },
-    {
-        "group": "A-3 Assembly, general, community halls, libraries, museums",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 268.44
-            },
-            {
-                "key": "IB ",
-                "value": 257.02
-            },
-            {
-                "key": "IIA ",
-                "value": 248.32
-            },
-            {
-                "key": "IIB ",
-                "value": 237.19
-            },
-            {
-                "key": "IIIA ",
-                "value": 218.26
-            },
-            {
-                "key": "IIIB ",
-                "value": 210.31
-            },
-            {
-                "key": "IV ",
-                "value": 227.8
-            },
-            {
-                "key": "VA ",
-                "value": 197.22
-            },
-            {
-                "key": "VB ",
-                "value": 189.68
-            }
-        ]
-    },
-    {
-        "group": "A-4 Assembly, arenas",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 309.12
-            },
-            {
-                "key": "IB ",
-                "value": 297.7
-            },
-            {
-                "key": "IIA ",
-                "value": 289
-            },
-            {
-                "key": "IIB ",
-                "value": 277.87
-            },
-            {
-                "key": "IIIA ",
-                "value": 258.66
-            },
-            {
-                "key": "IIIB ",
-                "value": 250.71
-            },
-            {
-                "key": "IV ",
-                "value": 268.48
-            },
-            {
-                "key": "VA ",
-                "value": 237.62
-            },
-            {
-                "key": "VB ",
-                "value": 230.07
-            }
-        ]
-    },
-    {
-        "group": "B Business",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 263.16
-            },
-            {
-                "key": "IB ",
-                "value": 253.51
-            },
-            {
-                "key": "IIA ",
-                "value": 244.15
-            },
-            {
-                "key": "IIB ",
-                "value": 233.85
-            },
-            {
-                "key": "IIIA ",
-                "value": 213
-            },
-            {
-                "key": "IIIB ",
-                "value": 204.65
-            },
-            {
-                "key": "IV ",
-                "value": 224.67
-            },
-            {
-                "key": "VA ",
-                "value": 187.98
-            },
-            {
-                "key": "VB ",
-                "value": 179.49
-            }
-        ]
-    },
-    {
-        "group": "E Educational",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 280.42
-            },
-            {
-                "key": "IB ",
-                "value": 270.83
-            },
-            {
-                "key": "IIA ",
-                "value": 263.7
-            },
-            {
-                "key": "IIB ",
-                "value": 252.34
-            },
-            {
-                "key": "IIIA ",
-                "value": 235.54
-            },
-            {
-                "key": "IIIB ",
-                "value": 223.64
-            },
-            {
-                "key": "IV ",
-                "value": 243.64
-            },
-            {
-                "key": "VA ",
-                "value": 205.87
-            },
-            {
-                "key": "VB ",
-                "value": 199.45
-            }
-        ]
-    },
-    {
-        "group": "F-1 Factory and industrial, moderate hazard",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 161.7
-            },
-            {
-                "key": "IB ",
-                "value": 154.21
-            },
-            {
-                "key": "IIA ",
-                "value": 144.7
-            },
-            {
-                "key": "IIB ",
-                "value": 139.94
-            },
-            {
-                "key": "IIIA ",
-                "value": 124.72
-            },
-            {
-                "key": "IIIB ",
-                "value": 118.51
-            },
-            {
-                "key": "IV ",
-                "value": 133.72
-            },
-            {
-                "key": "VA ",
-                "value": 103.4
-            },
-            {
-                "key": "VB ",
-                "value": 96.83
-            }
-        ]
-    },
-    {
-        "group": "F-2 Factory and industrial, low hazard",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 160.7
-            },
-            {
-                "key": "IB ",
-                "value": 153.21
-            },
-            {
-                "key": "IIA ",
-                "value": 144.7
-            },
-            {
-                "key": "IIB ",
-                "value": 138.94
-            },
-            {
-                "key": "IIIA ",
-                "value": 124.72
-            },
-            {
-                "key": "IIIB ",
-                "value": 117.51
-            },
-            {
-                "key": "IV ",
-                "value": 132.72
-            },
-            {
-                "key": "VA ",
-                "value": 103.4
-            },
-            {
-                "key": "VB ",
-                "value": 95.83
-            }
-        ]
-    },
-    {
-        "group": "H-1 High Hazard, explosives",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 150.85
-            },
-            {
-                "key": "IB ",
-                "value": 143.36
-            },
-            {
-                "key": "IIA ",
-                "value": 134.84
-            },
-            {
-                "key": "IIB ",
-                "value": 129.08
-            },
-            {
-                "key": "IIIA ",
-                "value": 115.17
-            },
-            {
-                "key": "IIIB ",
-                "value": 107.96
-            },
-            {
-                "key": "IV ",
-                "value": 122.87
-            },
-            {
-                "key": "VA ",
-                "value": 93.86
-            },
-            {
-                "key": "VB ",
-                "value": 0
-            }
-        ]
-    },
-    {
-        "group": "H234 High Hazard",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 150.85
-            },
-            {
-                "key": "IB ",
-                "value": 143.36
-            },
-            {
-                "key": "IIA ",
-                "value": 134.84
-            },
-            {
-                "key": "IIB ",
-                "value": 129.08
-            },
-            {
-                "key": "IIIA ",
-                "value": 115.17
-            },
-            {
-                "key": "IIIB ",
-                "value": 107.96
-            },
-            {
-                "key": "IV ",
-                "value": 122.87
-            },
-            {
-                "key": "VA ",
-                "value": 93.86
-            },
-            {
-                "key": "VB ",
-                "value": 86.28
-            }
-        ]
-    },
-    {
-        "group": "H-5 HPM",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 263.16
-            },
-            {
-                "key": "IB ",
-                "value": 253.51
-            },
-            {
-                "key": "IIA ",
-                "value": 244.15
-            },
-            {
-                "key": "IIB ",
-                "value": 233.85
-            },
-            {
-                "key": "IIIA ",
-                "value": 213
-            },
-            {
-                "key": "IIIB ",
-                "value": 204.65
-            },
-            {
-                "key": "IV ",
-                "value": 224.67
-            },
-            {
-                "key": "VA ",
-                "value": 187.98
-            },
-            {
-                "key": "VB ",
-                "value": 179.49
-            }
-        ]
-    },
-    {
-        "group": "I-1 Institutional, supervised environment",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 264.93
-            },
-            {
-                "key": "IB ",
-                "value": 255.57
-            },
-            {
-                "key": "IIA ",
-                "value": 246.84
-            },
-            {
-                "key": "IIB ",
-                "value": 238.11
-            },
-            {
-                "key": "IIIA ",
-                "value": 217.64
-            },
-            {
-                "key": "IIIB ",
-                "value": 211.63
-            },
-            {
-                "key": "IV ",
-                "value": 238.15
-            },
-            {
-                "key": "VA ",
-                "value": 195.82
-            },
-            {
-                "key": "VB ",
-                "value": 189.67
-            }
-        ]
-    },
-    {
-        "group": "I-2 Institutional, hospitals",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 438.26
-            },
-            {
-                "key": "IB ",
-                "value": 428.62
-            },
-            {
-                "key": "IIA ",
-                "value": 419.26
-            },
-            {
-                "key": "IIB ",
-                "value": 408.96
-            },
-            {
-                "key": "IIIA ",
-                "value": 386.98
-            },
-            {
-                "key": "IIIB ",
-                "value": 0
-            },
-            {
-                "key": "IV ",
-                "value": 399.78
-            },
-            {
-                "key": "VA ",
-                "value": 361.97
-            },
-            {
-                "key": "VB ",
-                "value": 0
-            }
-        ]
-    },
-    {
-        "group": "I-2 Institutional, nursing homes",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 304.86
-            },
-            {
-                "key": "IB ",
-                "value": 295.22
-            },
-            {
-                "key": "IIA ",
-                "value": 285.86
-            },
-            {
-                "key": "IIB ",
-                "value": 275.55
-            },
-            {
-                "key": "IIIA ",
-                "value": 256.23
-            },
-            {
-                "key": "IIIB ",
-                "value": 0
-            },
-            {
-                "key": "IV ",
-                "value": 266.37
-            },
-            {
-                "key": "VA ",
-                "value": 231.21
-            },
-            {
-                "key": "VB ",
-                "value": 0
-            }
-        ]
-    },
-    {
-        "group": "I-3 Institutional, restrained",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 298.67
-            },
-            {
-                "key": "IB ",
-                "value": 289.02
-            },
-            {
-                "key": "IIA ",
-                "value": 279.66
-            },
-            {
-                "key": "IIB ",
-                "value": 269.36
-            },
-            {
-                "key": "IIIA ",
-                "value": 250.3
-            },
-            {
-                "key": "IIIB ",
-                "value": 240.95
-            },
-            {
-                "key": "IV ",
-                "value": 260.18
-            },
-            {
-                "key": "VA ",
-                "value": 225.29
-            },
-            {
-                "key": "VB ",
-                "value": 214.8
-            }
-        ]
-    },
-    {
-        "group": "I-4 Institutional, day care facilities",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 264.93
-            },
-            {
-                "key": "IB ",
-                "value": 255.57
-            },
-            {
-                "key": "IIA ",
-                "value": 246.84
-            },
-            {
-                "key": "IIB ",
-                "value": 238.11
-            },
-            {
-                "key": "IIIA ",
-                "value": 217.64
-            },
-            {
-                "key": "IIIB ",
-                "value": 211.63
-            },
-            {
-                "key": "IV ",
-                "value": 238.15
-            },
-            {
-                "key": "VA ",
-                "value": 195.82
-            },
-            {
-                "key": "VB ",
-                "value": 189.67
-            }
-        ]
-    },
-    {
-        "group": "M Mercantile",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 205.22
-            },
-            {
-                "key": "IB ",
-                "value": 197.06
-            },
-            {
-                "key": "IIA ",
-                "value": 188.47
-            },
-            {
-                "key": "IIB ",
-                "value": 180.67
-            },
-            {
-                "key": "IIIA ",
-                "value": 164.83
-            },
-            {
-                "key": "IIIB ",
-                "value": 159.13
-            },
-            {
-                "key": "IV ",
-                "value": 171.67
-            },
-            {
-                "key": "VA ",
-                "value": 143.44
-            },
-            {
-                "key": "VB ",
-                "value": 137.53
-            }
-        ]
-    },
-    {
-        "group": "R-1 Residential, hotels",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 267.42
-            },
-            {
-                "key": "IB ",
-                "value": 258.06
-            },
-            {
-                "key": "IIA ",
-                "value": 249.33
-            },
-            {
-                "key": "IIB ",
-                "value": 240.6
-            },
-            {
-                "key": "IIIA ",
-                "value": 220.62
-            },
-            {
-                "key": "IIIB ",
-                "value": 214.6
-            },
-            {
-                "key": "IV ",
-                "value": 240.64
-            },
-            {
-                "key": "VA ",
-                "value": 198.79
-            },
-            {
-                "key": "VB ",
-                "value": 192.64
-            }
-        ]
-    },
-    {
-        "group": "R-2 Residential, multiple family",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 223.61
-            },
-            {
-                "key": "IB ",
-                "value": 214.25
-            },
-            {
-                "key": "IIA ",
-                "value": 205.52
-            },
-            {
-                "key": "IIB ",
-                "value": 196.79
-            },
-            {
-                "key": "IIIA ",
-                "value": 177.77
-            },
-            {
-                "key": "IIIB ",
-                "value": 171.76
-            },
-            {
-                "key": "IV ",
-                "value": 196.82
-            },
-            {
-                "key": "VA ",
-                "value": 155.95
-            },
-            {
-                "key": "VB ",
-                "value": 149.8
-            }
-        ]
-    },
-    {
-        "group": "R-3 Residential, one- and two-family dwelling",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 211.77
-            },
-            {
-                "key": "IB ",
-                "value": 205.84
-            },
-            {
-                "key": "IIA ",
-                "value": 200.99
-            },
-            {
-                "key": "IIB ",
-                "value": 197.13
-            },
-            {
-                "key": "IIIA ",
-                "value": 190.36
-            },
-            {
-                "key": "IIIB ",
-                "value": 183.32
-            },
-            {
-                "key": "IV ",
-                "value": 193.75
-            },
-            {
-                "key": "VA ",
-                "value": 177.67
-            },
-            {
-                "key": "VB ",
-                "value": 167.37
-            }
-        ]
-    },
-    {
-        "group": "R-4 Residential, care/assisted living facilities",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 264.93
-            },
-            {
-                "key": "IB ",
-                "value": 255.57
-            },
-            {
-                "key": "IIA ",
-                "value": 246.84
-            },
-            {
-                "key": "IIB ",
-                "value": 238.11
-            },
-            {
-                "key": "IIIA ",
-                "value": 217.64
-            },
-            {
-                "key": "IIIB ",
-                "value": 211.63
-            },
-            {
-                "key": "IV ",
-                "value": 238.15
-            },
-            {
-                "key": "VA ",
-                "value": 195.82
-            },
-            {
-                "key": "VB ",
-                "value": 189.67
-            }
-        ]
-    },
-    {
-        "group": "S-1 Storage, moderate hazard",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 149.85
-            },
-            {
-                "key": "IB ",
-                "value": 142.36
-            },
-            {
-                "key": "IIA ",
-                "value": 132.84
-            },
-            {
-                "key": "IIB ",
-                "value": 128.08
-            },
-            {
-                "key": "IIIA ",
-                "value": 113.17
-            },
-            {
-                "key": "IIIB ",
-                "value": 106.96
-            },
-            {
-                "key": "IV ",
-                "value": 121.87
-            },
-            {
-                "key": "VA ",
-                "value": 91.86
-            },
-            {
-                "key": "VB ",
-                "value": 85.28
-            }
-        ]
-    },
-    {
-        "group": "S-2 Storage, low hazard",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 148.85
-            },
-            {
-                "key": "IB ",
-                "value": 141.36
-            },
-            {
-                "key": "IIA ",
-                "value": 132.84
-            },
-            {
-                "key": "IIB ",
-                "value": 127.08
-            },
-            {
-                "key": "IIIA ",
-                "value": 113.17
-            },
-            {
-                "key": "IIIB ",
-                "value": 105.96
-            },
-            {
-                "key": "IV ",
-                "value": 120.87
-            },
-            {
-                "key": "VA ",
-                "value": 91.86
-            },
-            {
-                "key": "VB ",
-                "value": 84.28
-            }
-        ]
-    },
-    {
-        "group": "U Utility, miscellaneous",
-        "values": [
-            {
-                "key": "IA ",
-                "value": 115.48
-            },
-            {
-                "key": "IB ",
-                "value": 108.95
-            },
-            {
-                "key": "IIA ",
-                "value": 102.64
-            },
-            {
-                "key": "IIB ",
-                "value": 98.13
-            },
-            {
-                "key": "IIIA ",
-                "value": 88.49
-            },
-            {
-                "key": "IIIB ",
-                "value": 81.89
-            },
-            {
-                "key": "IV ",
-                "value": 93.86
-            },
-            {
-                "key": "VA ",
-                "value": 69.76
-            },
-            {
-                "key": "VB ",
-                "value": 66.48
-            }
-        ]
-    }
-]
+export const buildingTypes = [{group: 'A-1 Assembly, theaters, with stage',
+values: [{key: 'IA', value: 338.8756},
+ {key: 'IB', value: 327.4626},
+ {key: 'IIA', value: 319.756},
+ {key: 'IIB', value: 307.6311},
+ {key: 'IIIA', value: 289.4155},
+ {key: 'IIIB', value: 280.4659},
+ {key: 'IV', value: 298.2408},
+ {key: 'VA', value: 268.3749},
+ {key: 'VB', value: 259.8321}]},
+{group: 'A-1 Assembly, theaters, without stage',
+values: [{key: 'IA', value: 310.1171},
+ {key: 'IB', value: 298.7041},
+ {key: 'IIA', value: 290.9975},
+ {key: 'IIB', value: 278.8726},
+ {key: 'IIIA', value: 260.657},
+ {key: 'IIIB', value: 251.7074},
+ {key: 'IV', value: 269.4823},
+ {key: 'VA', value: 239.6164},
+ {key: 'VB', value: 231.0736}]},
+{group: 'A-2 Assembly, nightclubs',
+values: [{key: 'IA', value: 275.0878},
+ {key: 'IB', value: 266.9258},
+ {key: 'IIA', value: 259.3362},
+ {key: 'IIB', value: 250.5382},
+ {key: 'IIIA', value: 234.9562},
+ {key: 'IIIB', value: 228.257},
+ {key: 'IV', value: 241.5388},
+ {key: 'VA', value: 213.5654},
+ {key: 'VB', value: 206.6542}]},
+{group: 'A-2 Assembly, restaurants, bars, banquet halls',
+values: [{key: 'IA', value: 274.0878},
+ {key: 'IB', value: 265.9258},
+ {key: 'IIA', value: 257.3362},
+ {key: 'IIB', value: 249.5382},
+ {key: 'IIIA', value: 232.9562},
+ {key: 'IIIB', value: 227.257},
+ {key: 'IV', value: 240.5388},
+ {key: 'VA', value: 211.5654},
+ {key: 'VB', value: 205.6542}]},
+{group: 'A-3 Assembly, churches',
+values: [{key: 'IA', value: 314.6541},
+ {key: 'IB', value: 303.2411},
+ {key: 'IIA', value: 295.5345},
+ {key: 'IIB', value: 283.4096},
+ {key: 'IIIA', value: 265.646},
+ {key: 'IIIB', value: 256.6964},
+ {key: 'IV', value: 274.0193},
+ {key: 'VA', value: 244.6054},
+ {key: 'VB', value: 236.0626}]},
+{group: 'A-3 Assembly, general, community halls, libraries, museums',
+values: [{key: 'IA', value: 268.4371},
+ {key: 'IB', value: 257.0241},
+ {key: 'IIA', value: 248.3175},
+ {key: 'IIB', value: 237.1926},
+ {key: 'IIIA', value: 218.2595},
+ {key: 'IIIB', value: 210.3099},
+ {key: 'IV', value: 227.8023},
+ {key: 'VA', value: 197.2189},
+ {key: 'VB', value: 189.6761}]},
+{group: 'A-4 Assembly, arenas',
+values: [{key: 'IA', value: 309.1171},
+ {key: 'IB', value: 297.7041},
+ {key: 'IIA', value: 288.9975},
+ {key: 'IIB', value: 277.8726},
+ {key: 'IIIA', value: 258.657},
+ {key: 'IIIB', value: 250.7074},
+ {key: 'IV', value: 268.4823},
+ {key: 'VA', value: 237.6164},
+ {key: 'VB', value: 230.0736}]},
+{group: 'B Business',
+values: [{key: 'IA', value: 263.1592},
+ {key: 'IB', value: 253.5132},
+ {key: 'IIA', value: 244.1534},
+ {key: 'IIB', value: 233.8502},
+ {key: 'IIIA', value: 212.9964},
+ {key: 'IIIB', value: 204.6472},
+ {key: 'IV', value: 224.6706},
+ {key: 'VA', value: 187.9804},
+ {key: 'VB', value: 179.4934}]},
+{group: 'E Educational',
+values: [{key: 'IA', value: 280.4191},
+ {key: 'IB', value: 270.8251},
+ {key: 'IIA', value: 263.7034},
+ {key: 'IIB', value: 252.3382},
+ {key: 'IIIA', value: 235.5364},
+ {key: 'IIIB', value: 223.6423},
+ {key: 'IV', value: 243.6421},
+ {key: 'VA', value: 205.8688},
+ {key: 'VB', value: 199.4482}]},
+{group: 'F-1 Factory and industrial, moderate hazard',
+values: [{key: 'IA', value: 161.7033},
+ {key: 'IB', value: 154.2133},
+ {key: 'IIA', value: 144.6961},
+ {key: 'IIB', value: 139.9395},
+ {key: 'IIIA', value: 124.7192},
+ {key: 'IIIB', value: 118.5074},
+ {key: 'IV', value: 133.7228},
+ {key: 'VA', value: 103.4048},
+ {key: 'VB', value: 96.8292}]},
+{group: 'F-2 Factory and industrial, low hazard',
+values: [{key: 'IA', value: 160.7033},
+ {key: 'IB', value: 153.2133},
+ {key: 'IIA', value: 144.6961},
+ {key: 'IIB', value: 138.9395},
+ {key: 'IIIA', value: 124.7192},
+ {key: 'IIIB', value: 117.5074},
+ {key: 'IV', value: 132.7228},
+ {key: 'VA', value: 103.4048},
+ {key: 'VB', value: 95.8292}]},
+{group: 'H-1 High Hazard, explosives',
+values: [{key: 'IA', value: 150.8477},
+ {key: 'IB', value: 143.3577},
+ {key: 'IIA', value: 134.8405},
+ {key: 'IIB', value: 129.0839},
+ {key: 'IIIA', value: 115.1739},
+ {key: 'IIIB', value: 107.9621},
+ {key: 'IV', value: 122.8672},
+ {key: 'VA', value: 93.8595},
+ {key: 'VB', value: 0.0}]},
+{group: 'H234 High Hazard',
+values: [{key: 'IA', value: 150.8477},
+ {key: 'IB', value: 143.3577},
+ {key: 'IIA', value: 134.8405},
+ {key: 'IIB', value: 129.0839},
+ {key: 'IIIA', value: 115.1739},
+ {key: 'IIIB', value: 107.9621},
+ {key: 'IV', value: 122.8672},
+ {key: 'VA', value: 93.8595},
+ {key: 'VB', value: 86.2839}]},
+{group: 'H-5 HPM',
+values: [{key: 'IA', value: 263.1592},
+ {key: 'IB', value: 253.5132},
+ {key: 'IIA', value: 244.1534},
+ {key: 'IIB', value: 233.8502},
+ {key: 'IIIA', value: 212.9964},
+ {key: 'IIIB', value: 204.6472},
+ {key: 'IV', value: 224.6706},
+ {key: 'VA', value: 187.9804},
+ {key: 'VB', value: 179.4934}]},
+{group: 'I-1 Institutional, supervised environment',
+values: [{key: 'IA', value: 264.9282},
+ {key: 'IB', value: 255.5677},
+ {key: 'IIA', value: 246.8377},
+ {key: 'IIB', value: 238.1077},
+ {key: 'IIIA', value: 217.6407},
+ {key: 'IIIB', value: 211.6267},
+ {key: 'IV', value: 238.1465},
+ {key: 'VA', value: 195.8157},
+ {key: 'VB', value: 189.6659}]},
+{group: 'I-2 Institutional, hospitals',
+values: [{key: 'IA', value: 438.2642},
+ {key: 'IB', value: 428.6182},
+ {key: 'IIA', value: 419.2584},
+ {key: 'IIB', value: 408.9552},
+ {key: 'IIIA', value: 386.9814},
+ {key: 'IIIB', value: 0.0},
+ {key: 'IV', value: 399.7756},
+ {key: 'VA', value: 361.9654},
+ {key: 'VB', value: 0.0}]},
+{group: 'I-2 Institutional, nursing homes',
+values: [{key: 'IA', value: 304.8632},
+ {key: 'IB', value: 295.2172},
+ {key: 'IIA', value: 285.8574},
+ {key: 'IIB', value: 275.5542},
+ {key: 'IIIA', value: 256.2304},
+ {key: 'IIIB', value: 0.0},
+ {key: 'IV', value: 266.3746},
+ {key: 'VA', value: 231.2144},
+ {key: 'VB', value: 0.0}]},
+{group: 'I-3 Institutional, restrained',
+values: [{key: 'IA', value: 298.6692},
+ {key: 'IB', value: 289.0232},
+ {key: 'IIA', value: 279.6634},
+ {key: 'IIB', value: 269.3602},
+ {key: 'IIIA', value: 250.3014},
+ {key: 'IIIB', value: 240.9522},
+ {key: 'IV', value: 260.1806},
+ {key: 'VA', value: 225.2854},
+ {key: 'VB', value: 214.7984}]},
+{group: 'I-4 Institutional, day care facilities',
+values: [{key: 'IA', value: 264.9282},
+ {key: 'IB', value: 255.5677},
+ {key: 'IIA', value: 246.8377},
+ {key: 'IIB', value: 238.1077},
+ {key: 'IIIA', value: 217.6407},
+ {key: 'IIIB', value: 211.6267},
+ {key: 'IV', value: 238.1465},
+ {key: 'VA', value: 195.8157},
+ {key: 'VB', value: 189.6659}]},
+{group: 'M Mercantile',
+values: [{key: 'IA', value: 205.2196},
+ {key: 'IB', value: 197.0576},
+ {key: 'IIA', value: 188.468},
+ {key: 'IIB', value: 180.67},
+ {key: 'IIIA', value: 164.83},
+ {key: 'IIIB', value: 159.1308},
+ {key: 'IV', value: 171.6706},
+ {key: 'VA', value: 143.4392},
+ {key: 'VB', value: 137.528}]},
+{group: 'R-1 Residential, hotels',
+values: [{key: 'IA', value: 267.4202},
+ {key: 'IB', value: 258.0597},
+ {key: 'IIA', value: 249.3297},
+ {key: 'IIB', value: 240.5997},
+ {key: 'IIIA', value: 220.6177},
+ {key: 'IIIB', value: 214.6037},
+ {key: 'IV', value: 240.6385},
+ {key: 'VA', value: 198.7927},
+ {key: 'VB', value: 192.6429}]},
+{group: 'R-2 Residential, multiple family',
+values: [{key: 'IA', value: 223.6062},
+ {key: 'IB', value: 214.2457},
+ {key: 'IIA', value: 205.5157},
+ {key: 'IIB', value: 196.7857},
+ {key: 'IIIA', value: 177.7737},
+ {key: 'IIIB', value: 171.7597},
+ {key: 'IV', value: 196.8245},
+ {key: 'VA', value: 155.9487},
+ {key: 'VB', value: 149.7989}]},
+{group: 'R-3 Residential, one- and two-family',
+values: [{key: 'IA', value: 211.7682},
+ {key: 'IB', value: 205.8392},
+ {key: 'IIA', value: 200.9882},
+ {key: 'IIB', value: 197.127},
+ {key: 'IIIA', value: 190.3552},
+ {key: 'IIIB', value: 183.3188},
+ {key: 'IV', value: 193.746},
+ {key: 'VA', value: 177.674},
+ {key: 'VB', value: 167.3742}]},
+{group: 'R-4 Residential, care/assisted living facilities',
+values: [{key: 'IA', value: 264.9282},
+ {key: 'IB', value: 255.5677},
+ {key: 'IIA', value: 246.8377},
+ {key: 'IIB', value: 238.1077},
+ {key: 'IIIA', value: 217.6407},
+ {key: 'IIIB', value: 211.6267},
+ {key: 'IV', value: 238.1465},
+ {key: 'VA', value: 195.8157},
+ {key: 'VB', value: 189.6659}]},
+{group: 'S-1 Storage, moderate hazard',
+values: [{key: 'IA', value: 149.8477},
+ {key: 'IB', value: 142.3577},
+ {key: 'IIA', value: 132.8405},
+ {key: 'IIB', value: 128.0839},
+ {key: 'IIIA', value: 113.1739},
+ {key: 'IIIB', value: 106.9621},
+ {key: 'IV', value: 121.8672},
+ {key: 'VA', value: 91.8595},
+ {key: 'VB', value: 85.2839}]},
+{group: 'S-2 Storage, low hazard',
+values: [{key: 'IA', value: 148.8477},
+ {key: 'IB', value: 141.3577},
+ {key: 'IIA', value: 132.8405},
+ {key: 'IIB', value: 127.0839},
+ {key: 'IIIA', value: 113.1739},
+ {key: 'IIIB', value: 105.9621},
+ {key: 'IV', value: 120.8672},
+ {key: 'VA', value: 91.8595},
+ {key: 'VB', value: 84.2839}]},
+{group: 'U Utility, miscellaneous',
+values: [{key: 'IA', value: 115.4824},
+ {key: 'IB', value: 108.9484},
+ {key: 'IIA', value: 102.6443},
+ {key: 'IIB', value: 98.131},
+ {key: 'IIIA', value: 88.4873},
+ {key: 'IIIB', value: 81.8928},
+ {key: 'IV', value: 93.8597},
+ {key: 'VA', value: 69.7565},
+ {key: 'VB', value: 66.4774}]}]

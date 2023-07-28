@@ -108,6 +108,7 @@ const useBuildings = ({ totalUpdated }) => {
     };
     const calculateValuation = (card) => {
         let valuation = 0;
+        debugger
         if (card.constructionScope && card.squareFeet && card.constructionType) {
             debugger
             valuation =

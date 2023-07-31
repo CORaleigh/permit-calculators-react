@@ -139,8 +139,8 @@ useEffect(() => {
           Home
         </CalciteOption>
         <CalciteOption
-          value="/buildings"
-          selected={location.pathname === "/buildings"}
+          value="/building"
+          selected={location.pathname === "/building"}
         >
           Buildings
         </CalciteOption>
@@ -170,8 +170,8 @@ useEffect(() => {
           Right-of-Way
         </CalciteOption>   
         <CalciteOption
-          value="/water"
-          selected={location.pathname === "/water"}
+          value="/raleighwater"
+          selected={location.pathname === "/raleighwater"}
         >
           Water
         </CalciteOption>         
@@ -193,14 +193,14 @@ useEffect(() => {
         </CalciteLabel>  
       <Routes>
         <Route path="/" element={<HomeNav />}></Route>
-        <Route path="/buildings" element={<BuildingsNav />}></Route>
+        <Route path="/building" element={<BuildingsNav />}></Route>
         <Route path="/openspace" element={<OpenSpaceNav />}></Route>
         <Route path="/stormwater" element={<StormwaterNav />}></Route>
         <Route path="/thoroughfare" element={<ThoroughfareNav />}></Route>
         <Route path="/rightofway" element={<RightOfWayNav />}></Route>
+        <Route path="/raleighwater" element={<WaterNav />}></Route>
         <Route path="/summary" element={<SummaryNav />}></Route>
 
-        <Route path="/water" element={<WaterNav />}></Route>
 
       </Routes>
       <CalciteButton scale="l" width="full" iconStart="reset" onClick={resetCalculator}>Reset Calculators</CalciteButton>

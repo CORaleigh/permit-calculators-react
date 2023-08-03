@@ -21,10 +21,9 @@ const useThoroughfare = ({ totalUpdated }) => {
         const updatedLanduses = category?.landuses.map((old) => {
             let total = 0;
             if (!old.selected && landuse.value && !landuse.thresholds) {
-                total = old.value * old.per
+                total = old.value / 1000 * old.per
             }
             if (!old.selected && landuse.thresholds) {
-                debugger
                 landuse.thresholds?.forEach((t) => {
                     t.total ? (total += t.total) : (total += 0);
                 });
@@ -50,17 +49,20 @@ const useThoroughfare = ({ totalUpdated }) => {
         const category = categories.find(
             (category) => category.category === landuse.category
         );
-        const updatedLanduses = category?.landuses.map((old) =>
-            old.landuse === landuse.landuse
+        const updatedLanduses = category?.landuses.map((old) => {
+            if (old.landuse === landuse.landuse) {
+                debugger
+            }
+            return old.landuse === landuse.landuse
                 ? {
                     ...old,
                     selected: e.target.checked,
                     total:
                         e.target.checked && landuse.value
-                            ? landuse.value * landuse.per
+                            ? landuse.measure === 'area' ? (landuse.value / 1000) * landuse.per : landuse.value  * landuse.per
                             : 0,
                 }
-                : old
+                : old}
         );
         const updatedCategories = categories.map((old) =>
             old.category === landuse.category
@@ -77,8 +79,8 @@ const useThoroughfare = ({ totalUpdated }) => {
             old.landuse === landuse.landuse
                 ? {
                     ...old,
-                    value: e.target.value,
-                    total: e.target.value * landuse.per,
+                    value: parseInt(e.target.value),
+                    total: landuse.measure === 'area' ? (parseInt(e.target.value) / 1000) * landuse.per : parseInt(e.target.value)  * landuse.per,
                 }
                 : old
         );

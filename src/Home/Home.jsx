@@ -1,8 +1,9 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 import Tile from "../Tile/Tile";
 
 function Home() {
+  useEffect(()=> {debugger}, []);
   return <>
   <div className="grid">
   <Tile title="BUILDING PERMIT FEES" icon="./building.svg" path="building"></Tile>

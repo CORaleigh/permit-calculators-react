@@ -17,7 +17,6 @@ import {
   CalciteModal
 } from "@esri/calcite-components-react";
 import {
-  BrowserRouter,
   Route,
   Routes,
   useNavigate,
@@ -127,16 +126,16 @@ useEffect(() => {
         ></CalciteNavigationLogo>
       </CalciteNavigation>
       <div className="subheader">
-      <CalciteLabel id="selectLabel" alignment="center">
+      <CalciteLabel id="selectLabel" scale="l" alignment="center">
         Select a calculator
         <CalciteSelect
+        scale="l"
         id="routeSelect"
         onCalciteSelectChange={(e) => {
           navigate(e.target.selectedOption.value);
         }}
       >
         <CalciteOption value="/" selected={location.pathname === "/"}>
-          Home
         </CalciteOption>
         <CalciteOption
           value="/building"
@@ -200,7 +199,6 @@ useEffect(() => {
         <Route path="/rightofway" element={<RightOfWayNav />}></Route>
         <Route path="/raleighwater" element={<WaterNav />}></Route>
         <Route path="/summary" element={<SummaryNav />}></Route>
-
 
       </Routes>
       <CalciteButton scale="l" width="full" iconStart="reset" onClick={resetCalculator}>Reset Calculators</CalciteButton>

@@ -56,6 +56,9 @@ function Stormwater({ totalUpdated }) {
               </a>
             )}
             <div>
+            <CalciteLabel>
+            {block.label}
+            
               <CalciteInput
                 type="number"
                 min={0}
@@ -64,6 +67,7 @@ function Stormwater({ totalUpdated }) {
                 placeholder={block.label}
                 onCalciteInputInput={(e) => feeInputChanged(e, block)}
               ></CalciteInput>
+          </CalciteLabel>  
               {block.subfees &&
                 block.subfees.map((subfee) => (
                   <div key={subfee.name}>

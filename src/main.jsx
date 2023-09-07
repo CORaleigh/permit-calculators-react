@@ -4,12 +4,13 @@ import App from "./App.jsx";
 import "./index.css";
 import { setAssetPath } from "@esri/calcite-components/dist/components";
 setAssetPath(window.location.href);
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+const baseUrl = '/permit-calculators/';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HashRouter>
+    <BrowserRouter basename={baseUrl}>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>
 );

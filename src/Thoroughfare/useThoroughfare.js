@@ -50,9 +50,7 @@ const useThoroughfare = ({ totalUpdated }) => {
             (category) => category.category === landuse.category
         );
         const updatedLanduses = category?.landuses.map((old) => {
-            if (old.landuse === landuse.landuse) {
-                debugger
-            }
+
             return old.landuse === landuse.landuse
                 ? {
                     ...old,

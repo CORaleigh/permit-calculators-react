@@ -135,6 +135,7 @@ function Buildings({ totalUpdated }) {
                 onCalciteInputInput={(e) => squareFeetChanged(e, card)}
                 type="number"
                 min={0}
+                maxLength={12}
               ></CalciteInput>
             </CalciteLabel>
             <div>

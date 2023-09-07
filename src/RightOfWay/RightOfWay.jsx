@@ -39,6 +39,8 @@ function RightOfWay({ totalUpdated }) {
     linearFeetChanged,
     dumpstersChanged,
     downtownChanged,
+    mapDiv,
+    legendDiv
   } = useRightOfWay({ totalUpdated });
 
   return (
@@ -61,6 +63,9 @@ function RightOfWay({ totalUpdated }) {
             </div>
           </CalciteLabel>
         </div>
+        <div ref={mapDiv}></div>
+        <div ref={legendDiv}></div>
+
         <CalciteLink
           iconStart="information"
           onClick={() => setShowModal((prev) => !prev)}

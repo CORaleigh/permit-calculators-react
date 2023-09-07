@@ -12,7 +12,7 @@ export const feesMultipliers = {
 export const tiers = [
     { tier: 1, min: 0, max: 500000, costper: 0.002, cumulative: 0 },
     { tier: 2, min: 500001.00, max: 10000000.00, costper: 0.0006, cumulative: 1000 },
-    { tier: 3, min: 100000001.00, max: 999999999999999.00, costper: 0.0001, cumulative: 6900 }
+    { tier: 3, min: 10000001.00, max: 999999999999999.00, costper: 0.0001, cumulative: 6900 }
 ];
 export const constructionScopes = [{ name: 'New Construction', percent: 1 }, { name: 'Level 1 Alteration', percent: 0.25 }, { name: 'Level 2 Alteration', percent: 0.5 }, { name: 'Level 3 Alteration', percent: 0.75 }, { name: 'Addition', percent: 1 }]
 export const buildingTypes = [{group: 'A-1 Assembly, theaters, with stage',

@@ -108,9 +108,7 @@ const useBuildings = ({ totalUpdated }) => {
     };
     const calculateValuation = (card) => {
         let valuation = 0;
-        debugger
         if (card.constructionScope && card.squareFeet && card.constructionType) {
-            debugger
             valuation =
                 parseFloat(
                     (
@@ -157,20 +155,26 @@ const useBuildings = ({ totalUpdated }) => {
             };
         }
         const building = calcBuildingFee(card, valuation);
-        const electrical = card.isResidential
+        let electrical = card.isResidential
             ? building * feesMultipliers.electrical.residential
             : building * feesMultipliers.electrical.commercial;
-        const mechanical = card.isResidential
+        electrical = electrical < minFee ? minFee : electrical;
+        let mechanical = card.isResidential
             ? building * feesMultipliers.mechanical.residential
             : building * feesMultipliers.mechanical.commercial;
-        const plumbing = card.isResidential
+        mechanical = mechanical < minFee ? minFee : mechanical;
+        let plumbing = card.isResidential
             ? building * feesMultipliers.plumbing.residential
             : building * feesMultipliers.plumbing.commercial;
-        const planReview = card.isAlteration
+        plumbing = plumbing < minFee ? minFee : plumbing;
+
+        let planReview = card.isAlteration
             ? building * 0.5
             : card.isResidential
                 ? building * feesMultipliers.planReview.residential
                 : building * feesMultipliers.planReview.commercial;
+        planReview = planReview < minFee ? minFee : planReview;
+
         let fees = {
             building: {
                 value: building,

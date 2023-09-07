@@ -79,7 +79,7 @@ export const tfCategories = [
                 per: 4479.64
             },
             {
-                category: "Public & Institutional",
+                category: "Public/Institutional",
                 landuse: "Nursing Home/Group Quarters",
                 measure: "area",
                 label: "Gross Floor Area (sq. ft.)",
@@ -89,7 +89,7 @@ export const tfCategories = [
                 per: 1256.91
             },
             {
-                category: "Public & Institutional",
+                category: "Public/Institutional",
                 landuse: "Cemetery",
                 measure: "unit",
                 label: "Acres",
@@ -99,7 +99,7 @@ export const tfCategories = [
                 per: 971.03
             },
             {
-                category: "Public & Institutional",
+                category: "Public/Institutional",
                 landuse: "Passenger Transportation facility",
                 measure: "area",
                 label: "Gross Floor Area (sq. ft.)",
@@ -109,7 +109,7 @@ export const tfCategories = [
                 per: 1017.55
             },
             {
-                category: "Public & Institutional",
+                category: "Public/Institutional",
                 landuse: "Emergency Service facility",
                 measure: "area",
                 label: "Gross Floor Area (sq. ft.)",

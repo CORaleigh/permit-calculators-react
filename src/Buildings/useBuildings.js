@@ -168,12 +168,11 @@ const useBuildings = ({ totalUpdated }) => {
             : building * feesMultipliers.plumbing.commercial;
         plumbing = plumbing < minFee ? minFee : plumbing;
 
-        let planReview = card.isAlteration
+        const planReview = card.isAlteration
             ? building * 0.5
             : card.isResidential
                 ? building * feesMultipliers.planReview.residential
                 : building * feesMultipliers.planReview.commercial;
-        planReview = planReview < minFee ? minFee : planReview;
 
         let fees = {
             building: {

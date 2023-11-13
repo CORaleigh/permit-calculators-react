@@ -44,9 +44,14 @@ function Buildings({ totalUpdated }) {
     removeCard,
     buildingTypes,
     constructionScopes,
+    showBuildingType,
+    showScope
   } = useBuildings({ totalUpdated });
+
+
   return (
     <div id="buildings">
+
       {cards.map((card, cardNum) => {
         return (
           <CalciteCard
@@ -73,6 +78,7 @@ function Buildings({ totalUpdated }) {
                   <CalciteOption value={""} selected></CalciteOption>
                 )}
                 {buildingTypes.map((type, i) => (
+                  showBuildingType(type.group, cardNum) && 
                   <CalciteOption
                     key={`card${cardNum}-buildingType${i}`}
                     value={type}
@@ -118,6 +124,7 @@ function Buildings({ totalUpdated }) {
                   <CalciteOption value={""} selected></CalciteOption>
                 )}
                 {constructionScopes.map((scope) => (
+                  showScope(scope.name, cardNum) && 
                   <CalciteOption
                     key={`card${cardNum}-${scope.name}`}
                     value={scope}
@@ -139,86 +146,12 @@ function Buildings({ totalUpdated }) {
               ></CalciteInput>
             </CalciteLabel>
             <div>
-              Valuation:{" "}
+              Occupancy Valuation:{" "}
               {calculations[cardNum]
                 ? dollar.format(calculations[cardNum].valuation)
                 : "--"}
             </div>
-            <div>
-              Building:{" "}
-              {calculations[cardNum]
-                ? calculations[cardNum].fees.building.value
-                  ? `${dollar.format(
-                      calculations[cardNum].fees.building.value +
-                        calculations[cardNum].fees.building.techFee
-                    )} (${dollar.format(
-                      calculations[cardNum].fees.building.value
-                    )} + ${dollar.format(
-                      calculations[cardNum].fees.building.techFee
-                    )} technology fee)`
-                  : "--"
-                : "--"}
-            </div>
-            <div>
-              Electrical:{" "}
-              {calculations[cardNum]
-                ? calculations[cardNum].fees.electrical.value
-                  ? `${dollar.format(
-                      calculations[cardNum].fees.electrical.value +
-                        calculations[cardNum].fees.electrical.techFee
-                    )} (${dollar.format(
-                      calculations[cardNum].fees.electrical.value
-                    )} + ${dollar.format(
-                      calculations[cardNum].fees.electrical.techFee
-                    )} technology fee)`
-                  : "--"
-                : "--"}
-            </div>
-            <div>
-              Mechanical:{" "}
-              {calculations[cardNum]
-                ? calculations[cardNum].fees.mechanical.value
-                  ? `${dollar.format(
-                      calculations[cardNum].fees.mechanical.value +
-                        calculations[cardNum].fees.mechanical.techFee
-                    )} (${dollar.format(
-                      calculations[cardNum].fees.mechanical.value
-                    )} + ${dollar.format(
-                      calculations[cardNum].fees.mechanical.techFee
-                    )} technology fee)`
-                  : "--"
-                : "--"}
-            </div>
-            <div>
-              Plumbing:{" "}
-              {calculations[cardNum]
-                ? calculations[cardNum].fees.plumbing.value
-                  ? `${dollar.format(
-                      calculations[cardNum].fees.plumbing.value +
-                        calculations[cardNum].fees.plumbing.techFee
-                    )} (${dollar.format(
-                      calculations[cardNum].fees.plumbing.value
-                    )} + ${dollar.format(
-                      calculations[cardNum].fees.plumbing.techFee
-                    )} technology fee)`
-                  : "--"
-                : "--"}
-            </div>
-            <div>
-              Plan Review:{" "}
-              {calculations[cardNum]
-                ? calculations[cardNum].fees.planReview.value
-                  ? `${dollar.format(
-                      calculations[cardNum].fees.planReview.value +
-                        calculations[cardNum].fees.planReview.techFee
-                    )} (${dollar.format(
-                      calculations[cardNum].fees.planReview.value
-                    )} + ${dollar.format(
-                      calculations[cardNum].fees.planReview.techFee
-                    )} technology fee)`
-                  : "--"
-                : "--"}
-            </div>
+            
             <div slot="footer-start">
               <CalciteIcon
                 icon="chevron-left"

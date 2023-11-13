@@ -1,18 +1,19 @@
-export const fees = [{
-  name: 'Stormwater Facility Replacement Fee',
-  label: 'Construction cost of all stormwater devices',
-  units: 'dollars',
-  multiplier: 0.24,
-  total: 0,
-  value: 0,
-  surety: {
-    name: 'Stormwater Control Measure (SCM) Surety',
-    multiplier: 1.25,
-    url: 'https://www.raleighnc.gov/business/content/PlanDev/Articles/DevServ/StormwaterBMPSurety.html'
-  },
-  url: 'https://www.raleighnc.gov/business/content/PlanDev/Articles/DevServ/StormwaterReplacementFund.html',
-  selected: false
-},
+export const fees = [
+// {
+//   name: 'Stormwater Facility Replacement Fee',
+//   label: 'Construction cost of all stormwater devices',
+//   units: 'dollars',
+//   multiplier: 0.24,
+//   total: 0,
+//   value: 0,
+//   surety: {
+//     name: 'Stormwater Control Measure (SCM) Surety',
+//     multiplier: 1.25,
+//     url: 'https://www.raleighnc.gov/business/content/PlanDev/Articles/DevServ/StormwaterBMPSurety.html'
+//   },
+//   url: 'https://www.raleighnc.gov/business/content/PlanDev/Articles/DevServ/StormwaterReplacementFund.html',
+//   selected: false
+// },
 {
   name: 'Land Disturbing Fees',
   label: 'Disturbed acres (rounded to nearest 1/10)',

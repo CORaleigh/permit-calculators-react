@@ -93,7 +93,7 @@ const useBuildings = ({ totalUpdated }) => {
     const constructionScopeSelected = (e, card) => {
         card = { ...card, constructionScope: e.target.selectedOption.value };
         card = { ...card, valuation: calculateValuation(card) };
-        card = { ...card, fees: calculateFees(card) };
+       // card = { ...card, fees: calculateFees(card) };
         setCards(
             cards.map((old) =>
                 old.id === card.id
@@ -127,82 +127,62 @@ const useBuildings = ({ totalUpdated }) => {
     const checkIfAlteration = (constructionScope) => {
         return constructionScope.name.indexOf("Alteration") > -1;
     };
-    const calcBuildingFee = (card, valuation) => {
+    // const calcBuildingFee = (card, valuation) => {
+    //     let value = 0;
+    //     if (valuation > 0 && !card.isResidential) {
+    //         const tier = tiers.find((t) => {
+    //             return valuation > t["min"] && valuation < t["max"];
+    //         });
+    //         value = valuation * tier["costper"] + tier["cumulative"];
+    //     }
+    //     if (card.isResidential) {
+    //         value = valuation * feesMultipliers.building.residential;
+    //     }
+    //     if (value < minFee) {
+    //         value = minFee;
+    //     }
+
+    //     return value;
+    // };
+    const setBuildingFee = (isResidential, valuation) => {
         let value = 0;
-        if (valuation > 0 && !card.isResidential) {
+        if (valuation > 0 && !isResidential) {
             const tier = tiers.find((t) => {
                 return valuation > t["min"] && valuation < t["max"];
             });
             value = valuation * tier["costper"] + tier["cumulative"];
         }
-        if (card.isResidential) {
+        if (isResidential) {
             value = valuation * feesMultipliers.building.residential;
         }
         if (value < minFee) {
             value = minFee;
         }
 
-        return value;
-    };
-    const calculateFees = (card, valuation) => {
-        if (valuation === 0) {
-            return {
-                building: { value: null, techFee: null, total: null },
-                electrical: { value: null, techFee: null, total: null },
-                mechanical: { value: null, techFee: null, total: null },
-                plumbing: { value: null, techFee: null, total: null },
-                planReview: { value: null, techFee: null, total: null },
-            };
+        return value;        
+    }
+    const showBuildingType = (type, cardNum) => {
+        if (cardNum === 0) {
+          return true;
+        } else if (cardNum > 0 && cards[0].isResidential && type.indexOf("R-3") > -1) {
+          return true;
+        } else if (cardNum > 0 && !cards[0].isResidential && type.indexOf("R-3") === -1) {
+          return true;
+        } else {
+          return false;
         }
-        const building = calcBuildingFee(card, valuation);
-        let electrical = card.isResidential
-            ? building * feesMultipliers.electrical.residential
-            : building * feesMultipliers.electrical.commercial;
-        electrical = electrical < minFee ? minFee : electrical;
-        let mechanical = card.isResidential
-            ? building * feesMultipliers.mechanical.residential
-            : building * feesMultipliers.mechanical.commercial;
-        mechanical = mechanical < minFee ? minFee : mechanical;
-        let plumbing = card.isResidential
-            ? building * feesMultipliers.plumbing.residential
-            : building * feesMultipliers.plumbing.commercial;
-        plumbing = plumbing < minFee ? minFee : plumbing;
-
-        const planReview = card.isAlteration
-            ? building * 0.5
-            : card.isResidential
-                ? building * feesMultipliers.planReview.residential
-                : building * feesMultipliers.planReview.commercial;
-
-        let fees = {
-            building: {
-                value: building,
-                techFee: Math.round(building * techFee),
-                total: building + Math.round(building * techFee),
-            },
-            electrical: {
-                value: electrical,
-                techFee: Math.round(electrical * techFee),
-                total: electrical + Math.round(electrical * techFee),
-            },
-            mechanical: {
-                value: mechanical,
-                techFee: Math.round(mechanical * techFee),
-                total: mechanical + Math.round(mechanical * techFee),
-            },
-            plumbing: {
-                value: plumbing,
-                techFee: Math.round(plumbing * techFee),
-                total: plumbing + Math.round(plumbing * techFee),
-            },
-            planReview: {
-                value: planReview,
-                techFee: Math.round(planReview * techFee),
-                total: planReview + Math.round(planReview * techFee),
-            },
-        };
-        return fees;
-    };
+      }
+      const showScope = (scope, cardNum) => {
+        if (cardNum === 0) {
+          return true;
+        } else if (cardNum > 0 && cards[0].isAlteration && scope.indexOf("Alteration") > -1) {
+          return true;
+        } else if (cardNum > 0 && !cards[0].isAlteration && scope.indexOf("Alteration") === -1) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     const addCard = () => {
         const newCard = {
             id: cards.length,
@@ -227,8 +207,7 @@ const useBuildings = ({ totalUpdated }) => {
     useEffect(() => {
         const calculations = cards.map((card) => {
             const valuation = calculateValuation(card);
-            const fees = calculateFees(card, valuation);
-            return { valuation: valuation, fees: fees };
+            return { valuation: valuation};
         });
         setCalculations(calculations);
     }, [cards]);
@@ -240,71 +219,87 @@ const useBuildings = ({ totalUpdated }) => {
     }, [cards]);
     useEffect(() => {
         let valuation = 0;
-        let building = 0;
-        let buildingTech = 0;
-        let plumbing = 0;
-        let plumbingTech = 0;
-        let electrical = 0;
-        let electricalTech = 0;
-        let mechanical = 0;
-        let mechanicalTech = 0;
-        let planReview = 0;
-        let planReviewTech = 0;
         calculations.forEach((calculation) => {
             valuation += calculation.valuation;
-            building += calculation.fees.building.value;
-            buildingTech += calculation.fees.building.techFee;
-            plumbing += calculation.fees.plumbing.value;
-            plumbingTech += calculation.fees.plumbing.techFee;
-            electrical += calculation.fees.electrical.value;
-            electricalTech += calculation.fees.electrical.techFee;
-            mechanical += calculation.fees.mechanical.value;
-            mechanicalTech += calculation.fees.mechanical.techFee;
-            planReview += calculation.fees.planReview.value;
-            planReviewTech += calculation.fees.planReview.techFee;
         });
+        let isResidential = false;
+        let isAlteration = false;
+        let value = 0;
+        cards.forEach(card => {
+            if (card.isResidential) {
+                isResidential = true;
+            }
+            if (card.isAlteration) {
+                isAlteration = true;
+            }
+        });
+        calculations.forEach(calculation => {
 
+            value += calculation.valuation;
+        });
+                
+
+        const buildingFee = Math.round(setBuildingFee(isResidential, value));
+        let electricalFee = isResidential
+        ? buildingFee * feesMultipliers.electrical.residential
+        : buildingFee * feesMultipliers.electrical.commercial;
+        electricalFee = Math.round(electricalFee < minFee ? minFee : electricalFee);
+        let mechanicalFee = isResidential
+            ? buildingFee * feesMultipliers.mechanical.residential
+            : buildingFee * feesMultipliers.mechanical.commercial;
+        mechanicalFee = Math.round(mechanicalFee < minFee ? minFee : mechanicalFee);
+        let plumbingFee = isResidential
+            ? buildingFee * feesMultipliers.plumbing.residential
+            : buildingFee * feesMultipliers.plumbing.commercial;
+        plumbingFee = Math.round(plumbingFee < minFee ? minFee : plumbingFee);
+
+        let planReviewFee = isAlteration
+            ? buildingFee * 0.5
+            : isResidential
+                ? buildingFee * feesMultipliers.planReview.residential
+                : buildingFee * feesMultipliers.planReview.commercial;  
+        planReviewFee = Math.round(planReviewFee);      
         setTotals({
             ...totals,
             valuation: valuation,
             fees: {
                 building: {
-                    value: building,
-                    techFee: buildingTech,
-                    total: building + buildingTech,
+                    value: buildingFee,
+                    techFee: Math.round(buildingFee * techFee),
+                    total: buildingFee + Math.round(buildingFee * techFee),
                 },
                 electrical: {
-                    value: electrical,
-                    techFee: electricalTech,
-                    total: electrical + electricalTech,
+                    value: electricalFee,
+                    techFee: Math.round(electricalFee * techFee),
+                    total: electricalFee +  Math.round(electricalFee * techFee),
                 },
                 mechanical: {
-                    value: mechanical,
-                    techFee: mechanicalTech,
-                    total: mechanical + mechanicalTech,
+                    value: mechanicalFee,
+                    techFee: Math.round(mechanicalFee * techFee),
+                    total: mechanicalFee +  Math.round(mechanicalFee * techFee),
                 },
                 plumbing: {
-                    value: plumbing,
-                    techFee: plumbingTech,
-                    total: plumbing + plumbingTech,
+                    value: plumbingFee,
+                    techFee: Math.round(plumbingFee * techFee),
+                    total: plumbingFee + Math.round(plumbingFee * techFee),
                 },
                 planReview: {
-                    value: planReview,
-                    techFee: planReviewTech,
-                    total: planReview + planReviewTech,
+                    value: planReviewFee,
+                    techFee: Math.round(planReviewFee * techFee),
+                    total: planReviewFee + Math.round(planReviewFee * techFee),
                 },
             },
             total:
-                building +
-                buildingTech +
-                electrical +
-                electricalTech +
-                mechanical +
-                mechanicalTech +
-                plumbing +
-                plumbingTech +
-                planReview +
-                planReviewTech,
+                buildingFee +
+                Math.round(buildingFee * techFee) +
+                electricalFee +
+                Math.round(electricalFee * techFee) +
+                mechanicalFee +
+                Math.round(mechanicalFee * techFee) +
+                plumbingFee +
+                Math.round(plumbingFee * techFee) +
+                planReviewFee +
+                Math.round(planReviewFee * techFee),
         });
     }, [calculations]);
 
@@ -326,7 +321,9 @@ const useBuildings = ({ totalUpdated }) => {
         addCard, 
         removeCard, 
         buildingTypes,
-        constructionScopes
+        constructionScopes,
+        showBuildingType,
+        showScope
     };
 };
 export default useBuildings;

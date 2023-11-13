@@ -1,9 +1,9 @@
 {
   "name": "permit-calculators-react",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.1",
   "type": "module",
-  "homepage": "https://maps.raleighnc.gov/permit-calculators",
+  "homepage": "https://coraleigh.github.com/permit-calculators-react",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

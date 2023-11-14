@@ -302,7 +302,6 @@ function Buildings({ totalUpdated }) {
         <div slot="footer-start">
           * only represents Building and Trade permit fees
         </div>
-        {JSON.stringify(cards)}
       </CalciteCard>
       <CalciteModal
         open={showModal ? true : undefined}

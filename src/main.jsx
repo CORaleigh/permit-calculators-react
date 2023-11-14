@@ -6,7 +6,7 @@ import { setAssetPath } from "@esri/calcite-components/dist/components";
 setAssetPath(window.location.href);
 import { BrowserRouter } from "react-router-dom";
 
-const baseUrl = '/permit-calculators/';
+const baseUrl = '/permit-calculators-react/';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

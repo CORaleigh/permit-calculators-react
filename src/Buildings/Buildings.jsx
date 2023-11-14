@@ -8,6 +8,8 @@ import "@esri/calcite-components/dist/components/calcite-fab";
 import "@esri/calcite-components/dist/components/calcite-link";
 import "@esri/calcite-components/dist/components/calcite-icon";
 import "@esri/calcite-components/dist/components/calcite-modal";
+import "@esri/calcite-components/dist/components/calcite-alert";
+
 import "@esri/calcite-components/dist/components/calcite-input-message";
 
 import {
@@ -21,6 +23,8 @@ import {
   CalciteModal,
   CalciteLink,
   CalciteInputMessage,
+  CalciteButton,
+  CalciteAlert,
 } from "@esri/calcite-components-react";
 
 import "./Buildings.css";
@@ -45,7 +49,12 @@ function Buildings({ totalUpdated }) {
     buildingTypes,
     constructionScopes,
     showBuildingType,
-    showScope
+    showScope,
+    showDeleteModal,
+    setShowDeleteModal,
+    deleteMessage,
+    deleteTitle,
+    removeOtherCards
   } = useBuildings({ totalUpdated });
 
 
@@ -82,6 +91,8 @@ function Buildings({ totalUpdated }) {
                   <CalciteOption
                     key={`card${cardNum}-buildingType${i}`}
                     value={type}
+                    selected={type.group === card.buildingType?.group}
+
                   >
                     {type.group}
                   </CalciteOption>
@@ -96,7 +107,7 @@ function Buildings({ totalUpdated }) {
               Construction Type
               <CalciteSelect
                 scale="l"
-                onCalciteSelectChange={(e) => constructionTypeSelected(e, card)}
+                onCalciteSelectChange={(e) => constructionTypeSelected(e, card, cardNum)}
               >
                 {!card.constructionType && (
                   <CalciteOption value={""} selected></CalciteOption>
@@ -106,6 +117,8 @@ function Buildings({ totalUpdated }) {
                     <CalciteOption
                       key={`card${cardNum}-constType-${value.key}`}
                       value={value}
+                      selected={value.key === card.constructionType?.key}
+
                     >
                       {value.key}
                     </CalciteOption>
@@ -128,6 +141,7 @@ function Buildings({ totalUpdated }) {
                   <CalciteOption
                     key={`card${cardNum}-${scope.name}`}
                     value={scope}
+                    selected={scope.name === card.constructionScope?.name}
                   >
                     {scope.name}
                   </CalciteOption>
@@ -139,7 +153,7 @@ function Buildings({ totalUpdated }) {
               <CalciteInput
                 scale="l"
                 value={card.squareFeet}
-                onCalciteInputInput={(e) => squareFeetChanged(e, card)}
+                onCalciteInputInput={(e) => squareFeetChanged(e, card, cardNum)}
                 type="number"
                 min={0}
                 maxLength={12}
@@ -173,7 +187,7 @@ function Buildings({ totalUpdated }) {
             </div>
             <div slot="footer-end">
               <CalciteFab slot="footer-end" onClick={addCard}></CalciteFab>
-              {cards.length > 1 && (
+              {cards.length > 1 && cardNum > 0 && (
                 <CalciteFab
                   slot="footer-end"
                   kind="danger"
@@ -301,8 +315,32 @@ function Buildings({ totalUpdated }) {
         </CalciteLabel>
         <div slot="footer-start">
           * only represents Building and Trade permit fees
+      
         </div>
       </CalciteCard>
+      <CalciteAlert kind="warning"  open={showDeleteModal ? true : undefined} label="A report alert" onCalciteAlertClose={() => setShowDeleteModal((prev) => !prev)}>
+        <div slot="title">{deleteTitle}</div>
+        <div slot="message">{deleteMessage}</div>
+      </CalciteAlert>
+      {/* <CalciteModal 
+        open={showDeleteModal ? true : undefined}
+        aria-labelledby="delete-title"
+      >
+        <div slot="header" id="delete-title">
+          {deleteTitle}
+        </div>
+        <div slot="content">
+          {deleteMessage}
+        </div>     
+        <CalciteButton slot="primary" width="full"
+          onClick={() => {
+            setShowDeleteModal((prev) => !prev);
+            removeOtherCards();
+          }}
+        >
+          Yes
+        </CalciteButton>            
+      </CalciteModal> */}
       <CalciteModal
         open={showModal ? true : undefined}
         aria-labelledby="instructions-title"

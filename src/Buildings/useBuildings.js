@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import {
     buildingTypes,
     constructionScopes,
@@ -20,12 +20,13 @@ const useBuildings = ({ totalUpdated }) => {
                     buildingType: null,
                     constructionType: null,
                     constructionScope: null,
-                    squareFeet: null,
+                    squareFeet: 0,
                     isResidential: null,
                     isAlteration: null,
                 },
             ]
     );
+    const mainCard = useRef();
     const [calculations, setCalculations] = useState([
         {
             id: 0,
@@ -44,8 +45,11 @@ const useBuildings = ({ totalUpdated }) => {
         total: null,
     });
     const [showModal, setShowModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleteMessage, setDeleteMessage] = useState("");
+    const [deleteTitle, setDeleteTitle] = useState("");
 
-    const squareFeetChanged = (e, card) => {
+    const squareFeetChanged = (e, card, cardNum) => {
         setCards(
             cards.map((old) =>
                 old.id === card.id
@@ -53,6 +57,12 @@ const useBuildings = ({ totalUpdated }) => {
                     : old
             )
         );
+        card = { ...card, squareFeet: e.target.value };
+        card = { ...card, valuation: calculateValuation(card) };        
+        if (cardNum === 0) {
+            
+            mainCard.current = card;
+        }        
     };
     const buildingTypeSelected = (e, card, cardNum) => {
         let constructionType = null;
@@ -61,6 +71,8 @@ const useBuildings = ({ totalUpdated }) => {
                 (value) => card.constructionType.key === value.key
             );
         }
+
+
 
         setCards(
             cards.map((old) =>
@@ -74,22 +86,37 @@ const useBuildings = ({ totalUpdated }) => {
                     : old
             )
         );
-
-        
-        if (((e.target.selectedOption.value.group.indexOf("R-3") === -1 && card.buildingType.group.indexOf("R-3") > -1)
-        || (e.target.selectedOption.value.group.indexOf("R-3") > -1 && card.buildingType.group.indexOf("R-3") === -1)
-        )   &&  cardNum === 0) {
-            
-            setCards([...[],{
-                ...cards[0],
-                buildingType: e.target.selectedOption.value,
-                constructionType: constructionType,
-                isResidential: checkIfResidential(e.target.selectedOption.value),
-            }]);
+        card = { ...card, buildingType: e.target.selectedOption.value, isResidential: checkIfResidential(e.target.selectedOption.value) };
+        card = { ...card, valuation: calculateValuation(card) };        
+        if (cardNum === 0) {
+            if (mainCard.current) {
+                if (mainCard.current.constructionScope) {
+                    card = { ...card, isAlteration: checkIfAlteration(mainCard.current.constructionScope)   };
+                }
+            }      
+            mainCard.current = card;
         }
+        if (cardNum === 0 && cards.length > 1) {
+            if (((e.target.selectedOption.value.group.indexOf("R-3") === -1 && cards[0].buildingType.group.indexOf("R-3") > -1)
+            || (e.target.selectedOption.value.group.indexOf("R-3") > -1 && cards[0].buildingType.group.indexOf("R-3") === -1)
+            )   &&  cardNum === 0) {
+                setShowDeleteModal((prev) => !prev);
+                let message = (e.target.selectedOption.value.group.indexOf("R-3") === -1 && cards[0].buildingType.group.indexOf("R-3") > -1) ? "You have changed from residential to non-residential, other occupancies have been removed." : 
+                (e.target.selectedOption.value.group.indexOf("R-3") > -1 && cards[0].buildingType.group.indexOf("R-3") === -1) ? "You have changed from non-residential to residential, other occupancies have been removed." : "";
+                setDeleteMessage(message);
+                setDeleteTitle("Building type changed");     
+                removeOtherCards();              
+              
+            }
+        }
+        
+
+
+
 
     };
-    const constructionTypeSelected = (e, card) => {
+    const constructionTypeSelected = (e, card, cardNum) => {
+
         setCards(
             cards.map((old) =>
                 old.id === card.id
@@ -97,13 +124,14 @@ const useBuildings = ({ totalUpdated }) => {
                     : old
             )
         );
+        card = { ...card, constructionType: e.target.selectedOption.value };
+        card = { ...card, valuation: calculateValuation(card) };    
+        if (cardNum === 0) {
+            mainCard.current = card;
+        }        
     };
     const constructionScopeSelected = (e, card, cardNum) => {
-  
-        card = { ...card, constructionScope: e.target.selectedOption.value };
-        card = { ...card, valuation: calculateValuation(card) };
-       // card = { ...card, fees: calculateFees(card) };
-       debugger
+
         setCards(
             cards.map((old) =>
                 old.id === card.id
@@ -115,19 +143,33 @@ const useBuildings = ({ totalUpdated }) => {
                     : old
             )
         );
+        card = { ...card, constructionScope: e.target.selectedOption.value, isAlteration: checkIfAlteration(e.target.selectedOption.value)  };
+        card = { ...card, valuation: calculateValuation(card) };    
         if (cardNum === 0) {
+            if (mainCard.current) {
+                if (mainCard.current.buildingType) {
+                    card = { ...card, isResidential: checkIfResidential(mainCard.current.buildingType)   };
+                }        
+            }            
+            mainCard.current = card;
+        }     
+
+        if (cardNum === 0 && cards.length > 1) {
+
             if (((e.target.selectedOption.value.name.indexOf("Alteration") === -1 && cards[0].constructionScope.name.indexOf("Alteration") > -1)
             || (e.target.selectedOption.value.name.indexOf("Alteration") > -1 && cards[0].constructionScope.name.indexOf("Alteration") === -1)
             )) {
-                
-                setCards([...[],{
-                    ...cards[0],
-                    constructionScope: e.target.selectedOption.value,
-                    isAlteration: checkIfAlteration(e.target.selectedOption.value),
-                }]);
+               setShowDeleteModal((prev) => !prev);
+                let message = (e.target.selectedOption.value.name.indexOf("Alteration") === -1 && cards[0].constructionScope.name.indexOf("Alteration") > -1) ? "You have changed from an alteration to new construction, other occupancies have been removed." : 
+                (e.target.selectedOption.value.name.indexOf("Alteration") > -1 && cards[0].constructionScope.name.indexOf("Alteration") === -1) ? "You have changed from a new construction to an alteration, other occupancies have been removed." : "";
+                setDeleteMessage(message);
+                setDeleteTitle("Construction scope changed");  
+                removeOtherCards();              
+
             }   
         }
-     
+
+
     };
     const calculateValuation = (card) => {
         let valuation = 0;
@@ -142,7 +184,7 @@ const useBuildings = ({ totalUpdated }) => {
                 ) * card.squareFeet;
         }
 
-        return valuation;//card.isResidential ? valuation : Math.round(valuation / 1000) * 1000;
+        return valuation;
     };
     const checkIfResidential = (buildingType) => {
         return buildingType.group.indexOf("R-3") > -1;
@@ -150,23 +192,7 @@ const useBuildings = ({ totalUpdated }) => {
     const checkIfAlteration = (constructionScope) => {
         return constructionScope.name.indexOf("Alteration") > -1;
     };
-    // const calcBuildingFee = (card, valuation) => {
-    //     let value = 0;
-    //     if (valuation > 0 && !card.isResidential) {
-    //         const tier = tiers.find((t) => {
-    //             return valuation > t["min"] && valuation < t["max"];
-    //         });
-    //         value = valuation * tier["costper"] + tier["cumulative"];
-    //     }
-    //     if (card.isResidential) {
-    //         value = valuation * feesMultipliers.building.residential;
-    //     }
-    //     if (value < minFee) {
-    //         value = minFee;
-    //     }
-
-    //     return value;
-    // };
+   
     const setBuildingFee = (isResidential, valuation) => {
         let value = 0;
         if (valuation > 0 && !isResidential) {
@@ -187,9 +213,11 @@ const useBuildings = ({ totalUpdated }) => {
     const showBuildingType = (type, cardNum) => {
         if (cardNum === 0) {
           return true;
-        } else if (cardNum > 0 && cards[0].isResidential && type.indexOf("R-3") > -1) {
+        } else if (!mainCard.current) {
+            return true;
+        } else if (cardNum > 0 && mainCard.current.isResidential && type.indexOf("R-3") > -1) {
           return true;
-        } else if (cardNum > 0 && !cards[0].isResidential && type.indexOf("R-3") === -1) {
+        } else if (cardNum > 0 && !mainCard.current.isResidential && type.indexOf("R-3") === -1) {
           return true;
         } else {
           return false;
@@ -198,9 +226,12 @@ const useBuildings = ({ totalUpdated }) => {
       const showScope = (scope, cardNum) => {
         if (cardNum === 0) {
           return true;
-        } else if (cardNum > 0 && cards[0].isAlteration && scope.indexOf("Alteration") > -1) {
+        }
+        else if (!mainCard.current) {
+            return true;
+        } else if (cardNum > 0 && mainCard.current.isAlteration && scope.indexOf("Alteration") > -1) {
           return true;
-        } else if (cardNum > 0 && !cards[0].isAlteration && scope.indexOf("Alteration") === -1) {
+        } else if (cardNum > 0 && !mainCard.current.isAlteration && scope.indexOf("Alteration") === -1) {
           return true;
         } else {
           return false;
@@ -212,7 +243,7 @@ const useBuildings = ({ totalUpdated }) => {
             buildingType: null,
             constructionType: null,
             constructionScope: null,
-            squareFeet: null,
+            squareFeet: 0,
             isResidential: null,
             isAlteration: null,
         };
@@ -233,6 +264,7 @@ const useBuildings = ({ totalUpdated }) => {
             return { valuation: valuation};
         });
         setCalculations(calculations);
+        mainCard.current = cards[0];
     }, [cards]);
     useEffect(() => {
         window.localStorage.setItem(
@@ -329,6 +361,22 @@ const useBuildings = ({ totalUpdated }) => {
     useEffect(() => {
         totalUpdated(Math.round(totals.total), "building");
     }, [totals]);
+
+    const removeOtherCards = () => {
+
+        console.log(mainCard.current)
+            setCards([...[],{
+                ...cards[0],
+                buildingType: mainCard.current.buildingType,
+                constructionType: mainCard.current.constructionType,
+                constructionScope: mainCard.current.constructionScope,
+                isResidential: checkIfResidential(mainCard.current.buildingType),
+                isAlteration: checkIfAlteration(mainCard.current.constructionScope),
+                squareFeet: mainCard.current.squareFeet
+            }]);
+        
+
+      };    
     return {
         currentCardIndex, 
         setCurrentCardIndex, 
@@ -346,7 +394,12 @@ const useBuildings = ({ totalUpdated }) => {
         buildingTypes,
         constructionScopes,
         showBuildingType,
-        showScope
+        showScope,
+        showDeleteModal,
+        setShowDeleteModal,
+        deleteMessage,
+        deleteTitle,
+        removeOtherCards
     };
 };
 export default useBuildings;

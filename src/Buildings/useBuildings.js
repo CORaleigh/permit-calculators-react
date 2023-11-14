@@ -29,14 +29,7 @@ const useBuildings = ({ totalUpdated }) => {
     const [calculations, setCalculations] = useState([
         {
             id: 0,
-            valuation: null,
-            fees: {
-                building: { value: null, techFee: null, total: null },
-                electrical: { value: null, techFee: null, total: null },
-                mechanical: { value: null, techFee: null, total: null },
-                plumbing: { value: null, techFee: null, total: null },
-                planReview: { value: null, techFee: null, total: null },
-            },
+            valuation: null
         },
     ]);
     const [totals, setTotals] = useState({
@@ -56,18 +49,19 @@ const useBuildings = ({ totalUpdated }) => {
         setCards(
             cards.map((old) =>
                 old.id === card.id
-                    ? { ...old, squareFeet: parseInt(e.target.value) }
+                    ? { ...old, squareFeet: parseInt(e.target.value), constructionScope: old.constructionScope }
                     : old
             )
         );
     };
-    const buildingTypeSelected = (e, card) => {
+    const buildingTypeSelected = (e, card, cardNum) => {
         let constructionType = null;
         if (card.constructionType) {
             constructionType = e.target.selectedOption.value.values.find(
                 (value) => card.constructionType.key === value.key
             );
         }
+
         setCards(
             cards.map((old) =>
                 old.id === card.id
@@ -80,6 +74,20 @@ const useBuildings = ({ totalUpdated }) => {
                     : old
             )
         );
+
+        
+        if (((e.target.selectedOption.value.group.indexOf("R-3") === -1 && card.buildingType.group.indexOf("R-3") > -1)
+        || (e.target.selectedOption.value.group.indexOf("R-3") > -1 && card.buildingType.group.indexOf("R-3") === -1)
+        )   &&  cardNum === 0) {
+            
+            setCards([...[],{
+                ...cards[0],
+                buildingType: e.target.selectedOption.value,
+                constructionType: constructionType,
+                isResidential: checkIfResidential(e.target.selectedOption.value),
+            }]);
+        }
+
     };
     const constructionTypeSelected = (e, card) => {
         setCards(
@@ -90,10 +98,12 @@ const useBuildings = ({ totalUpdated }) => {
             )
         );
     };
-    const constructionScopeSelected = (e, card) => {
+    const constructionScopeSelected = (e, card, cardNum) => {
+  
         card = { ...card, constructionScope: e.target.selectedOption.value };
         card = { ...card, valuation: calculateValuation(card) };
        // card = { ...card, fees: calculateFees(card) };
+       debugger
         setCards(
             cards.map((old) =>
                 old.id === card.id
@@ -105,6 +115,19 @@ const useBuildings = ({ totalUpdated }) => {
                     : old
             )
         );
+        if (cardNum === 0) {
+            if (((e.target.selectedOption.value.name.indexOf("Alteration") === -1 && cards[0].constructionScope.name.indexOf("Alteration") > -1)
+            || (e.target.selectedOption.value.name.indexOf("Alteration") > -1 && cards[0].constructionScope.name.indexOf("Alteration") === -1)
+            )) {
+                
+                setCards([...[],{
+                    ...cards[0],
+                    constructionScope: e.target.selectedOption.value,
+                    isAlteration: checkIfAlteration(e.target.selectedOption.value),
+                }]);
+            }   
+        }
+     
     };
     const calculateValuation = (card) => {
         let valuation = 0;
@@ -239,7 +262,7 @@ const useBuildings = ({ totalUpdated }) => {
         });
                 
 
-        const buildingFee = Math.round(setBuildingFee(isResidential, value));
+        const buildingFee = setBuildingFee(isResidential, value);
         let electricalFee = isResidential
         ? buildingFee * feesMultipliers.electrical.residential
         : buildingFee * feesMultipliers.electrical.commercial;

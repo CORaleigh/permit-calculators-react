@@ -72,7 +72,7 @@ function Buildings({ totalUpdated }) {
               Building Type
               <CalciteSelect
                 scale="l"
-                onCalciteSelectChange={(e) => buildingTypeSelected(e, card)}
+                onCalciteSelectChange={(e) => buildingTypeSelected(e, card, cardNum)}
               >
                 {!card.buildingType && (
                   <CalciteOption value={""} selected></CalciteOption>
@@ -117,7 +117,7 @@ function Buildings({ totalUpdated }) {
               <CalciteSelect
                 scale="l"
                 onCalciteSelectChange={(e) =>
-                  constructionScopeSelected(e, card)
+                  constructionScopeSelected(e, card, cardNum)
                 }
               >
                 {!card.constructionScope && (
@@ -302,6 +302,7 @@ function Buildings({ totalUpdated }) {
         <div slot="footer-start">
           * only represents Building and Trade permit fees
         </div>
+        {JSON.stringify(cards)}
       </CalciteCard>
       <CalciteModal
         open={showModal ? true : undefined}

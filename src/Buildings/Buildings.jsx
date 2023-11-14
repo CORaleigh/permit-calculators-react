@@ -318,29 +318,10 @@ function Buildings({ totalUpdated }) {
       
         </div>
       </CalciteCard>
-      <CalciteAlert kind="warning"  open={showDeleteModal ? true : undefined} label="A report alert" onCalciteAlertClose={() => setShowDeleteModal((prev) => !prev)}>
+      <CalciteAlert kind="warning" autoCloseDuration="medium" autoClose  open={showDeleteModal ? true : undefined} label="A report alert" onCalciteAlertClose={() => setShowDeleteModal((prev) => !prev)}>
         <div slot="title">{deleteTitle}</div>
         <div slot="message">{deleteMessage}</div>
       </CalciteAlert>
-      {/* <CalciteModal 
-        open={showDeleteModal ? true : undefined}
-        aria-labelledby="delete-title"
-      >
-        <div slot="header" id="delete-title">
-          {deleteTitle}
-        </div>
-        <div slot="content">
-          {deleteMessage}
-        </div>     
-        <CalciteButton slot="primary" width="full"
-          onClick={() => {
-            setShowDeleteModal((prev) => !prev);
-            removeOtherCards();
-          }}
-        >
-          Yes
-        </CalciteButton>            
-      </CalciteModal> */}
       <CalciteModal
         open={showModal ? true : undefined}
         aria-labelledby="instructions-title"

@@ -2,12 +2,12 @@ export const meansLocationFactor = 0.85;
 export const minFee = 112;
 export const techFee = 0.04;
 export const feesMultipliers = {
-    building: { commercial: 0, residential: 0.0032 },
+    building: { commercial: 0, residential: 0.0035 },
     electrical: { commercial: 1, residential: 0.54 },
     mechanical: { commercial: 0.76, residential: 0.28 },
     plumbing: { commercial: 0.56, residential: 0.34 },
     planReview: { commercial: 0.56, residential: 0.57 }
-};
+  };
 
 export const tiers = [
     { tier: 1, min: 0, max: 500000, costper: 0.002, cumulative: 0 },

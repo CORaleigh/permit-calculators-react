@@ -41,7 +41,7 @@ const useRightOfWay = ({ totalUpdated }) => {
         setOccupancies([
             ...occupancies,
             {
-                id: occupancies.length,
+                id: occupancies[occupancies.length-1].id+1,
                 occupancyClass: null,
                 lf: 0,
                 dumpsters: 0,
@@ -167,6 +167,11 @@ const useRightOfWay = ({ totalUpdated }) => {
 
     useEffect(() => {
         occupancies.forEach((occupancy) => {
+
+
+
+            
+            
             if (occupancy.occupancyClass && occupancy.lf && occupancy.days) {
                 if (occupancy.lf < 151) {
                     occupancy.primaryCost = occupancy.occupancyClass.base;
@@ -193,6 +198,7 @@ const useRightOfWay = ({ totalUpdated }) => {
                     occupancy.occupancyClass.base * occupancy.dumpsters;
             }
         });
+  
         setOccupancies(occupancies);
         totalProjects();
     }, [occupancies]);

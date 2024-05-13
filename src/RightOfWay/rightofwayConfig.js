@@ -1,32 +1,32 @@
 export const fees = [
     {
         "class": "Full Streets - Major",
-        "review": 805,
-        "base": 59,
-        "primary": 0.30,
-        "secondary": 0.19,
+        "review": 832,
+        "base": 61,
+        "primary": 0.31,
+        "secondary": 0.20,
         "major": true
     },
     {
         "class": "Full Streets - Minor",
-        "review": 482,
-        "base": 40,
-        "primary": 0.19,
+        "review": 498,
+        "base": 41,
+        "primary": 0.20,
         "secondary": 0.13,
         "major": false
     },
     {
         "class": "Street Lane - Major",
-        "review": 482,
-        "base": 36,
-        "primary": 0.17,
+        "review": 498,
+        "base": 37,
+        "primary": 0.18,
         "secondary": 0.12,
         "major": true
     },
     {
         "class": "Street Lane - Minor",
-        "review": 321,
-        "base": 24,
+        "review": 332,
+        "base": 25,
         "primary": 0.12,
         "secondary": 0.07,
         "major": false
@@ -34,31 +34,31 @@ export const fees = [
 
     {
         "class": "Sidewalk - Major - Full Closure",
-        "review": 805,
-        "base": 36,
-        "primary": 0.17,
+        "review": 832,
+        "base": 37,
+        "primary": 0.18,
         "secondary": 0.12,
         "major": true
     },
     {
         "class": "Sidewalk - Major - AUX",
-        "review": 482,
-        "base": 24,
+        "review": 498,
+        "base": 25,
         "primary": 0.12,
         "secondary": 0.07,
         "major": true
     },
     {
         "class": "Sidewalk - Major - Partial Closure",
-        "review": 321,
-        "base": 20,
+        "review": 332,
+        "base": 21,
         "primary": 0.10,
         "secondary": 0.06,
         "major": true
     },
     {
         "class": "Sidewalk - Major - Maintenance",
-        "review": 161,
+        "review": 166,
         "base": 13,
         "primary": 0.06,
         "secondary": 0.04,
@@ -66,31 +66,31 @@ export const fees = [
     },
     {
         "class": "Sidewalk - Minor - Full Closure",
-        "review": 321,
-        "base": 24,
+        "review": 332,
+        "base": 25,
         "primary": 0.12,
         "secondary": 0.07,
         "major": false
     },
     {
         "class": "Sidewalk - Minor - AUX",
-        "review": 242,
-        "base": 20,
+        "review": 250,
+        "base": 201,
         "primary": 0.10,
         "secondary": 0.06,
         "major": false
     },
     {
         "class": "Sidewalk - Minor - Partial Closure ",
-        "review": 161,
-        "base": 15,
+        "review": 166,
+        "base": 16,
         "primary": 0.07,
         "secondary": 0.05,
         "major": false
     },
     {
         "class": "Sidewalk - Minor - Maintenance",
-        "review": 81,
+        "review": 84,
         "base": 13,
         "primary": 0.06,
         "secondary": 0.04,
@@ -98,23 +98,23 @@ export const fees = [
     },
     {
         "class": "Misc - Major - Dumpster/Pod",
-        "review": 161,
-        "base": 23,
+        "review": 166,
+        "base": 24,
         "primary": null,
         "secondary": null,
         "major": true
     },
     {
         "class": "Misc - Major - Non-Specific",
-        "review": 161,
-        "base": 23,
+        "review": 166,
+        "base": 24,
         "primary": 0.10,
         "secondary": 0.07,
         "major": true
     },
     {
         "class": "Misc - House Move",
-        "review": 161,
+        "review": 166,
         "base": null,
         "primary": null,
         "secondary": null,
@@ -122,31 +122,31 @@ export const fees = [
     },
     {
         "class": "Misc - Minor - Dumpster/Pod",
-        "review": 81,
-        "base": 17,
+        "review": 84,
+        "base": 18,
         "primary": null,
         "secondary": null,
         "major": false
     },
     {
         "class": "Misc - Minor - Non-Specific",
-        "review": 81,
-        "base": 17,
+        "review": 84,
+        "base": 18,
         "primary": 0.08,
         "secondary": 0.05,
         "major": false
     },
     {
         "class": "Parking Lane  - Major",
-        "review": 242,
-        "base": 18,
+        "review": 250,
+        "base": 19,
         "primary": 0.08,
         "secondary": 0.05,
         "major": true
     },
     {
         "class": "Parking Lane - Minor",
-        "review": 161,
+        "review": 166,
         "base": 13,
         "primary": 0.06,
         "secondary": 0.04,

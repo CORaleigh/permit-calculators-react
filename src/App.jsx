@@ -168,12 +168,12 @@ useEffect(() => {
         >
           Right-of-Way
         </CalciteOption>   
-        <CalciteOption
+        {/* <CalciteOption
           value="/raleighwater"
           selected={location.pathname === "/raleighwater"}
         >
           Water
-        </CalciteOption>         
+        </CalciteOption>          */}
         <CalciteOption
           value="/summary"
           selected={location.pathname === "/summary"}
@@ -197,7 +197,7 @@ useEffect(() => {
         <Route path="/stormwater" element={<StormwaterNav />}></Route>
         <Route path="/thoroughfare" element={<ThoroughfareNav />}></Route>
         <Route path="/rightofway" element={<RightOfWayNav />}></Route>
-        <Route path="/raleighwater" element={<WaterNav />}></Route>
+        {/* <Route path="/raleighwater" element={<WaterNav />}></Route> */}
         <Route path="/summary" element={<SummaryNav />}></Route>
 
       </Routes>

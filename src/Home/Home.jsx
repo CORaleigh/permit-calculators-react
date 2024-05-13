@@ -10,7 +10,7 @@ function Home() {
   <Tile title="OPEN SPACE FEES" icon="./openspace.svg" path="openspace"></Tile>
   <Tile title="THOROUGHFARE FEES" icon="./thoroughfare.svg" path="thoroughfare"></Tile>
   <Tile title="RIGHT-OF-WAY OCCUPANCY FEES" icon="./rightofway.svg" path="rightofway"></Tile>
-  <Tile title="RALEIGH WATER FEES" icon="./water.svg" path="raleighwater"></Tile>
+  {/* <Tile title="RALEIGH WATER FEES" icon="./water.svg" path="raleighwater"></Tile> */}
   </div>
   </>;
 }

@@ -1,4 +1,4 @@
-export const meansLocationFactor = 0.867;
+export const meansLocationFactor = 0.85;
 export const minFee = 112;
 export const techFee = 0.04;
 export const feesMultipliers = {

@@ -6,7 +6,7 @@ export const feesMultipliers = {
     electrical: { commercial: 1, residential: 0.54 },
     mechanical: { commercial: 0.76, residential: 0.28 },
     plumbing: { commercial: 0.56, residential: 0.34 },
-    planReview: { commercial: 0.56, residential: 0.57 }
+    planReview: { commercial: 0.61, residential: 0.57 }
   };
 
 export const tiers = [

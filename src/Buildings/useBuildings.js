@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
     buildingTypes,
     constructionScopes,
@@ -183,7 +183,6 @@ const useBuildings = ({ totalUpdated }) => {
                     ).toFixed(2)
                 ) * card.squareFeet;
         }
-
         return valuation;
     };
     const checkIfResidential = (buildingType) => {
@@ -207,7 +206,6 @@ const useBuildings = ({ totalUpdated }) => {
         if (value < minFee) {
             value = minFee;
         }
-
         return value;        
     }
     const showBuildingType = (type, cardNum) => {

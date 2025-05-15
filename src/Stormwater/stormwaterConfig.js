@@ -30,12 +30,12 @@ export const fees = [
     subfees: [
       {
         name: 'Land Disturbing Plan Review Fees',
-        multiplier: 172,
+        multiplier: 177,
         total: 0
       },
       {
         name: 'Land Disturbing Permit Fees',
-        multiplier: 347,
+        multiplier: 357,
         total: 0
       }
     ]
@@ -44,8 +44,8 @@ export const fees = [
     name: 'Stormwater Control Permit',
     label: 'Property or project acres (rounded to nearest 1/10)',
     units: 'acres',
-    multiplier: 238,
-    minimum: 235,
+    multiplier: 245,
+    minimum: 245,
     url: 'https://www.raleighnc.gov/DevelopmentFeeSchedule',
     total: 0,
     value: 0
@@ -56,7 +56,7 @@ export const fees = [
     {
       name: 'Flood Permit Required?',
       falseValue: 0,
-      trueValue: 238,
+      trueValue: 245,
       url: 'https://www.raleighnc.gov/DevelopmentFeeSchedule',
       total: 0,
       map: true,
@@ -65,14 +65,14 @@ export const fees = [
     {
       name: 'Flood Study Required?',
       falseValue: 0,
-      trueValue: 1442,
+      trueValue: 1484,
       url: 'https://www.raleighnc.gov/DevelopmentFeeSchedule',
       total: 0,
       selected: false
     },
     {
       name: 'Watercourse Buffer Permit Required?',
-      trueValue: 216,
+      trueValue: 222,
       falseValue: 0,
       url: 'https://www.raleighnc.gov/DevelopmentFeeSchedule',
       total: 0,
@@ -80,7 +80,7 @@ export const fees = [
     },
     {
       name: 'Watershed Permit Required?',
-      trueValue: 216,
+      trueValue: 222,
       falseValue: 0,
       url: 'https://www.raleighnc.gov/DevelopmentFeeSchedule',
       total: 0,

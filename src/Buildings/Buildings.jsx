@@ -23,7 +23,6 @@ import {
   CalciteModal,
   CalciteLink,
   CalciteInputMessage,
-  CalciteButton,
   CalciteAlert,
 } from "@esri/calcite-components-react";
 

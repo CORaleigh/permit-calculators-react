@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { tfCategories } from "./thoroughfareConfig";
 
 const useThoroughfare = ({ totalUpdated }) => {

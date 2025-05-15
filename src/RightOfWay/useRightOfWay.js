@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fees } from "./rightofwayConfig";
 import WebMap from "@arcgis/core/WebMap.js";
 import MapView from "@arcgis/core/views/MapView.js";
@@ -258,7 +258,8 @@ const useRightOfWay = ({ totalUpdated }) => {
                     container: legendDiv.current,
 
                 });
-   
+                view.ui.add(legend, 'bottom-left');
+
             })();
             mapLoaded.current = true;
 

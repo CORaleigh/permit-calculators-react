@@ -146,7 +146,7 @@ function RightOfWay({ totalUpdated }) {
               <CalciteFab
                 className={`${!item.occupancyClass ? "hidden" : null}`}
                 icon="trash"
-                onClick={(e) => removeRow(i)}
+                onClick={() => removeRow(i)}
               ></CalciteFab>
             </div>
           </div>

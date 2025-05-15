@@ -20,19 +20,6 @@ export const constructionScopes = [{ name: 'New Construction', percent: 1 }, { n
 export const buildingTypes = [
   {group: 'A-1 Assembly, theaters, without stage', 
     values: [
-        {key: "IA", value: 309.769},
-        {key: "IB", value: 297.764},
-        {key: "IIA", value: 288.16},
-        {key: "IIB", value: 275.714},
-        {key: "IIIA", value: 256.065},
-        {key: "IIIB", value: 247.8526},
-        {key: "IV", value: 265.3456},
-        {key: "VA", value: 236.7492},
-        {key: "VB", value: 226.6454},
-    ]
-  },
-  {group: 'A-1 Assembly, theaters, with stage', 
-    values: [
         {key: "IA", value: 337.405},
         {key: "IB", value: 325.4},
         {key: "IIA", value: 315.796},
@@ -42,6 +29,19 @@ export const buildingTypes = [
         {key: "IV", value: 292.9816},
         {key: "VA", value: 264.1402},
         {key: "VB", value: 254.0364},
+    ]
+  },
+  {group: 'A-1 Assembly, theaters, with stage', 
+    values: [
+        {key: "IA", value: 309.769},
+        {key: "IB", value: 297.764},
+        {key: "IIA", value: 288.16},
+        {key: "IIB", value: 275.714},
+        {key: "IIIA", value: 256.065},
+        {key: "IIIB", value: 247.8526},
+        {key: "IV", value: 265.3456},
+        {key: "VA", value: 236.7492},
+        {key: "VB", value: 226.6454},
     ]
   },
   {group: 'A-2 Assembly, nightclubs', 

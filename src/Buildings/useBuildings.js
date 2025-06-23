@@ -174,6 +174,11 @@ const useBuildings = ({ totalUpdated }) => {
     const calculateValuation = (card) => {
         let valuation = 0;
         if (card.constructionScope && card.squareFeet && card.constructionType) {
+            console.log((
+                        meansLocationFactor *
+                        card.constructionType.value *
+                        card.constructionScope.percent
+                    ).toFixed(2))
             valuation =
                 parseFloat(
                     (

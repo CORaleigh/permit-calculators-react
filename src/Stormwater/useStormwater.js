@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { fees, sections } from "./stormwaterConfig";
 
@@ -128,7 +128,7 @@ const useStormwater = ({ totalUpdated }) => {
       }, [blocks, feeBlocks]);
       useEffect(() => {
         totalUpdated(total, "stormwater");
-      }, [total]);    
+      }, [total, totalUpdated]);    
     return {
         blocks, 
         feeBlocks, 

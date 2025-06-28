@@ -19,7 +19,15 @@ import {
 import "./OpenSpace.css";
 import { dollar } from "../config";
 import useOpenSpace from "./useOpenSpace";
+import PropTypes from "prop-types";
 
+/**
+ * @param {number} amount - Total fee to report
+ * @param {string} source - Label for the update type
+ */
+OpenSpace.propTypes = {
+  totalUpdated: PropTypes.func.isRequired,
+};
 function OpenSpace({ totalUpdated }) {
   const {
     zones,
@@ -169,4 +177,5 @@ function OpenSpace({ totalUpdated }) {
   );
 }
 
-export default React.memo(OpenSpace);
+const MemoizedOpenSpace = React.memo(OpenSpace);
+export default MemoizedOpenSpace;

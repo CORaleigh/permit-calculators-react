@@ -15,6 +15,15 @@ import {
 import { dollar } from "../config";
 import "./Stormwater.css";
 import useStormwater from "./useStormwater";
+import PropTypes from "prop-types";
+
+/**
+ * @param {number} amount - Total fee to report
+ * @param {string} source - Label for the update type
+ */
+Stormwater.propTypes = {
+  totalUpdated: PropTypes.func.isRequired,
+};
 function Stormwater({ totalUpdated }) {
   const {
     blocks,
@@ -48,7 +57,7 @@ function Stormwater({ totalUpdated }) {
               {dollar.format(block.total)}
             </div>
             {block.url && (
-              <a href={block.url} target="_blank" slot="control">
+              <a href={block.url} target="_blank" rel="noreferrer" slot="control">
                 <CalciteAction
                   text="Information"
                   icon="information"
@@ -93,7 +102,7 @@ function Stormwater({ totalUpdated }) {
               {dollar.format(block.total)}
             </div>
             {block.url && (
-              <a href={block.url} target="_blank" slot="control">
+              <a href={block.url} target="_blank" rel="noreferrer" slot="control">
                 <CalciteAction
                   text="Information"
                   icon="information"
@@ -110,4 +119,5 @@ function Stormwater({ totalUpdated }) {
   );
 }
 
-export default React.memo(Stormwater);
+const MemoizedStormwater = React.memo(Stormwater);
+export default MemoizedStormwater;

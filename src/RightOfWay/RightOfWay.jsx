@@ -24,11 +24,20 @@ import {
 } from "@esri/calcite-components-react";
 import { dollar } from "../config";
 import useRightOfWay from "./useRightOfWay";
+import PropTypes from "prop-types";
+
+/**
+ * @param {number} amount - Total fee to report
+ * @param {string} source - Label for the update type
+ */
+RightOfWay.propTypes = {
+  totalUpdated: PropTypes.func.isRequired,
+};
 
 function RightOfWay({ totalUpdated }) {
   const {
     occupancies,
-    config,
+    fees,
     totals,
     showModal,
     setShowModal,
@@ -84,7 +93,7 @@ function RightOfWay({ totalUpdated }) {
                   {!item.occupancyClass && (
                     <CalciteOption value={""}></CalciteOption>
                   )}
-                  {config.map((classification) => (
+                  {fees.map((classification) => (
                     <CalciteOption
                       key={classification.class}
                       value={classification}
@@ -241,4 +250,5 @@ function RightOfWay({ totalUpdated }) {
   );
 }
 
-export default React.memo(RightOfWay);
+const MemoizedRightOfWay = React.memo(RightOfWay);
+export default MemoizedRightOfWay;

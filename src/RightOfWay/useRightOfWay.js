@@ -29,7 +29,6 @@ const useRightOfWay = ({ totalUpdated }) => {
                 },
             ]
     );
-    const [config, setConfig] = useState(fees);
     const [totals, setTotals] = useState({
         totalPerDay: 0,
         totalProject: 0,
@@ -107,7 +106,7 @@ const useRightOfWay = ({ totalUpdated }) => {
     const downtownChanged = (e, item) => {
         let occupancyClass = item.occupancyClass;
         if (item.occupancyClass.class.includes('Minor') && e.target.checked) {
-            occupancyClass = config.find(c => c.class === item.occupancyClass.class.replace('Minor', 'Major'));
+            occupancyClass = fees.find(c => c.class === item.occupancyClass.class.replace('Minor', 'Major'));
         }
         const updatedOccupancies = occupancies.map((old) =>
             old.id === item.id
@@ -214,7 +213,7 @@ const useRightOfWay = ({ totalUpdated }) => {
             totals.totalProject + totals.projectReview,
             "rightofway"
         );
-    }, [totals]);
+    }, [totalUpdated, totals]);
     useEffect(() => {
         if (!mapLoaded.current) {
             (async () => {
@@ -268,7 +267,7 @@ const useRightOfWay = ({ totalUpdated }) => {
     }, []); 
     return {
         occupancies, 
-        config, 
+        fees, 
         totals, 
         showModal, 
         setShowModal,

@@ -23,6 +23,15 @@ import {
 import { dollar } from "../config";
 import "./Thoroughfare.css";
 import useThoroughfare from "./useThoroughfare";
+import PropTypes from "prop-types";
+
+/**
+ * @param {number} amount - Total fee to report
+ * @param {string} source - Label for the update type
+ */
+Thoroughfare.propTypes = {
+  totalUpdated: PropTypes.func.isRequired,
+};
 function Thoroughfare({ totalUpdated }) {
   const {
     categories,
@@ -114,4 +123,5 @@ function Thoroughfare({ totalUpdated }) {
   );
 }
 
-export default React.memo(Thoroughfare);
+const MemoizedThoroughfare = React.memo(Thoroughfare);
+export default MemoizedThoroughfare;

@@ -52,8 +52,7 @@ function Buildings({ totalUpdated }) {
     showDeleteModal,
     setShowDeleteModal,
     deleteMessage,
-    deleteTitle,
-    removeOtherCards
+    deleteTitle
   } = useBuildings({ totalUpdated });
 
 
@@ -371,4 +370,5 @@ function Buildings({ totalUpdated }) {
     </div>
   );
 }
-export default React.memo(Buildings);
+const MemoizedBuildings = React.memo(Buildings);
+export default MemoizedBuildings;

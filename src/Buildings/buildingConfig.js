@@ -1,18 +1,18 @@
-export const meansLocationFactor = 0.876; //changed FY27
+export const meansLocationFactor = 0.876; //changed FY27 from  0.854
 export const minFee = 124; //changed FY27 from 123
 export const techFee = 0.04; //unchanged FY27
 export const feesMultipliers = {
-    building: { commercial: 0, residential: 0.0038 }, //changed FY27
-    electrical: { commercial: 1, residential: 0.49 }, //changed FY27
+    building: { commercial: 0, residential: 0.0038 }, //changed FY27 from 0.0035
+    electrical: { commercial: 1, residential: 0.49 }, //changed FY27 from 0.54
     mechanical: { commercial: 0.76, residential: 0.28 }, //unchanged FY27
     plumbing: { commercial: 0.56, residential: 0.34 }, //unchanged FY27
     planReview: { commercial: 0.65, residential: 0.57 }//unchanged FY27
   };
 
 export const tiers = [
-    { tier: 1, min: 0, max: 500000, costper: 0.0021, cumulative: 0 }, //changed FY27
-    { tier: 2, min: 500001.00, max: 10000000.00, costper: 0.0006, cumulative: 1050 }, //changed FY27
-    { tier: 3, min: 10000001.00, max: 999999999999999.00, costper: 0.0001, cumulative: 7250 } //changed FY27
+    { tier: 1, min: 0, max: 500000, costper: 0.0021, cumulative: 0 }, //changed FY27 from 0.0020
+    { tier: 2, min: 500001.00, max: 10000000.00, costper: 0.0006, cumulative: 1050 }, //changed FY27 from 1000
+    { tier: 3, min: 10000001.00, max: 999999999999999.00, costper: 0.0001, cumulative: 7250 } //changed FY27 from 6900
 ];
 export const constructionScopes = [
   { name: 'New Construction', percent: 1 },  //unchanged FY27

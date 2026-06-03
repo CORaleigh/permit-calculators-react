@@ -200,6 +200,7 @@ const useRightOfWay = ({ totalUpdated }) => {
   
         setOccupancies(occupancies);
         totalProjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [occupancies]);
     useEffect(() => {
         window.localStorage.setItem(

@@ -3,27 +3,27 @@ export const tfCategories = [
     category: 'Residential', selected: true, landuses: [
       {
         category: 'Residential', landuse: 'Single Family', measure: 'unit', label: '# of units', selected: false, value: null, total: 0, thresholds: [
-          { min: 0, max: 999, per: 1790, label: '# of units less than 1,000 sq. ft.', value: null, total: 0 },
-          { min: 1000, max: 1999, per: 2128, label: '# of units 1,000 – 1,999 sq. ft.', value: null, total: 0 },
-          { min: 2000, max: 2999, per: 2360, label: '# of units 2,000 – 2,999 sq. ft.', value: null, total: 0 },
-          { min: 3000, max: 3999, per: 2539, label: '# of units 3,000 – 3,999 sq. ft.', value: null, total: 0 },
-          { min: 4000, max: 4999, per: 2680, label: '# of units 4,000 – 4,999 sq. ft.', value: null, total: 0 },
-          { min: 5000, max: null, per: 2867, label: '# of units greater than 5,000 sq. ft.', value: null, total: 0 },
+          { min: 0, max: 999, per: 1833, label: '# of units less than 1,000 sq. ft.', value: null, total: 0 },
+          { min: 1000, max: 1999, per: 2180, label: '# of units 1,000 – 1,999 sq. ft.', value: null, total: 0 },
+          { min: 2000, max: 2999, per: 2417, label: '# of units 2,000 – 2,999 sq. ft.', value: null, total: 0 },
+          { min: 3000, max: 3999, per: 2601, label: '# of units 3,000 – 3,999 sq. ft.', value: null, total: 0 },
+          { min: 4000, max: 4999, per: 2745, label: '# of units 4,000 – 4,999 sq. ft.', value: null, total: 0 },
+          { min: 5000, max: null, per: 2937, label: '# of units greater than 5,000 sq. ft.', value: null, total: 0 },
         ]
       },
-      { category: 'Residential', landuse: 'Multi-Family', measure: 'unit', label: '# of units', selected: false, value: null, total: 0, per: 1578 },
-      { category: 'Residential', landuse: 'Group Living, Social Service', measure: 'unit', label: '# of units', selected: false, value: null, total: 0, per: 662 }
+      { category: 'Residential', landuse: 'Multi-Family', measure: 'unit', label: '# of units', selected: false, value: null, total: 0, per: 1616 },
+      { category: 'Residential', landuse: 'Group Living, Social Service', measure: 'unit', label: '# of units', selected: false, value: null, total: 0, per: 678 }
     ]
   },
   {
     category: 'Commercial', selected: false, landuses: [
-      { category: "Commercial", landuse: "Hotel/Motel", measure: "unit", label: "Rooms", selected: false, value: null, total: 0, per: 2251 },
-      { category: "Commercial", landuse: "Retail/Commercial", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 3831.51 },
-      { category: "Commercial", landuse: "Retail uses that include the sale of motor fuels to public", measure: "unit", label: "Fueling Stations", selected: false, value: null, total: 0, per: 8510.52 },
-      { category: "Commercial", landuse: "Office", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 2921.26 },
-      { category: "Commercial", landuse: "Industrial/manufacturing/agricultural", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 1846.51 },
-      { category: "Commercial", landuse: "Warehouse", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 1061.74 },
-      { category: "Commercial", landuse: "Mini warehousing", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 536.19 }
+      { category: "Commercial", landuse: "Hotel/Motel", measure: "unit", label: "Rooms", selected: false, value: null, total: 0, per: 2306 },
+      { category: "Commercial", landuse: "Retail/Commercial", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 3924.62 },
+      { category: "Commercial", landuse: "Retail uses that include the sale of motor fuels to public", measure: "unit", label: "Fueling Stations", selected: false, value: null, total: 0, per: 8717.33 },
+      { category: "Commercial", landuse: "Office", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 2992.25 },
+      { category: "Commercial", landuse: "Industrial/manufacturing/agricultural", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 1891.38 },
+      { category: "Commercial", landuse: "Warehouse", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 1087.54 },
+      { category: "Commercial", landuse: "Mini warehousing", measure: "area", label: "Gross Floor Area (sq. ft.)", selected: false, value: null, total: 0, per: 549.22 }
     ]
   },
   {
@@ -36,7 +36,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 1473.65
+        per: 1509.46
       },
       {
         category: "Public/Institutional",
@@ -46,7 +46,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 537.39
+        per: 550.45
       },
       {
         category: "Public/Institutional",
@@ -56,7 +56,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 5879.25
+        per: 6022.12
       },
       {
         category: "Public/Institutional",
@@ -66,7 +66,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 4065.88
+        per: 4164.68
       },
       {
         category: "Public/Institutional",
@@ -76,7 +76,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 4664.81
+        per: 4778.16
       },
       {
         category: "Public/Institutional",
@@ -86,7 +86,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 1311.50
+        per: 1343.37
       },
       {
         category: "Public/Institutional",
@@ -96,7 +96,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 1013.21
+        per: 1037.83
       },
       {
         category: "Public/Institutional",
@@ -106,7 +106,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 1061.74
+        per: 1087.54
       },
       {
         category: "Public/Institutional",
@@ -116,7 +116,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 1061.74
+        per: 1087.54
       }
     ]
   },
@@ -130,7 +130,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 7642.89
+        per: 7828.61
       },
       {
         category: "Recreational",
@@ -140,7 +140,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 344.44
+        per: 352.81
       },
       {
         category: "Recreational",
@@ -150,7 +150,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 132.57
+        per: 135.79
       },
       {
         category: "Recreational",
@@ -160,7 +160,7 @@ export const tfCategories = [
         selected: false,
         value: null,
         total: 0,
-        per: 358.65
+        per: 367.37
       }
     ]
   }

@@ -11,6 +11,7 @@ import "@esri/calcite-components/dist/components/calcite-modal";
 import "@esri/calcite-components/dist/components/calcite-alert";
 
 import "@esri/calcite-components/dist/components/calcite-input-message";
+import PropTypes from "prop-types";
 
 import {
   CalciteCard,
@@ -30,6 +31,9 @@ import "./Buildings.css";
 
 import { dollar } from "../config";
 import useBuildings from "./useBuildings";
+Buildings.propTypes = {
+  totalUpdated: PropTypes.func.isRequired,
+};
 function Buildings({ totalUpdated }) {
   const {
     currentCardIndex,

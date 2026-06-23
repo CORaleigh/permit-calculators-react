@@ -8,7 +8,7 @@ export const feesMultipliers = {
     plumbing: { commercial: 0.56, residential: 0.34 }, //unchanged FY27
     planReview: { commercial: 0.65, residential: 0.57 }//unchanged FY27
   };
-
+export const altReviewMultiplier = 0.55;//added changed from 0.5 to 0.55 FY27
 export const tiers = [
     { tier: 1, min: 0, max: 500000, costper: 0.0021, cumulative: 0 }, //changed FY27 from 0.0020
     { tier: 2, min: 500001.00, max: 10000000.00, costper: 0.0006, cumulative: 1050 }, //changed FY27 from 1000

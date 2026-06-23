@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import {
+    altReviewMultiplier,
     buildingTypes,
     constructionScopes,
     feesMultipliers,
@@ -312,7 +313,7 @@ const useBuildings = ({ totalUpdated }) => {
         plumbingFee = Math.round(plumbingFee < minFee ? minFee : plumbingFee);
 
         let planReviewFee = isAlteration
-            ? buildingFee * 0.5
+            ? buildingFee * altReviewMultiplier
             : isResidential
                 ? buildingFee * feesMultipliers.planReview.residential
                 : buildingFee * feesMultipliers.planReview.commercial;  

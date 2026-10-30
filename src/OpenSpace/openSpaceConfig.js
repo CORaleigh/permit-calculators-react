@@ -11,7 +11,7 @@ export const zones = [{
 {
   zone: 3,
   single: 1615,
-  multi: 1145
+  multi: 1175
 },
 {
   zone: 4,

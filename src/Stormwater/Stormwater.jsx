@@ -28,14 +28,15 @@ function Stormwater({ totalUpdated }) {
         {feeBlocks.map((block, i) => (
           <calcite-block
             expandable
-            oncalciteBlockToggle={() => feeHeadingClicked(block)}
+            oncalciteBlockExpand={() => !block.selected && feeHeadingClicked(block)}
+            oncalciteBlockCollapse={() => block.selected && feeHeadingClicked(block)}
             key={`stormwater-fee-section-${i}`}
             heading={block.name}
             expanded={block.selected}
           >
             <calcite-checkbox
               slot="content-start"
-              checked={block.selected ? true : undefined}
+              checked={!!block.selected}
               oncalciteCheckboxChange={(e) => feeBlockToggled(e, block)}
             ></calcite-checkbox>
 
@@ -77,11 +78,12 @@ function Stormwater({ totalUpdated }) {
             expandable
             key={`stormwater-section-${i}`}
             heading={block.name}
-            oncalciteBlockToggle={() => headingClicked(block)}
+            oncalciteBlockExpand={() => !block.selected && headingClicked(block)}
+            oncalciteBlockCollapse={() => block.selected && headingClicked(block)}
           >
             <calcite-checkbox
               slot="content-start"
-              checked={block.selected ? true : undefined}
+              checked={!!block.selected}
               oncalciteCheckboxChange={(e) => blockToggled(e, block)}
             ></calcite-checkbox>
             <div slot="content-end" className="stormwater-total">

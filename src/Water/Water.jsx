@@ -41,7 +41,7 @@ function Water({ totalUpdated }) {
             <calcite-label layout="inline">
               Project in Raleigh?
               <calcite-checkbox
-                checked={infrastructure.inRaleigh ? true : undefined}
+                checked={!!infrastructure.inRaleigh}
                 oncalciteCheckboxChange={inRaleighChanged}
               ></calcite-checkbox>
             </calcite-label>
@@ -70,7 +70,7 @@ function Water({ totalUpdated }) {
             <calcite-label layout="inline">
               Pump Station?
               <calcite-checkbox
-                checked={infrastructure.pumpStation ? true : undefined}
+                checked={!!infrastructure.pumpStation}
                 oncalciteCheckboxChange={pumpStationChanged}
               ></calcite-checkbox>
             </calcite-label>

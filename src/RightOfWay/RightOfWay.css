@@ -38,7 +38,3 @@
     flex-wrap: wrap;
   }
 }
-
-.esri-legend > div {
-  display: flex;
-}

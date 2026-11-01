@@ -10,6 +10,7 @@ import "@esri/calcite-components/components/calcite-dialog";
 import "@esri/calcite-components/components/calcite-select";
 import "@arcgis/map-components/components/arcgis-map";
 import "@arcgis/map-components/components/arcgis-search";
+import "@arcgis/map-components/components/arcgis-expand";
 import "@arcgis/map-components/components/arcgis-legend";
 
 import "./RightOfWay.css";
@@ -61,7 +62,9 @@ function RightOfWay({ totalUpdated }) {
             includeDefaultSourcesDisabled
             sources={searchSources}
           ></arcgis-search>
-          <arcgis-legend slot="bottom-left"></arcgis-legend>
+          <arcgis-expand slot="bottom-left" expandTooltip="Legend">
+            <arcgis-legend></arcgis-legend>
+          </arcgis-expand>
         </arcgis-map>
 
         <calcite-link
@@ -137,7 +140,7 @@ function RightOfWay({ totalUpdated }) {
                 Downtown Zone
                 <calcite-checkbox
                   scale="l"
-                  checked={item.downtown ? true : undefined}
+                  checked={!!item.downtown}
                   oncalciteCheckboxChange={(e) => downtownChanged(e, item)}
                 ></calcite-checkbox>
               </calcite-label>

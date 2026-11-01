@@ -41,7 +41,7 @@ function Thoroughfare({ totalUpdated }) {
           {categories.map((category, i) => (
             <calcite-tab
               key={`tab-${i}`}
-              selected={category.selected ? true : undefined}
+              selected={!!category.selected}
             >
               {category.landuses &&
                 category.landuses.map((landuse, j) => (
@@ -49,14 +49,15 @@ function Thoroughfare({ totalUpdated }) {
                     key={`landuse-block-${i}-${j}`}
                     heading={landuse.landuse}
                     expanded={landuse.selected}
-                    oncalciteBlockToggle={(e) => blockToggled(e, landuse)}
+                    oncalciteBlockExpand={(e) => !landuse.selected && blockToggled(e, landuse)}
+                    oncalciteBlockCollapse={(e) => landuse.selected && blockToggled(e, landuse)}
                     expandable
                   >
                     <calcite-checkbox
                       scale="l"
                       key={`landuse-checkbox-${i}-${j}`}
                       slot="content-start"
-                      checked={landuse.selected ? true : undefined}
+                      checked={!!landuse.selected}
                       oncalciteCheckboxChange={(e) =>
                         checkboxChanged(e, landuse)
                       }

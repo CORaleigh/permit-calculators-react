@@ -1,11 +1,10 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-import WebMap from "@arcgis/core/WebMap.js";
-import MapView from "@arcgis/core/views/MapView.js";
-import Search from "@arcgis/core/widgets/Search.js";
+import LocatorSearchSource from "@arcgis/core/widgets/Search/LocatorSearchSource.js";
 
-import { zones } from "./openSpaceConfig";
+import { addressLocator } from "../config";
+import { webMapId, zones } from "./openSpaceConfig";
 
 
 const useOpenSpace = ({ totalUpdated }) => {
@@ -24,73 +23,29 @@ const useOpenSpace = ({ totalUpdated }) => {
             }
     );
 
-    const mapDiv = useRef(null);
-    const searchDiv = useRef(null);
-    const mapLoaded = useRef(false);
-    const hitTest = async (screenPoint, view) => {
-        let layer = view.map.allLayers.find(function (layer) {
+    const mapRef = useRef(null);
+    const searchSources = useMemo(() => [new LocatorSearchSource(addressLocator)], []);
+    const hitTest = async (screenPoint) => {
+        const mapEl = mapRef.current;
+        let layer = mapEl.map.allLayers.find(function (layer) {
             return layer.title === "Open Space Facility Fee Zones";
         });
-        const result = await view.hitTest(screenPoint, { include: [layer] });
+        const result = await mapEl.hitTest(screenPoint, { include: [layer] });
         if (result.results.length) {
             const zoneNumber = result.results[0].graphic.getAttribute("ZONE_NUMBER");
             const zone = zones.find((z) => z.zone === zoneNumber);
             setSelectedZone(zone);
         }
     };
-    useEffect(() => {
-        if (!mapLoaded.current) {
-            (async () => {
-                const map = new WebMap({
-                    portalItem: {
-                        id: "47a467200a2a41a8b1bacef6a30b86ae",
-                    },
-                });
-                const view = new MapView({
-                    map: map,
-                    container: mapDiv.current,
-                    popup: {
-                        dockEnabled: true,
-                        dockOptions: {
-                            // Disables the dock button from the popup
-                            buttonEnabled: false,
-                            // Ignore the default sizes that trigger responsive docking
-                            breakpoint: false,
-                            position: "top-right",
-                        },
-                    },
-                });
-                await view.when();
-                view.ui.remove("zoom");
-                const search = new Search({
-                    view: view,
-                    container: searchDiv.current,
-                    includeDefaultSources: false,
-                    sources: [
-                        {
-                            url: "https://maps.raleighnc.gov/arcgis/rest/services/Locators/Locator/GeocodeServer",
-                            singleLineFieldName: "SingleLine",
-                            name: "Search by Address",
-                            placeholder: "Search by Address",
-                        },
-                    ],
-                });
-                //view.ui.add(search, "top-left");
-                search.on("search-complete", (e) => {
-                    hitTest(
-                        view.toScreen(e.results[0]?.results[0]?.feature.geometry),
-                        view
-                    );
-                });
-                view.on("click", async (e) => {
-                    hitTest(e.screenPoint, view);
-                });
-            })();
-            mapLoaded.current = true;
-
+    const mapClicked = (e) => {
+        hitTest(e.detail.screenPoint);
+    };
+    const searchCompleted = (e) => {
+        const geometry = e.detail.results[0]?.results[0]?.feature.geometry;
+        if (geometry) {
+            hitTest(mapRef.current.toScreen(geometry));
         }
-
-    }, []);
+    };
 
     useEffect(() => {
         if (selectedZone) {
@@ -149,8 +104,11 @@ const useOpenSpace = ({ totalUpdated }) => {
         showMultiModal, 
         setShowMultiModal,
         fee, 
-        mapDiv, 
-        searchDiv,
+        mapRef,
+        webMapId,
+        searchSources,
+        mapClicked,
+        searchCompleted,
         singleChanged, 
         multiChanged
     };

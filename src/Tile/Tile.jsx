@@ -1,11 +1,10 @@
 import "./Tile.css"
-import "@esri/calcite-components/dist/components/calcite-card";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router";
 
 function Tile({title, path, icon}) {
   
     const navigate = useNavigate();
-
 
   return (
     <>

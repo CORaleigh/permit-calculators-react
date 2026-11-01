@@ -1,4 +1,4 @@
-.esri-view {
+arcgis-map {
   width: 100%;
   height: 300px;
 }
@@ -6,6 +6,6 @@
 
 
 
-#searchDiv, .esri-search {
+#openspace arcgis-search {
     width: 100% !important;
 }

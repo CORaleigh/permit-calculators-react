@@ -1,26 +1,14 @@
 import React from "react";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-checkbox";
+import "@esri/calcite-components/components/calcite-input";
+import "@esri/calcite-components/components/calcite-label";
+import "@esri/calcite-components/components/calcite-tab";
+import "@esri/calcite-components/components/calcite-tab-nav";
+import "@esri/calcite-components/components/calcite-tab-title";
+import "@esri/calcite-components/components/calcite-tabs";
 
-import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-tab";
-import "@esri/calcite-components/dist/components/calcite-tabs";
-import "@esri/calcite-components/dist/components/calcite-tab-nav";
-import "@esri/calcite-components/dist/components/calcite-tab-title";
-import "@esri/calcite-components/dist/components/calcite-checkbox";
-import "@esri/calcite-components/dist/components/calcite-label";
-import "@esri/calcite-components/dist/components/calcite-input";
-
-import {
-  CalciteCard,
-  CalciteCheckbox,
-  CalciteInput,
-  CalciteLabel,
-  CalciteTab,
-  CalciteTabNav,
-  CalciteTabTitle,
-  CalciteTabs,
-} from "@esri/calcite-components-react";
-
-import { dollar } from "../config";
+import { dollar, inputValue } from "../config";
 import "./Water.css";
 import useWater from "./useWater";
 function Water({ totalUpdated }) {
@@ -34,68 +22,68 @@ function Water({ totalUpdated }) {
   } = useWater({ totalUpdated });
   return (
     <div id="water">
-      <CalciteCard>
-        <span slot="title">Water Utility Fee Calculator</span>
-        <CalciteLabel slot="subtitle">
+      <calcite-card>
+        <span slot="heading">Water Utility Fee Calculator</span>
+        <calcite-label slot="description">
           Total {dollar.format(infrastructure.total + capital.total)}
-        </CalciteLabel>
-        <CalciteTabs>
-          <CalciteTabNav slot="title-group">
-            <CalciteTabTitle>Infrastructure Fees</CalciteTabTitle>
-            <CalciteTabTitle>Capital Fees</CalciteTabTitle>
-          </CalciteTabNav>
-          <CalciteTab>
-            <CalciteLabel>
+        </calcite-label>
+        <calcite-tabs>
+          <calcite-tab-nav slot="title-group">
+            <calcite-tab-title>Infrastructure Fees</calcite-tab-title>
+            <calcite-tab-title>Capital Fees</calcite-tab-title>
+          </calcite-tab-nav>
+          <calcite-tab>
+            <calcite-label>
               {`Infrastructure Fees Total ${dollar.format(
                 infrastructure.total
               )}`}
-            </CalciteLabel>
-            <CalciteLabel layout="inline">
+            </calcite-label>
+            <calcite-label layout="inline">
               Project in Raleigh?
-              <CalciteCheckbox
-                checked={infrastructure.inRaleigh ? true : undefined}
-                onCalciteCheckboxChange={inRaleighChanged}
-              ></CalciteCheckbox>
-            </CalciteLabel>
+              <calcite-checkbox
+                checked={!!infrastructure.inRaleigh}
+                oncalciteCheckboxChange={inRaleighChanged}
+              ></calcite-checkbox>
+            </calcite-label>
 
             {infrastructure.inputs.map((input, i) => (
-              <CalciteLabel
+              <calcite-label
                 key={`infrastructure-input${i}`}
                 hidden={infrastructure.inRaleigh && input.units === "stubs"}
               >
                 {input.label}
-                <CalciteInput
+                <calcite-input
                   suffixText={input.units}
                   type="number"
                   min={0}
-                  value={input.value}
-                  onCalciteInputInput={(e) =>
+                  value={inputValue(input.value)}
+                  oncalciteInputInput={(e) =>
                     infrastructureInputChanged(
                       e.target.value,
                       input,
                       infrastructure.inRaleigh
                     )
                   }
-                ></CalciteInput>
-              </CalciteLabel>
+                ></calcite-input>
+              </calcite-label>
             ))}
-            <CalciteLabel layout="inline">
+            <calcite-label layout="inline">
               Pump Station?
-              <CalciteCheckbox
-                checked={infrastructure.pumpStation ? true : undefined}
-                onCalciteCheckboxChange={pumpStationChanged}
-              ></CalciteCheckbox>
-            </CalciteLabel>
+              <calcite-checkbox
+                checked={!!infrastructure.pumpStation}
+                oncalciteCheckboxChange={pumpStationChanged}
+              ></calcite-checkbox>
+            </calcite-label>
             <div className="water-infrastructure-totals">
               <div className="water-infrastructure-total">
                 <h3>Plan Review Fees</h3>
                 {infrastructure.fees.map((fee) => {
                   return (
                     fee.category === "Plan Review Fees" && (
-                      <CalciteLabel key={fee.title}>
+                      <calcite-label key={fee.title}>
                         {fee.title}
                         <div>{dollar.format(fee.fee)}</div>
-                      </CalciteLabel>
+                      </calcite-label>
                     )
                   );
                 })}
@@ -106,10 +94,10 @@ function Water({ totalUpdated }) {
                 {infrastructure.fees.map((fee) => {
                   return (
                     fee.category === "Inspections Fees" && (
-                      <CalciteLabel key={fee.title}>
+                      <calcite-label key={fee.title}>
                         {fee.title}
                         <div>{dollar.format(fee.fee)}</div>
-                      </CalciteLabel>
+                      </calcite-label>
                     )
                   );
                 })}
@@ -120,46 +108,46 @@ function Water({ totalUpdated }) {
                 {infrastructure.fees.map((fee) => {
                   return (
                     fee.category === "Stub Fees" && (
-                      <CalciteLabel key={fee.title}>
+                      <calcite-label key={fee.title}>
                         {fee.title}
                         <div>{dollar.format(fee.fee)}</div>
-                      </CalciteLabel>
+                      </calcite-label>
                     )
                   );
                 })}
               </div>
             </div>
-          </CalciteTab>
-          <CalciteTab>
-            <CalciteLabel>
+          </calcite-tab>
+          <calcite-tab>
+            <calcite-label>
               {`Capital Fees Total ${dollar.format(capital.total)}`}
-            </CalciteLabel>
+            </calcite-label>
             {capital.meterSizes.map((size) => (
               <div key={size.size}>
                 <div>{size.size} Meters</div>
                 <div className="size-inputs">
                   {size.utilities.map((utility) => {
                     return (
-                      <CalciteLabel key={`${size.size}-${utility.type}`}>
+                      <calcite-label key={`${size.size}-${utility.type}`}>
                         {utility.label}
-                        <CalciteInput
-                          onCalciteInputInput={(e) =>
+                        <calcite-input
+                          oncalciteInputInput={(e) =>
                             sizeUpdated(e, size, utility)
                           }
                           suffixText="meters"
                           type="number"
                           min={0}
-                          value={utility.units}
-                        ></CalciteInput>
-                      </CalciteLabel>
+                          value={inputValue(utility.units)}
+                        ></calcite-input>
+                      </calcite-label>
                     );
                   })}
                 </div>
               </div>
             ))}
-          </CalciteTab>
-        </CalciteTabs>
-      </CalciteCard>
+          </calcite-tab>
+        </calcite-tabs>
+      </calcite-card>
     </div>
   );
 }

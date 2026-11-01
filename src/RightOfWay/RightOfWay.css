@@ -4,7 +4,7 @@
   align-items: center;
   flex-direction: row;
   border-bottom-style: solid;
-  border-bottom-color: var(--calcite-ui-border-3);
+  border-bottom-color: var(--calcite-color-border-3);
   border-bottom-width: 1px;
   margin-bottom: 1em;
 }
@@ -37,8 +37,4 @@
   .rightofway-row {
     flex-wrap: wrap;
   }
-}
-
-.esri-legend > div {
-  display: flex;
 }

@@ -1,39 +1,21 @@
 import React from "react";
-import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-input";
-import "@esri/calcite-components/dist/components/calcite-label";
-import "@esri/calcite-components/dist/components/calcite-select";
-import "@esri/calcite-components/dist/components/calcite-option";
-import "@esri/calcite-components/dist/components/calcite-fab";
-import "@esri/calcite-components/dist/components/calcite-link";
-import "@esri/calcite-components/dist/components/calcite-icon";
-import "@esri/calcite-components/dist/components/calcite-modal";
-import "@esri/calcite-components/dist/components/calcite-alert";
+import "@esri/calcite-components/components/calcite-alert";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-dialog";
+import "@esri/calcite-components/components/calcite-fab";
+import "@esri/calcite-components/components/calcite-icon";
+import "@esri/calcite-components/components/calcite-input";
+import "@esri/calcite-components/components/calcite-input-message";
+import "@esri/calcite-components/components/calcite-label";
+import "@esri/calcite-components/components/calcite-link";
+import "@esri/calcite-components/components/calcite-option";
+import "@esri/calcite-components/components/calcite-select";
 
-import "@esri/calcite-components/dist/components/calcite-input-message";
-import PropTypes from "prop-types";
-
-import {
-  CalciteCard,
-  CalciteInput,
-  CalciteSelect,
-  CalciteOption,
-  CalciteLabel,
-  CalciteFab,
-  CalciteIcon,
-  CalciteModal,
-  CalciteLink,
-  CalciteInputMessage,
-  CalciteAlert,
-} from "@esri/calcite-components-react";
 
 import "./Buildings.css";
 
-import { dollar } from "../config";
+import { dollar, inputValue } from "../config";
 import useBuildings from "./useBuildings";
-Buildings.propTypes = {
-  totalUpdated: PropTypes.func.isRequired,
-};
 function Buildings({ totalUpdated }) {
   const {
     currentCardIndex,
@@ -59,108 +41,106 @@ function Buildings({ totalUpdated }) {
     deleteTitle
   } = useBuildings({ totalUpdated });
 
-
   return (
     <div id="buildings">
 
       {cards.map((card, cardNum) => {
         return (
-          <CalciteCard
+          <calcite-card
             key={`card${cardNum}`}
             hidden={currentCardIndex !== card.id}
           >
-            <span slot="title">
+            <span slot="heading">
               {`Occupancy ${cardNum + 1}`}
-              <CalciteIcon
+              <calcite-icon
                 className="info-icon"
-                slot="title"
                 icon="information"
                 onClick={() => setShowModal((prev) => !prev)}
-              ></CalciteIcon>
+              ></calcite-icon>
             </span>
 
-            <CalciteLabel>
+            <calcite-label>
               Building Type
-              <CalciteSelect
+              <calcite-select
                 scale="l"
-                onCalciteSelectChange={(e) => buildingTypeSelected(e, card, cardNum)}
+                oncalciteSelectChange={(e) => buildingTypeSelected(e, card, cardNum)}
               >
                 {!card.buildingType && (
-                  <CalciteOption value={""} selected></CalciteOption>
+                  <calcite-option value={""} selected></calcite-option>
                 )}
                 {buildingTypes.map((type, i) => (
                   showBuildingType(type.group, cardNum) && 
-                  <CalciteOption
+                  <calcite-option
                     key={`card${cardNum}-buildingType${i}`}
                     value={type}
                     selected={type.group === card.buildingType?.group}
 
                   >
                     {type.group}
-                  </CalciteOption>
+                  </calcite-option>
                 ))}
-              </CalciteSelect>
-              <CalciteInputMessage scale="s">
+              </calcite-select>
+              <calcite-input-message scale="s">
                 * for Detached Accessory Structure, use Building Type U -
                 Utility, miscellaneous
-              </CalciteInputMessage>
-            </CalciteLabel>
-            <CalciteLabel>
+              </calcite-input-message>
+            </calcite-label>
+            <calcite-label>
               Construction Type
-              <CalciteSelect
+              <calcite-select
                 scale="l"
-                onCalciteSelectChange={(e) => constructionTypeSelected(e, card, cardNum)}
+                oncalciteSelectChange={(e) => constructionTypeSelected(e, card, cardNum)}
               >
                 {!card.constructionType && (
-                  <CalciteOption value={""} selected></CalciteOption>
+                  <calcite-option value={""} selected></calcite-option>
                 )}
                 {card.buildingType &&
                   card.buildingType.values.map((value) => (
-                    <CalciteOption
+                    <calcite-option
                       key={`card${cardNum}-constType-${value.key}`}
                       value={value}
                       selected={value.key === card.constructionType?.key}
 
                     >
                       {value.key}
-                    </CalciteOption>
+                    </calcite-option>
                   ))}
-              </CalciteSelect>
-            </CalciteLabel>
-            <CalciteLabel>
+              </calcite-select>
+            </calcite-label>
+            <calcite-label>
               Construction Scope
-              <CalciteSelect
+              <calcite-select
                 scale="l"
-                onCalciteSelectChange={(e) =>
+                oncalciteSelectChange={(e) =>
                   constructionScopeSelected(e, card, cardNum)
                 }
               >
                 {!card.constructionScope && (
-                  <CalciteOption value={""} selected></CalciteOption>
+                  <calcite-option value={""} selected></calcite-option>
                 )}
                 {constructionScopes.map((scope) => (
                   showScope(scope.name, cardNum) && 
-                  <CalciteOption
+                  <calcite-option
                     key={`card${cardNum}-${scope.name}`}
                     value={scope}
                     selected={scope.name === card.constructionScope?.name}
                   >
                     {scope.name}
-                  </CalciteOption>
+                  </calcite-option>
                 ))}
-              </CalciteSelect>
-            </CalciteLabel>
-            <CalciteLabel>
+              </calcite-select>
+            </calcite-label>
+            <calcite-label>
               Square Feet
-              <CalciteInput
+              <calcite-input
                 scale="l"
-                value={card.squareFeet}
-                onCalciteInputInput={(e) => squareFeetChanged(e, card, cardNum)}
+                value={inputValue(card.squareFeet)}
+                oncalciteInputInput={(e) => squareFeetChanged(e, card, cardNum)}
                 type="number"
                 min={0}
                 maxLength={12}
-              ></CalciteInput>
-            </CalciteLabel>
+              ></calcite-input>
+            </calcite-label>
             <div>
               Occupancy Valuation:{" "}
               {calculations[cardNum]
@@ -169,15 +149,15 @@ function Buildings({ totalUpdated }) {
             </div>
             
             <div slot="footer-start">
-              <CalciteIcon
+              <calcite-icon
                 icon="chevron-left"
                 onClick={() => setCurrentCardIndex(currentCardIndex - 1)}
                 className={`${currentCardIndex > 0 ? null : "hidden"}`}
-              ></CalciteIcon>
+              ></calcite-icon>
               <div className="card-index">{`${currentCardIndex + 1} of ${
                 cards.length
               }`}</div>
-              <CalciteIcon
+              <calcite-icon
                 icon="chevron-right"
                 onClick={() => setCurrentCardIndex(currentCardIndex + 1)}
                 className={`${
@@ -185,28 +165,28 @@ function Buildings({ totalUpdated }) {
                     ? null
                     : "hidden"
                 }`}
-              ></CalciteIcon>
+              ></calcite-icon>
             </div>
             <div slot="footer-end">
-              <CalciteFab slot="footer-end" onClick={addCard}></CalciteFab>
+              <calcite-fab slot="footer-end" onClick={addCard}></calcite-fab>
               {cards.length > 1 && cardNum > 0 && (
-                <CalciteFab
+                <calcite-fab
                   slot="footer-end"
                   kind="danger"
                   onClick={removeCard}
                   icon="trash"
-                ></CalciteFab>
+                ></calcite-fab>
               )}
             </div>
-          </CalciteCard>
+          </calcite-card>
         );
       })}
-      <CalciteCard>
-        <span slot="title">Total Project Fees*</span>
-        <CalciteLabel>
+      <calcite-card>
+        <span slot="heading">Total Project Fees*</span>
+        <calcite-label>
           Valuation <div>{dollar.format(totals.valuation)}</div>
-        </CalciteLabel>
-        <CalciteLabel>
+        </calcite-label>
+        <calcite-label>
           Building
           <div>
             {" "}
@@ -226,9 +206,9 @@ function Buildings({ totalUpdated }) {
                 )} technology fee)`
               : ""}
           </div>
-        </CalciteLabel>
+        </calcite-label>
 
-        <CalciteLabel>
+        <calcite-label>
           Electrical
           <div>
             {" "}
@@ -247,8 +227,8 @@ function Buildings({ totalUpdated }) {
                 )} technology fee)`
               : ""}
           </div>
-        </CalciteLabel>
-        <CalciteLabel>
+        </calcite-label>
+        <calcite-label>
           Mechanical
           <div>
             {" "}
@@ -267,8 +247,8 @@ function Buildings({ totalUpdated }) {
                 )} technology fee)`
               : ""}
           </div>
-        </CalciteLabel>
-        <CalciteLabel>
+        </calcite-label>
+        <calcite-label>
           Plumbing
           <div>
             {" "}
@@ -287,8 +267,8 @@ function Buildings({ totalUpdated }) {
                 )} technology fee)`
               : ""}
           </div>
-        </CalciteLabel>
-        <CalciteLabel>
+        </calcite-label>
+        <calcite-label>
           Plan Review
           <div>
             {" "}
@@ -307,32 +287,30 @@ function Buildings({ totalUpdated }) {
                 )} technology fee)`
               : ""}
           </div>
-        </CalciteLabel>
-        <CalciteLabel className="total">
+        </calcite-label>
+        <calcite-label className="total">
           Permit Total
           <div>
             {" "}
             {totals.fees.planReview.value ? dollar.format(totals.total) : "--"}
           </div>
-        </CalciteLabel>
+        </calcite-label>
         <div slot="footer-start">
           * only represents Building and Trade permit fees
       
         </div>
-      </CalciteCard>
-      <CalciteAlert kind="warning" autoCloseDuration="medium" autoClose  open={showDeleteModal ? true : undefined} label="A report alert" onCalciteAlertClose={() => setShowDeleteModal((prev) => !prev)}>
+      </calcite-card>
+      <calcite-alert kind="warning" autoCloseDuration="medium" autoClose  open={showDeleteModal} label="A report alert" oncalciteAlertClose={() => setShowDeleteModal(false)}>
         <div slot="title">{deleteTitle}</div>
         <div slot="message">{deleteMessage}</div>
-      </CalciteAlert>
-      <CalciteModal
-        open={showModal ? true : undefined}
-        aria-labelledby="instructions-title"
-        onCalciteModalClose={() => setShowModal((prev) => !prev)}
+      </calcite-alert>
+      <calcite-dialog
+        modal
+        open={showModal}
+        heading="Instructions"
+        oncalciteDialogClose={() => setShowModal(false)}
       >
-        <div slot="header" id="instructions-title">
-          Instructions
-        </div>
-        <div slot="content">
+        <div>
           <p>
             This calculator is intended to provide fee estimates for building
             permits, trades permits and plan review fees for both commercial and
@@ -351,26 +329,26 @@ function Buildings({ totalUpdated }) {
           <p>
             If you have questions about how these fees are calculated please
             visit our{" "}
-            <CalciteLink
+            <calcite-link
               iconStart="link"
               href="https://www.raleighnc.gov/DevelopmentFeeSchedule"
               target="_blank"
             >
               Guide for Raleigh Development Fees
-            </CalciteLink>{" "}
+            </calcite-link>{" "}
             for more information. If you need additional assistance please feel
             free to email us at{" "}
-            <CalciteLink
+            <calcite-link
               iconStart="envelope"
               href="mailto:ds.help@raleighnc.gov"
               target="_blank"
             >
               ds.help@raleighnc.gov
-            </CalciteLink>{" "}
+            </calcite-link>{" "}
             .
           </p>
         </div>
-      </CalciteModal>
+      </calcite-dialog>
     </div>
   );
 }

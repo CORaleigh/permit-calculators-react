@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-label";
 
 import { dollar } from "../config";
-import { CalciteCard, CalciteLabel } from "@esri/calcite-components-react";
 import './Summary.css'
 function Summary() {
   const [totals, setTotals] = useState(window.localStorage.getItem('permit-calculator-totals') ? JSON.parse(window.localStorage.getItem('permit-calculator-totals')) : {  openspace: 0,
@@ -12,33 +13,33 @@ function Summary() {
     total: 0
   });
   return <div id="summary">
-    <CalciteCard>
-      <span slot="title">Summary</span>
-      <CalciteLabel>
+    <calcite-card>
+      <span slot="heading">Summary</span>
+      <calcite-label>
         Building Permit Fees
         <div>{dollar.format(totals.building)}</div>
-      </CalciteLabel>
-      <CalciteLabel>
+      </calcite-label>
+      <calcite-label>
         Stormwater Fees
         <div>{dollar.format(totals.stormwater)}</div>
-      </CalciteLabel>      
-      <CalciteLabel>
+      </calcite-label>      
+      <calcite-label>
         Open Space Fees
         <div>{dollar.format(totals.openspace)}</div>
-      </CalciteLabel>         
-      <CalciteLabel>
+      </calcite-label>         
+      <calcite-label>
         Thoroughfare Fees
         <div>{dollar.format(totals.thoroughfare)}</div>
-      </CalciteLabel>          
-      <CalciteLabel>
+      </calcite-label>          
+      <calcite-label>
         Right of Way Occupancy Fees
         <div>{dollar.format(totals.rightofway)}</div>
-      </CalciteLabel>             
-      <CalciteLabel className="summary-total">
+      </calcite-label>             
+      <calcite-label className="summary-total">
         Total Estimated Fees
         <div>{dollar.format(totals.total)}</div>
-      </CalciteLabel>     
-    </CalciteCard>
+      </calcite-label>     
+    </calcite-card>
   </div>;
 }
 

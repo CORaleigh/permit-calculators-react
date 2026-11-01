@@ -1,38 +1,21 @@
 import React from "react";
-
-import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-select";
-import "@esri/calcite-components/dist/components/calcite-option";
-import "@esri/calcite-components/dist/components/calcite-input";
-import "@esri/calcite-components/dist/components/calcite-checkbox";
-import "@esri/calcite-components/dist/components/calcite-label";
-import "@esri/calcite-components/dist/components/calcite-fab";
-import "@esri/calcite-components/dist/components/calcite-link";
-import "@esri/calcite-components/dist/components/calcite-modal";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-checkbox";
+import "@esri/calcite-components/components/calcite-fab";
+import "@esri/calcite-components/components/calcite-input";
+import "@esri/calcite-components/components/calcite-label";
+import "@esri/calcite-components/components/calcite-link";
+import "@esri/calcite-components/components/calcite-option";
+import "@esri/calcite-components/components/calcite-dialog";
+import "@esri/calcite-components/components/calcite-select";
+import "@arcgis/map-components/components/arcgis-map";
+import "@arcgis/map-components/components/arcgis-search";
+import "@arcgis/map-components/components/arcgis-legend";
 
 import "./RightOfWay.css";
-import {
-  CalciteCard,
-  CalciteCheckbox,
-  CalciteFab,
-  CalciteInput,
-  CalciteLabel,
-  CalciteLink,
-  CalciteOption,
-  CalciteSelect,
-  CalciteModal,
-} from "@esri/calcite-components-react";
-import { dollar } from "../config";
+import { dollar, inputValue, mapPopup } from "../config";
 import useRightOfWay from "./useRightOfWay";
-import PropTypes from "prop-types";
 
-/**
- * @param {number} amount - Total fee to report
- * @param {string} source - Label for the update type
- */
-RightOfWay.propTypes = {
-  totalUpdated: PropTypes.func.isRequired,
-};
 
 function RightOfWay({ totalUpdated }) {
   const {
@@ -48,53 +31,59 @@ function RightOfWay({ totalUpdated }) {
     linearFeetChanged,
     dumpstersChanged,
     downtownChanged,
-    mapDiv,
-    legendDiv
+    webMapId,
+    searchSources
   } = useRightOfWay({ totalUpdated });
 
   return (
     <div id="rightofway">
-      <CalciteCard>
-        <span slot="title">Right-of-Way Occupancy Calculator</span>
+      <calcite-card>
+        <span slot="heading">Right-of-Way Occupancy Calculator</span>
         <div className="rightofway-row rightofway-totals">
-          <CalciteLabel>
+          <calcite-label>
             Project Total
             <div>{dollar.format(totals.totalProject)}</div>
-          </CalciteLabel>
-          <CalciteLabel>
+          </calcite-label>
+          <calcite-label>
             Project Review
             <div>{dollar.format(totals.projectReview)}</div>
-          </CalciteLabel>
-          <CalciteLabel>
+          </calcite-label>
+          <calcite-label>
             Total Due
             <div>
               {dollar.format(totals.totalProject + totals.projectReview)}
             </div>
-          </CalciteLabel>
+          </calcite-label>
         </div>
-        <div ref={mapDiv}></div>
-        <div ref={legendDiv}></div>
+        <arcgis-map itemId={webMapId} popup={mapPopup}>
+          <arcgis-search
+            slot="top-right"
+            includeDefaultSourcesDisabled
+            sources={searchSources}
+          ></arcgis-search>
+          <arcgis-legend slot="bottom-left"></arcgis-legend>
+        </arcgis-map>
 
-        <CalciteLink
+        <calcite-link
           iconStart="information"
           onClick={() => setShowModal((prev) => !prev)}
         >
           View Definitions
-        </CalciteLink>
+        </calcite-link>
         {occupancies.map((item, i) => (
           <div key={`occupancy${i}`}>
             <div className="rightofway-row">
-              <CalciteLabel>
+              <calcite-label>
                 Classification
-                <CalciteSelect
+                <calcite-select
                   scale="l"
-                  onCalciteSelectChange={(e) => classChanged(e, item)}
+                  oncalciteSelectChange={(e) => classChanged(e, item)}
                 >
                   {!item.occupancyClass && (
-                    <CalciteOption value={""}></CalciteOption>
+                    <calcite-option value={""}></calcite-option>
                   )}
                   {fees.map((classification) => (
-                    <CalciteOption
+                    <calcite-option
                       key={classification.class}
                       value={classification}
                       disabled={
@@ -106,74 +95,72 @@ function RightOfWay({ totalUpdated }) {
                       selected={item.occupancyClass === classification}
                     >
                       {classification.class}
-                    </CalciteOption>
+                    </calcite-option>
                   ))}
-                </CalciteSelect>
-              </CalciteLabel>
+                </calcite-select>
+              </calcite-label>
               {!item.occupancyClass?.class.includes("Dumpster") && (
-                <CalciteLabel>
+                <calcite-label>
                   Linear Feet
-                  <CalciteInput
+                  <calcite-input
                     scale="l"
-                    value={item.lf}
-                    onCalciteInputInput={(e) => linearFeetChanged(e, item)}
+                    value={inputValue(item.lf)}
+                    oncalciteInputInput={(e) => linearFeetChanged(e, item)}
                     type="number"
                     min="0"
-                  ></CalciteInput>
-                </CalciteLabel>
+                  ></calcite-input>
+                </calcite-label>
               )}
               {item.occupancyClass?.class.includes("Dumpster") && (
-                <CalciteLabel>
+                <calcite-label>
                   # of dumpsters
-                  <CalciteInput
+                  <calcite-input
                     scale="l"
-                    value={item.dumpsters}
-                    onCalciteInputInput={(e) => dumpstersChanged(e, item)}
+                    value={inputValue(item.dumpsters)}
+                    oncalciteInputInput={(e) => dumpstersChanged(e, item)}
                     type="number"
                     min="0"
-                  ></CalciteInput>
-                </CalciteLabel>
+                  ></calcite-input>
+                </calcite-label>
               )}
-              <CalciteLabel>
+              <calcite-label>
                 Days
-                <CalciteInput
+                <calcite-input
                   scale="l"
-                  value={item.days}
-                  onCalciteInputInput={(e) => daysChanged(e, item)}
+                  value={inputValue(item.days)}
+                  oncalciteInputInput={(e) => daysChanged(e, item)}
                   type="number"
                   min={0}
-                ></CalciteInput>
-              </CalciteLabel>
-              <CalciteLabel layout="inline" alignment="end">
+                ></calcite-input>
+              </calcite-label>
+              <calcite-label layout="inline" alignment="end">
                 Downtown Zone
-                <CalciteCheckbox
+                <calcite-checkbox
                   scale="l"
                   checked={item.downtown ? true : undefined}
-                  onCalciteCheckboxChange={(e) => downtownChanged(e, item)}
-                ></CalciteCheckbox>
-              </CalciteLabel>
-              <CalciteFab
+                  oncalciteCheckboxChange={(e) => downtownChanged(e, item)}
+                ></calcite-checkbox>
+              </calcite-label>
+              <calcite-fab
                 className={`${!item.occupancyClass ? "hidden" : null}`}
                 icon="trash"
                 onClick={() => removeRow(i)}
-              ></CalciteFab>
+              ></calcite-fab>
             </div>
           </div>
         ))}
 
-        <CalciteFab icon="plus" onClick={addRow}>
+        <calcite-fab icon="plus" onClick={addRow}>
           Add
-        </CalciteFab>
-      </CalciteCard>
-      <CalciteModal
-        open={showModal ? true : undefined}
-        aria-labelledby="definitions-title"
-        onCalciteModalClose={() => setShowModal((prev) => !prev)}
+        </calcite-fab>
+      </calcite-card>
+      <calcite-dialog
+        modal
+        open={showModal}
+        heading="Right-of-Way Occupancy Fee Definitions"
+        oncalciteDialogClose={() => setShowModal(false)}
       >
-        <div slot="header" id="definitions-title">
-          Right-of-Way Occupancy Fee Definitions
-        </div>
-        <div slot="content">
+        <div>
           <div>
             <u>Primary Occupancy</u>: The requested occupancy for single
             occupancy requests or the highest per day fee rate for multiple
@@ -245,7 +232,7 @@ function RightOfWay({ totalUpdated }) {
           </div>
           <div>Seconday Occupancy - Secondary rate x total linear footage</div>
         </div>
-      </CalciteModal>
+      </calcite-dialog>
     </div>
   );
 }

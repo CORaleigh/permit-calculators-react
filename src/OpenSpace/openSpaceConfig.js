@@ -1,3 +1,5 @@
+export const webMapId = "47a467200a2a41a8b1bacef6a30b86ae";
+
 export const zones = [{
   zone: 1,
   single: 1916,

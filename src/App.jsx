@@ -1,27 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import "@esri/calcite-components/components/calcite-button";
+import "@esri/calcite-components/components/calcite-label";
+import "@esri/calcite-components/components/calcite-dialog";
+import "@esri/calcite-components/components/calcite-navigation";
+import "@esri/calcite-components/components/calcite-navigation-logo";
+import "@esri/calcite-components/components/calcite-option";
+import "@esri/calcite-components/components/calcite-select";
 
 import "./App";
 import "./App.css"
-import "@esri/calcite-components/dist/components/calcite-navigation";
-import "@esri/calcite-components/dist/components/calcite-navigation-logo";
-import "@esri/calcite-components/dist/components/calcite-modal";
-import "@esri/calcite-components/dist/components/calcite-button";
 
-import {
-  CalciteButton,
-  CalciteLabel,
-  CalciteNavigation,
-  CalciteNavigationLogo,
-  CalciteOption,
-  CalciteSelect,
-  CalciteModal
-} from "@esri/calcite-components-react";
 import {
   Route,
   Routes,
   useNavigate,
   useLocation,
-} from "react-router-dom";
+} from "react-router";
 import Buildings from "./Buildings/Buildings";
 import OpenSpace from "./OpenSpace/OpenSpace";
 import Stormwater from "./Stormwater/Stormwater";
@@ -32,7 +26,6 @@ import Water from "./Water/Water";
 import Home from "./Home/Home";
 import { dollar } from "./config";
 import Summary from "./Summary/Summary";
-
 
 function App() {
   
@@ -55,10 +48,8 @@ useEffect(() => {
       total: 0
     }}
     totalRef.current.innerHTML = 'Total Fees '  + dollar.format(total.current.total);
-    document.querySelector('#selectLabel').shadowRoot?.querySelector('.container')?.setAttribute('style', 'color: white');
 
   }, [])
-
 
 const totalRef = useRef(null);
 const [reset, setReset] = useState(false);
@@ -118,78 +109,78 @@ useEffect(() => {
 
   return (
     <>
-      <CalciteNavigation slot="header">
-        <CalciteNavigationLogo
+      <calcite-navigation slot="header">
+        <calcite-navigation-logo
           slot="logo"
           heading="Development Fee Calculator"
           thumbnail="https://raleighnc.gov/themes/custom/cityofraleigh/logo.svg"
-        ></CalciteNavigationLogo>
-      </CalciteNavigation>
+        ></calcite-navigation-logo>
+      </calcite-navigation>
       <div className="subheader">
-      <CalciteLabel id="selectLabel" scale="l" alignment="center">
+      <calcite-label id="selectLabel" scale="l" alignment="center">
         Select a calculator
-        <CalciteSelect
+        <calcite-select
         scale="l"
         id="routeSelect"
-        onCalciteSelectChange={(e) => {
+        oncalciteSelectChange={(e) => {
           navigate(e.target.selectedOption.value);
         }}
       >
-        <CalciteOption value="/" selected={location.pathname === "/"}>
-        </CalciteOption>
-        <CalciteOption
+        <calcite-option value="/" selected={location.pathname === "/"}>
+        </calcite-option>
+        <calcite-option
           value="/building"
           selected={location.pathname === "/building"}
         >
           Buildings
-        </CalciteOption>
-        <CalciteOption
+        </calcite-option>
+        <calcite-option
           value="/stormwater"
           selected={location.pathname === "/stormwater"}
         >
           Stormwater
-        </CalciteOption>
+        </calcite-option>
 
-        <CalciteOption
+        <calcite-option
           value="/openspace"
           selected={location.pathname === "/openspace"}
         >
           Open Space
-        </CalciteOption>
-        <CalciteOption
+        </calcite-option>
+        <calcite-option
           value="/thoroughfare"
           selected={location.pathname === "/thoroughfare"}
         >
           Thoroughfare
-        </CalciteOption>
-        <CalciteOption
+        </calcite-option>
+        <calcite-option
           value="/rightofway"
           selected={location.pathname === "/rightofway"}
         >
           Right-of-Way
-        </CalciteOption>   
-        {/* <CalciteOption
+        </calcite-option>   
+        {/* <calcite-option
           value="/raleighwater"
           selected={location.pathname === "/raleighwater"}
         >
           Water
-        </CalciteOption>          */}
-        <CalciteOption
+        </calcite-option>          */}
+        <calcite-option
           value="/summary"
           selected={location.pathname === "/summary"}
         >
           Summary
-        </CalciteOption>           
+        </calcite-option>           
 
-      </CalciteSelect>        
-      </CalciteLabel>
+      </calcite-select>        
+      </calcite-label>
       
       </div>
     
 
-      <CalciteLabel id="total" scale="l">
+      <calcite-label id="total" scale="l">
          <span ref={totalRef}>Total Fees {dollar.format(0)}</span>
-        </CalciteLabel>  
+        </calcite-label>  
       <Routes>
         <Route path="/" element={<HomeNav />}></Route>
         <Route path="/building" element={<BuildingsNav />}></Route>
@@ -201,22 +192,19 @@ useEffect(() => {
         <Route path="/summary" element={<SummaryNav />}></Route>
 
       </Routes>
-      <CalciteButton scale="l" width="full" iconStart="reset" onClick={resetCalculator}>Reset Calculators</CalciteButton>
-      <CalciteModal open={showModal ? true : undefined} aria-labelledby="intro-title">
-        <div slot="header" id="intro-title">
-          Disclaimer
-        </div>
-        <div slot="content">
+      <calcite-button scale="l" width="full" iconStart="reset" onClick={resetCalculator}>Reset Calculators</calcite-button>
+      <calcite-dialog modal open={showModal} heading="Disclaimer" oncalciteDialogClose={() => setShowModal(false)}>
+        <div>
           This calculator is made available by the City of Raleigh for informational and planning purposes only and may not reflect the final cost to obtain plan review, building and trade permits. By using this calculator you understand that the fee details provided are estimates based on the information entered and the final calculation of fees will be provided by the Development Services Customer Services Center.
           <div>
           &nbsp;
-          { inStorage && <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Resume Calculation</CalciteButton>}&nbsp;
-          { inStorage && <CalciteButton scale="l" width="full" onClick={() => {window.localStorage.clear();resetCalculator(); setShowModal(false);}}>New Calculation</CalciteButton>}
-          { !inStorage && <CalciteButton scale="l" width="full" onClick={() => setShowModal(false)}>Agree</CalciteButton>}        
+          { inStorage && <calcite-button scale="l" width="full" onClick={() => setShowModal(false)}>Resume Calculation</calcite-button>}&nbsp;
+          { inStorage && <calcite-button scale="l" width="full" onClick={() => {window.localStorage.clear();resetCalculator(); setShowModal(false);}}>New Calculation</calcite-button>}
+          { !inStorage && <calcite-button scale="l" width="full" onClick={() => setShowModal(false)}>Agree</calcite-button>}        
         </div>
         </div>
 
-      </CalciteModal>  
+      </calcite-dialog>  
     </>
   );
 }

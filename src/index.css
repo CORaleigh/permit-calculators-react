@@ -1,5 +1,4 @@
-@import "@esri/calcite-components/dist/calcite/calcite.css";
-@import "https://js.arcgis.com/4.27/@arcgis/core/assets/esri/themes/light/main.css";
+@import "@esri/calcite-components/main.css";
 
 html,
 body,
@@ -20,8 +19,9 @@ calcite-card {
 }
 
 :root {
-  --calcite-ui-brand: #4a8b2c;
-  --calcite-ui-brand-hover: #4a8b2c;
+  --calcite-color-brand: #4a8b2c;
+  --calcite-color-brand-hover: #4a8b2c;
+  --calcite-color-brand-press: #4a8b2c;
 }
 
 @media only screen and (max-width: 500px) {
@@ -31,9 +31,9 @@ calcite-card {
   }
 }
 
-calcite-card span[slot="title"] {
+calcite-card span[slot="heading"] {
   text-align: center;
-  color: var(--calcite-ui-brand);
+  color: var(--calcite-color-brand);
   font-size: 24px;
   font-weight: var(--calcite-font-weight-medium);
   text-decoration: underline;

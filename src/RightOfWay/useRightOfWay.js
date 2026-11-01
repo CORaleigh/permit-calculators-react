@@ -1,15 +1,11 @@
 
-import { useEffect, useRef, useState } from "react";
-import { fees } from "./rightofwayConfig";
-import WebMap from "@arcgis/core/WebMap.js";
-import MapView from "@arcgis/core/views/MapView.js";
-import Search from "@arcgis/core/widgets/Search.js";
-import Legend from "@arcgis/core/widgets/Legend.js";
+import { useEffect, useMemo, useState } from "react";
+import LocatorSearchSource from "@arcgis/core/widgets/Search/LocatorSearchSource.js";
+import { addressLocator } from "../config";
+import { fees, webMapId } from "./rightofwayConfig";
 
 const useRightOfWay = ({ totalUpdated }) => {
-    const mapDiv = useRef(null);
-    const legendDiv = useRef(null);
-    const mapLoaded = useRef(false);
+    const searchSources = useMemo(() => [new LocatorSearchSource(addressLocator)], []);
 
     const [occupancies, setOccupancies] = useState(
         window.localStorage.getItem("permit-calculators-rightofway")
@@ -200,7 +196,6 @@ const useRightOfWay = ({ totalUpdated }) => {
   
         setOccupancies(occupancies);
         totalProjects();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [occupancies]);
     useEffect(() => {
         window.localStorage.setItem(
@@ -215,57 +210,6 @@ const useRightOfWay = ({ totalUpdated }) => {
             "rightofway"
         );
     }, [totalUpdated, totals]);
-    useEffect(() => {
-        if (!mapLoaded.current) {
-            (async () => {
-                const map = new WebMap({
-                    portalItem: {
-                        id: "80e1683103a4487ba54c52ac1044d9aa",
-                    },
-                });
-                const view = new MapView({
-                    map: map,
-                    container: mapDiv.current,
-                    popup: {
-                        dockEnabled: true,
-                        dockOptions: {
-                            // Disables the dock button from the popup
-                            buttonEnabled: false,
-                            // Ignore the default sizes that trigger responsive docking
-                            breakpoint: false,
-                            position: "top-right",
-                        },
-                    },
-                });
-                await view.when();
-                view.ui.remove("zoom");
-                const search = new Search({
-                    view: view,
-                    includeDefaultSources: false,
-                    sources: [
-                        {
-                            url: "https://maps.raleighnc.gov/arcgis/rest/services/Locators/Locator/GeocodeServer",
-                            singleLineFieldName: "SingleLine",
-                            name: "Search by Address",
-                            placeholder: "Search by Address",
-                        },
-                    ],
-                });
-                view.ui.add(search, 'top-right');
-   
-                const legend = new Legend({
-                    view: view,
-                    container: legendDiv.current,
-
-                });
-                view.ui.add(legend, 'bottom-left');
-
-            })();
-            mapLoaded.current = true;
-
-        }
-
-    }, []); 
     return {
         occupancies, 
         fees, 
@@ -279,8 +223,8 @@ const useRightOfWay = ({ totalUpdated }) => {
         linearFeetChanged,
         dumpstersChanged, 
         downtownChanged,
-        mapDiv,
-        legendDiv
+        webMapId,
+        searchSources
     };
 };
 export default useRightOfWay;

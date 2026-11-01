@@ -1,3 +1,5 @@
+export const webMapId = "80e1683103a4487ba54c52ac1044d9aa";
+
 export const fees = [
     {
         "class": "Full Streets - Major",

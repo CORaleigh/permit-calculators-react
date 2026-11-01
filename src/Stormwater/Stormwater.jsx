@@ -1,29 +1,15 @@
 import React from "react";
+import "@esri/calcite-components/components/calcite-action";
+import "@esri/calcite-components/components/calcite-block";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-checkbox";
+import "@esri/calcite-components/components/calcite-input";
+import "@esri/calcite-components/components/calcite-label";
 
-import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-block";
-import "@esri/calcite-components/dist/components/calcite-action";
-
-import {
-  CalciteBlock,
-  CalciteCard,
-  CalciteCheckbox,
-  CalciteInput,
-  CalciteLabel,
-  CalciteAction,
-} from "@esri/calcite-components-react";
-import { dollar } from "../config";
+import { dollar, inputValue } from "../config";
 import "./Stormwater.css";
 import useStormwater from "./useStormwater";
-import PropTypes from "prop-types";
 
-/**
- * @param {number} amount - Total fee to report
- * @param {string} source - Label for the update type
- */
-Stormwater.propTypes = {
-  totalUpdated: PropTypes.func.isRequired,
-};
 function Stormwater({ totalUpdated }) {
   const {
     blocks,
@@ -37,46 +23,46 @@ function Stormwater({ totalUpdated }) {
   } = useStormwater({ totalUpdated });
   return (
     <div id="stormwater">
-      <CalciteCard>
-        <span slot="title">Stormwater Fee Calculator</span>
+      <calcite-card>
+        <span slot="heading">Stormwater Fee Calculator</span>
         {feeBlocks.map((block, i) => (
-          <CalciteBlock
-            collapsible
-            onCalciteBlockToggle={() => feeHeadingClicked(block)}
+          <calcite-block
+            expandable
+            oncalciteBlockToggle={() => feeHeadingClicked(block)}
             key={`stormwater-fee-section-${i}`}
             heading={block.name}
-            open={block.selected}
+            expanded={block.selected}
           >
-            <CalciteCheckbox
-              slot="icon"
+            <calcite-checkbox
+              slot="content-start"
               checked={block.selected ? true : undefined}
-              onCalciteCheckboxChange={(e) => feeBlockToggled(e, block)}
-            ></CalciteCheckbox>
+              oncalciteCheckboxChange={(e) => feeBlockToggled(e, block)}
+            ></calcite-checkbox>
 
-            <div slot="control" className="stormwater-total">
+            <div slot="content-end" className="stormwater-total">
               {dollar.format(block.total)}
             </div>
             {block.url && (
-              <a href={block.url} target="_blank" rel="noreferrer" slot="control">
-                <CalciteAction
+              <a href={block.url} target="_blank" rel="noreferrer" slot="actions-end">
+                <calcite-action
                   text="Information"
                   icon="information"
-                ></CalciteAction>
+                ></calcite-action>
               </a>
             )}
             <div>
-            <CalciteLabel>
+            <calcite-label>
             {block.label}
             
-              <CalciteInput
+              <calcite-input
                 type="number"
                 min={0}
                 scale="l"
-                value={block.value}
+                value={inputValue(block.value)}
                 placeholder={block.label}
-                onCalciteInputInput={(e) => feeInputChanged(e, block)}
-              ></CalciteInput>
-          </CalciteLabel>  
+                oncalciteInputInput={(e) => feeInputChanged(e, block)}
+              ></calcite-input>
+          </calcite-label>  
               {block.subfees &&
                 block.subfees.map((subfee) => (
                   <div key={subfee.name}>
@@ -84,37 +70,37 @@ function Stormwater({ totalUpdated }) {
                   </div>
                 ))}
             </div>
-          </CalciteBlock>
+          </calcite-block>
         ))}
         {blocks.map((block, i) => (
-          <CalciteBlock
-            collapsible
+          <calcite-block
+            expandable
             key={`stormwater-section-${i}`}
             heading={block.name}
-            onCalciteBlockToggle={() => headingClicked(block)}
+            oncalciteBlockToggle={() => headingClicked(block)}
           >
-            <CalciteCheckbox
-              slot="icon"
+            <calcite-checkbox
+              slot="content-start"
               checked={block.selected ? true : undefined}
-              onCalciteCheckboxChange={(e) => blockToggled(e, block)}
-            ></CalciteCheckbox>
-            <div slot="control" className="stormwater-total">
+              oncalciteCheckboxChange={(e) => blockToggled(e, block)}
+            ></calcite-checkbox>
+            <div slot="content-end" className="stormwater-total">
               {dollar.format(block.total)}
             </div>
             {block.url && (
-              <a href={block.url} target="_blank" rel="noreferrer" slot="control">
-                <CalciteAction
+              <a href={block.url} target="_blank" rel="noreferrer" slot="actions-end">
+                <calcite-action
                   text="Information"
                   icon="information"
-                ></CalciteAction>
+                ></calcite-action>
               </a>
             )}
-          </CalciteBlock>
+          </calcite-block>
         ))}
-        <CalciteLabel slot="subtitle">
+        <calcite-label slot="description">
           Total {dollar.format(total)}
-        </CalciteLabel>
-      </CalciteCard>
+        </calcite-label>
+      </calcite-card>
     </div>
   );
 }

@@ -1,33 +1,18 @@
 import React from "react";
-
-import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-select";
-import "@esri/calcite-components/dist/components/calcite-option";
-import "@esri/calcite-components/dist/components/calcite-modal";
-import "@esri/calcite-components/dist/components/calcite-action";
-
-import {
-  CalciteAction,
-  CalciteCard,
-  CalciteInput,
-  CalciteLabel,
-  CalciteModal,
-  CalciteOption,
-  CalciteSelect,
-} from "@esri/calcite-components-react";
+import "@esri/calcite-components/components/calcite-action";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-input";
+import "@esri/calcite-components/components/calcite-label";
+import "@esri/calcite-components/components/calcite-dialog";
+import "@esri/calcite-components/components/calcite-option";
+import "@esri/calcite-components/components/calcite-select";
+import "@arcgis/map-components/components/arcgis-map";
+import "@arcgis/map-components/components/arcgis-search";
 
 import "./OpenSpace.css";
-import { dollar } from "../config";
+import { dollar, inputValue, mapPopup } from "../config";
 import useOpenSpace from "./useOpenSpace";
-import PropTypes from "prop-types";
 
-/**
- * @param {number} amount - Total fee to report
- * @param {string} source - Label for the update type
- */
-OpenSpace.propTypes = {
-  totalUpdated: PropTypes.func.isRequired,
-};
 function OpenSpace({ totalUpdated }) {
   const {
     zones,
@@ -38,106 +23,116 @@ function OpenSpace({ totalUpdated }) {
     showMultiModal,
     setShowMultiModal,
     fee,
-    mapDiv,
-    searchDiv,
+    mapRef,
+    webMapId,
+    searchSources,
+    mapClicked,
+    searchCompleted,
     singleChanged,
     multiChanged,
   } = useOpenSpace({ totalUpdated });
 
   return (
     <div id="openspace">
-      <CalciteCard>
-        <span slot="title">Open Space Facility Fee Calculator</span>
-        <div ref={searchDiv}></div>
-        <div ref={mapDiv}></div>
+      <calcite-card>
+        <span slot="heading">Open Space Facility Fee Calculator</span>
+        <arcgis-search
+          referenceElement="openspace-map"
+          includeDefaultSourcesDisabled
+          sources={searchSources}
+          onarcgisSearchComplete={searchCompleted}
+        ></arcgis-search>
+        <arcgis-map
+          id="openspace-map"
+          ref={mapRef}
+          itemId={webMapId}
+          popup={mapPopup}
+          onarcgisViewClick={mapClicked}
+        ></arcgis-map>
         <p></p>
-        <CalciteLabel>
+        <calcite-label>
           Open Space Zone
-          <CalciteSelect
+          <calcite-select
             scale="l"
             value={selectedZone}
-            onCalciteSelectChange={(e) =>
+            oncalciteSelectChange={(e) =>
               setSelectedZone(e.target.selectedOption.value)
             }
           >
-            {!selectedZone && <CalciteOption value={""}></CalciteOption>}
+            {!selectedZone && <calcite-option value={""}></calcite-option>}
             {zones.map((zone) => (
-              <CalciteOption
+              <calcite-option
                 key={zone.zone}
                 value={zone}
                 selected={fee.zone === zone.zone}
               >
                 {zone.zone}
-              </CalciteOption>
+              </calcite-option>
             ))}
-          </CalciteSelect>
-        </CalciteLabel>
-        <CalciteLabel>
+          </calcite-select>
+        </calcite-label>
+        <calcite-label>
           # of single-family dwelling units
-          <CalciteInput
+          <calcite-input
             scale="l"
-            value={fee.single.units}
+            value={inputValue(fee.single.units)}
             type="number"
             min={0}
-            onCalciteInputInput={singleChanged}
+            oncalciteInputInput={singleChanged}
           >
-            <CalciteAction
+            <calcite-action
               slot="action"
               icon="information"
               text="Information"
               onClick={() => setShowSingleModal((prev) => !prev)}
-            ></CalciteAction>
-          </CalciteInput>
-        </CalciteLabel>
-        <CalciteLabel>
+            ></calcite-action>
+          </calcite-input>
+        </calcite-label>
+        <calcite-label>
           # of multi-family dwelling units
-          <CalciteInput
+          <calcite-input
             scale="l"
-            value={fee.multi.units}
+            value={inputValue(fee.multi.units)}
             type="number"
             min={0}
-            onCalciteInputInput={multiChanged}
+            oncalciteInputInput={multiChanged}
           >
-            <CalciteAction
+            <calcite-action
               slot="action"
               icon="information"
               text="Information"
               onClick={() => setShowMultiModal((prev) => !prev)}
-            ></CalciteAction>
-          </CalciteInput>
-        </CalciteLabel>
+            ></calcite-action>
+          </calcite-input>
+        </calcite-label>
 
-        <CalciteLabel slot="subtitle">
+        <calcite-label slot="description">
           Total {dollar.format(fee.multi.value + fee.single.value)}
-        </CalciteLabel>
-        <CalciteLabel slot="subtitle">
+        </calcite-label>
+        <calcite-label slot="description">
           The Open Space Facility Fee varies depending on which zone your
           project falls in. Enter an address in the search box on the map, click
           on a location on the map, or select from the dropdown list.
-        </CalciteLabel>
-      </CalciteCard>
-      <CalciteModal
-        open={showSingleModal ? true : undefined}
-        aria-labelledby="single-family-title"
-        onCalciteModalClose={() => setShowSingleModal((prev) => !prev)}
+        </calcite-label>
+      </calcite-card>
+      <calcite-dialog
+        modal
+        open={showSingleModal}
+        heading="Single-Family Dwelling Unit"
+        oncalciteDialogClose={() => setShowSingleModal(false)}
       >
-        <div slot="header" id="single-family-title">
-          Single-Family Dwelling Unit
-        </div>
-        <div slot="content">
+        <div>
           <u>Detached Dwelling</u>: A structure containing one dwelling unit on
           its own lot.
         </div>
-      </CalciteModal>
-      <CalciteModal
-        open={showMultiModal ? true : undefined}
-        aria-labelledby="multi-family-title"
-        onCalciteModalClose={() => setShowMultiModal((prev) => !prev)}
+      </calcite-dialog>
+      <calcite-dialog
+        modal
+        open={showMultiModal}
+        heading="Mulit-Family Dwelling Unit"
+        oncalciteDialogClose={() => setShowMultiModal(false)}
       >
-        <div slot="header" id="multi-family-title">
-          Mulit-Family Dwelling Unit
-        </div>
-        <div slot="content">
+        <div>
           <div>
             Housing in which more than one dwelling unit is located in the same
             structure. Multifamily development includes duplexes, townhomes,
@@ -172,7 +167,7 @@ function OpenSpace({ totalUpdated }) {
           </div>
           <br />
         </div>
-      </CalciteModal>
+      </calcite-dialog>
     </div>
   );
 }

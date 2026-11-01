@@ -8,8 +8,12 @@
   margin: 1em;
 }
 
+#selectLabel {
+  --calcite-label-text-color: white;
+}
+
 .subheader {
-  background-color: var(--calcite-ui-brand);
+  background-color: var(--calcite-color-brand);
 
   padding: 1em;
 }

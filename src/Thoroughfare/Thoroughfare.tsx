@@ -1,37 +1,18 @@
 import React from "react";
-import "@esri/calcite-components/dist/components/calcite-card";
-import "@esri/calcite-components/dist/components/calcite-tab";
-import "@esri/calcite-components/dist/components/calcite-tabs";
-import "@esri/calcite-components/dist/components/calcite-tab-nav";
-import "@esri/calcite-components/dist/components/calcite-tab-title";
-import "@esri/calcite-components/dist/components/calcite-block";
-import "@esri/calcite-components/dist/components/calcite-checkbox";
-import "@esri/calcite-components/dist/components/calcite-label";
+import "@esri/calcite-components/components/calcite-block";
+import "@esri/calcite-components/components/calcite-card";
+import "@esri/calcite-components/components/calcite-checkbox";
+import "@esri/calcite-components/components/calcite-input";
+import "@esri/calcite-components/components/calcite-label";
+import "@esri/calcite-components/components/calcite-tab";
+import "@esri/calcite-components/components/calcite-tab-nav";
+import "@esri/calcite-components/components/calcite-tab-title";
+import "@esri/calcite-components/components/calcite-tabs";
 
-import {
-  CalciteBlock,
-  CalciteCard,
-  CalciteCheckbox,
-  CalciteInput,
-  CalciteLabel,
-  CalciteTab,
-  CalciteTabNav,
-  CalciteTabTitle,
-  CalciteTabs,
-} from "@esri/calcite-components-react";
-
-import { dollar } from "../config";
+import { dollar, inputValue } from "../config";
 import "./Thoroughfare.css";
 import useThoroughfare from "./useThoroughfare";
-import PropTypes from "prop-types";
 
-/**
- * @param {number} amount - Total fee to report
- * @param {string} source - Label for the update type
- */
-Thoroughfare.propTypes = {
-  totalUpdated: PropTypes.func.isRequired,
-};
 function Thoroughfare({ totalUpdated }) {
   const {
     categories,
@@ -44,81 +25,81 @@ function Thoroughfare({ totalUpdated }) {
   } = useThoroughfare({ totalUpdated });
   return (
     <div id="thoroughfare">
-      <CalciteCard>
-        <span slot="title">Thoroughfare Fee Calculator</span>
-        <CalciteTabs scale="l">
-          <CalciteTabNav slot="title-group" onCalciteTabChange={tabChanged}>
+      <calcite-card>
+        <span slot="heading">Thoroughfare Fee Calculator</span>
+        <calcite-tabs scale="l">
+          <calcite-tab-nav slot="title-group" oncalciteTabChange={tabChanged}>
             {categories.map((category, i) => (
-              <CalciteTabTitle
+              <calcite-tab-title
                 key={`tab-title-${i}`}
                 selected={category.selected}
               >
                 {category.category}
-              </CalciteTabTitle>
+              </calcite-tab-title>
             ))}
-          </CalciteTabNav>
+          </calcite-tab-nav>
           {categories.map((category, i) => (
-            <CalciteTab
+            <calcite-tab
               key={`tab-${i}`}
               selected={category.selected ? true : undefined}
             >
               {category.landuses &&
                 category.landuses.map((landuse, j) => (
-                  <CalciteBlock
+                  <calcite-block
                     key={`landuse-block-${i}-${j}`}
                     heading={landuse.landuse}
-                    open={landuse.selected}
-                    onCalciteBlockToggle={(e) => blockToggled(e, landuse)}
-                    collapsible
+                    expanded={landuse.selected}
+                    oncalciteBlockToggle={(e) => blockToggled(e, landuse)}
+                    expandable
                   >
-                    <CalciteCheckbox
+                    <calcite-checkbox
                       scale="l"
                       key={`landuse-checkbox-${i}-${j}`}
-                      slot="icon"
+                      slot="content-start"
                       checked={landuse.selected ? true : undefined}
-                      onCalciteCheckboxChange={(e) =>
+                      oncalciteCheckboxChange={(e) =>
                         checkboxChanged(e, landuse)
                       }
-                    ></CalciteCheckbox>
+                    ></calcite-checkbox>
                     {landuse.thresholds &&
                       landuse.thresholds.map((threshold, k) => (
-                        <CalciteInput
+                        <calcite-input
                           min={0}
                           scale="l"
-                          value={threshold.value}
+                          value={inputValue(threshold.value)}
                           key={`landuse-input-${i}-${j}-${k}`}
                           placeholder={threshold.label}
                           type="number"
-                          onCalciteInputInput={(e) =>
+                          oncalciteInputInput={(e) =>
                             thresholdInputChange(e, threshold, landuse)
                           }
-                        ></CalciteInput>
+                        ></calcite-input>
                       ))}
                     {!landuse.thresholds && (
-                      <CalciteInput
+                      <calcite-input
                         type="number"
                         min={0}
                         scale="l"
-                        value={landuse.value}
+                        value={inputValue(landuse.value)}
                         placeholder={landuse.label}
-                        onCalciteInputInput={(e) =>
+                        oncalciteInputInput={(e) =>
                           landuseInputChanged(e, landuse)
                         }
-                      ></CalciteInput>
+                      ></calcite-input>
                     )}
 
-                    <div slot="control" className="block-control">
+                    <div slot="content-end" className="block-control">
                       {dollar.format(landuse.total)}
                     </div>
-                  </CalciteBlock>
+                  </calcite-block>
                 ))}
-            </CalciteTab>
+            </calcite-tab>
           ))}
-        </CalciteTabs>
-        <CalciteLabel slot="subtitle">
+        </calcite-tabs>
+        <calcite-label slot="description">
           Total {dollar.format(total)}
-        </CalciteLabel>
-      </CalciteCard>
+        </calcite-label>
+      </calcite-card>
     </div>
   );
 }
